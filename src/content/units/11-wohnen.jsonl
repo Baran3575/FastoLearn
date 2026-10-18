@@ -1,0 +1,15 @@
+{"id":"wohnen01","de":"das Haus","tr":"ev","pos":"noun","article":"das","plural":"die Häuser","freq":34,"ex":"Unser Haus hat einen Garten.","exTr":"Evimizin bir bahçesi var.","unit":"wohnen"}
+{"id":"wohnen02","de":"die Wohnung","tr":"daire","pos":"noun","article":"die","plural":"die Wohnungen","freq":48,"ex":"Meine Wohnung ist klein.","exTr":"Dairem küçük.","unit":"wohnen"}
+{"id":"wohnen03","de":"das Zimmer","tr":"oda","pos":"noun","article":"das","plural":"die Zimmer","freq":61,"ex":"Mein Zimmer ist oben.","exTr":"Odam üst katta.","unit":"wohnen"}
+{"id":"wohnen04","de":"die Küche","tr":"mutfak","pos":"noun","article":"die","plural":"die Küchen","freq":128,"ex":"Die Küche ist groß und hell.","exTr":"Mutfak büyük ve aydınlık.","unit":"wohnen"}
+{"id":"wohnen05","de":"das Bad","tr":"banyo","pos":"noun","article":"das","plural":"die Bäder","freq":133,"ex":"Das Bad ist neben dem Schlafzimmer.","exTr":"Banyo yatak odasının yanında.","unit":"wohnen"}
+{"id":"wohnen06","de":"das Schlafzimmer","tr":"yatak odası","pos":"noun","article":"das","plural":"die Schlafzimmer","freq":210,"ex":"Im Schlafzimmer ist ein Bett.","exTr":"Yatak odasında bir yatak var.","unit":"wohnen"}
+{"id":"wohnen07","de":"das Wohnzimmer","tr":"oturma odası","pos":"noun","article":"das","plural":"die Wohnzimmer","freq":205,"ex":"Wir sehen im Wohnzimmer fern.","exTr":"Oturma odasında televizyon izliyoruz.","unit":"wohnen"}
+{"id":"wohnen08","de":"das Bett","tr":"yatak","pos":"noun","article":"das","plural":"die Betten","freq":70,"ex":"Ich gehe ins Bett.","exTr":"Yatağa gidiyorum.","unit":"wohnen"}
+{"id":"wohnen09","de":"der Schrank","tr":"dolap","pos":"noun","article":"der","plural":"die Schränke","freq":215,"ex":"Die Kleidung ist im Schrank.","exTr":"Kıyafetler dolapta.","unit":"wohnen"}
+{"id":"wohnen10","de":"das Sofa","tr":"kanepe","pos":"noun","article":"das","plural":"die Sofas","freq":235,"ex":"Das Sofa ist sehr bequem.","exTr":"Kanepe çok rahat.","unit":"wohnen"}
+{"id":"wohnen11","de":"die Lampe","tr":"lamba","pos":"noun","article":"die","plural":"die Lampen","freq":255,"ex":"Mach die Lampe an!","exTr":"Lambayı yak!","unit":"wohnen"}
+{"id":"wohnen12","de":"der Garten","tr":"bahçe","pos":"noun","article":"der","plural":"die Gärten","freq":160,"ex":"Im Garten sind Blumen.","exTr":"Bahçede çiçekler var.","unit":"wohnen"}
+{"id":"wohnen13","de":"der Balkon","tr":"balkon","pos":"noun","article":"der","plural":"die Balkone","freq":245,"ex":"Wir sitzen auf dem Balkon.","exTr":"Balkonda oturuyoruz.","unit":"wohnen"}
+{"id":"wohnen14","de":"die Treppe","tr":"merdiven","pos":"noun","article":"die","plural":"die Treppen","freq":265,"ex":"Die Treppe ist links.","exTr":"Merdiven solda.","unit":"wohnen"}
+{"id":"wohnen15","de":"der Teppich","tr":"halı","pos":"noun","article":"der","plural":"die Teppiche","freq":300,"ex":"Der Teppich ist rot.","exTr":"Halı kırmızı.","unit":"wohnen"}

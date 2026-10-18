@@ -1,0 +1,18 @@
+{"id":"begruessung01","de":"Hallo","tr":"Merhaba","pos":"phrase","freq":1,"ex":"Hallo, ich bin Ayşe.","exTr":"Merhaba, ben Ayşe.","unit":"begruessung"}
+{"id":"begruessung02","de":"Guten Morgen","tr":"Günaydın","pos":"phrase","freq":30,"ex":"Guten Morgen, Frau Meier!","exTr":"Günaydın, Bayan Meier!","note":"Sabah (12.00’ye kadar) kullanılır.","unit":"begruessung"}
+{"id":"begruessung03","de":"Guten Tag","tr":"İyi günler","pos":"phrase","freq":25,"ex":"Guten Tag, wie geht es Ihnen?","exTr":"İyi günler, nasılsınız?","unit":"begruessung"}
+{"id":"begruessung04","de":"Guten Abend","tr":"İyi akşamlar","pos":"phrase","freq":40,"ex":"Guten Abend, Herr Yilmaz.","exTr":"İyi akşamlar, Bay Yılmaz.","unit":"begruessung"}
+{"id":"begruessung05","de":"Tschüss","tr":"Hoşça kal / Görüşürüz","pos":"phrase","freq":60,"ex":"Tschüss, bis morgen!","exTr":"Hoşça kal, yarın görüşürüz!","unit":"begruessung"}
+{"id":"begruessung06","de":"Auf Wiedersehen","tr":"Görüşmek üzere","pos":"phrase","freq":70,"ex":"Auf Wiedersehen, Frau Schmidt.","exTr":"Görüşmek üzere, Bayan Schmidt.","note":"Resmî vedalaşma.","unit":"begruessung"}
+{"id":"begruessung07","de":"Bis bald","tr":"Yakında görüşürüz","pos":"phrase","freq":90,"ex":"Bis bald, Mehmet!","exTr":"Yakında görüşürüz, Mehmet!","unit":"begruessung"}
+{"id":"begruessung08","de":"danke","tr":"teşekkürler","pos":"other","freq":2,"ex":"Danke, sehr nett!","exTr":"Teşekkürler, çok naziksiniz!","note":"danken fiilinden; 'danke schön' = çok teşekkürler.","unit":"begruessung"}
+{"id":"begruessung09","de":"Danke schön","tr":"Çok teşekkür ederim","pos":"phrase","freq":6,"ex":"Danke schön für deine Hilfe!","exTr":"Yardımın için çok teşekkür ederim!","unit":"begruessung"}
+{"id":"begruessung10","de":"bitte","tr":"lütfen / buyurun","pos":"other","freq":3,"ex":"Bitte, hier ist dein Buch.","exTr":"Buyurun, kitabın burada.","unit":"begruessung"}
+{"id":"begruessung11","de":"Bitte schön","tr":"Buyurun / Rica ederim","pos":"phrase","freq":7,"ex":"Bitte schön, gern gemacht.","exTr":"Buyurun, memnuniyetle yaptım.","note":"“bitte” hem “lütfen” hem “buyurun” demektir.","unit":"begruessung"}
+{"id":"begruessung12","de":"ja","tr":"evet","pos":"other","freq":4,"ex":"Ja, das ist richtig.","exTr":"Evet, bu doğru.","unit":"begruessung"}
+{"id":"begruessung13","de":"nein","tr":"hayır","pos":"other","freq":5,"ex":"Nein, danke.","exTr":"Hayır, teşekkürler.","unit":"begruessung"}
+{"id":"begruessung14","de":"Entschuldigung","tr":"özür dilerim / affedersiniz","pos":"phrase","freq":80,"ex":"Entschuldigung, wo ist der Bahnhof?","exTr":"Affedersiniz, tren istasyonu nerede?","unit":"begruessung"}
+{"id":"begruessung15","de":"Wie bitte?","tr":"Efendim? / Anlamadım","pos":"phrase","freq":85,"ex":"Wie bitte? Können Sie das wiederholen?","exTr":"Efendim? Tekrar edebilir misiniz?","unit":"begruessung"}
+{"id":"begruessung16","de":"Wie geht es dir?","tr":"Nasılsın?","pos":"phrase","freq":45,"ex":"Hallo Anna, wie geht es dir?","exTr":"Merhaba Anna, nasılsın?","unit":"begruessung"}
+{"id":"begruessung17","de":"Mir geht es gut.","tr":"İyiyim.","pos":"phrase","freq":46,"ex":"Danke, mir geht es gut.","exTr":"Teşekkürler, iyiyim.","unit":"begruessung"}
+{"id":"begruessung18","de":"Ich heiße …","tr":"Benim adım …","pos":"phrase","freq":20,"ex":"Ich heiße Ali und ich komme aus Ankara.","exTr":"Benim adım Ali ve Ankara’dan geliyorum.","note":"heißen fiili: ich heiße, du heißt.","unit":"begruessung"}

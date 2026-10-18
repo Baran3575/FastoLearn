@@ -1,0 +1,14 @@
+{"id":"schule01","de":"die Schule","tr":"okul","pos":"noun","article":"die","plural":"die Schulen","freq":19,"ex":"Meine Schule ist sehr groß.","exTr":"Okulum çok büyük.","unit":"schule"}
+{"id":"schule02","de":"die Klasse","tr":"sınıf","pos":"noun","article":"die","plural":"die Klassen","freq":36,"ex":"Ich bin in der Klasse 9A.","exTr":"9A sınıfındayım.","unit":"schule"}
+{"id":"schule03","de":"der Lehrer","tr":"öğretmen (erkek)","pos":"noun","article":"der","plural":"die Lehrer","freq":26,"ex":"Der Lehrer erklärt die Grammatik.","exTr":"Öğretmen dilbilgisini açıklıyor.","unit":"schule"}
+{"id":"schule04","de":"die Lehrerin","tr":"öğretmen (kadın)","pos":"noun","article":"die","plural":"die Lehrerinnen","freq":27,"ex":"Unsere Lehrerin ist sehr nett.","exTr":"Öğretmenimiz çok kibar.","unit":"schule"}
+{"id":"schule05","de":"der Schüler","tr":"öğrenci (erkek)","pos":"noun","article":"der","plural":"die Schüler","freq":37,"ex":"Die Schüler lernen Deutsch.","exTr":"Öğrenciler Almanca öğreniyor.","unit":"schule"}
+{"id":"schule06","de":"die Schülerin","tr":"öğrenci (kadın)","pos":"noun","article":"die","plural":"die Schülerinnen","freq":39,"ex":"Sie ist eine gute Schülerin.","exTr":"O iyi bir öğrenci.","unit":"schule"}
+{"id":"schule07","de":"die Hausaufgabe","tr":"ev ödevi","pos":"noun","article":"die","plural":"die Hausaufgaben","freq":135,"ex":"Hast du die Hausaufgaben gemacht?","exTr":"Ödevleri yaptın mı?","unit":"schule"}
+{"id":"schule08","de":"die Pause","tr":"teneffüs","pos":"noun","article":"die","plural":"die Pausen","freq":155,"ex":"In der Pause spielen wir Fußball.","exTr":"Teneffüste futbol oynuyoruz.","unit":"schule"}
+{"id":"schule09","de":"der Unterricht","tr":"ders","pos":"noun","article":"der","plural":"die Unterrichte","freq":55,"ex":"Der Unterricht beginnt um acht.","exTr":"Ders saat sekizde başlıyor.","unit":"schule"}
+{"id":"schule10","de":"das Fach","tr":"ders (branş)","pos":"noun","article":"das","plural":"die Fächer","freq":90,"ex":"Mathe ist mein Lieblingsfach.","exTr":"Matematik en sevdiğim ders.","unit":"schule"}
+{"id":"schule11","de":"die Note","tr":"not (okul)","pos":"noun","article":"die","plural":"die Noten","freq":195,"ex":"Ich habe eine gute Note in Deutsch.","exTr":"Almancadan iyi bir notum var.","unit":"schule"}
+{"id":"schule12","de":"die Prüfung","tr":"sınav","pos":"noun","article":"die","plural":"die Prüfungen","freq":165,"ex":"Morgen haben wir eine Prüfung.","exTr":"Yarın sınavımız var.","unit":"schule"}
+{"id":"schule13","de":"die Tafel","tr":"tahta","pos":"noun","article":"die","plural":"die Tafeln","freq":225,"ex":"Der Lehrer schreibt an der Tafel.","exTr":"Öğretmen tahtaya yazıyor.","unit":"schule"}
+{"id":"schule14","de":"die Stunde","tr":"saat, ders saati","pos":"noun","article":"die","plural":"die Stunden","freq":44,"ex":"Die Schule beginnt um acht Uhr.","exTr":"Okul saat sekizde başlıyor.","unit":"schule"}

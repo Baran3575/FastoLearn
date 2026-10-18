@@ -1,0 +1,14 @@
+{"id":"freizeit01","de":"die Freizeit","tr":"boş zaman","pos":"noun","article":"die","plural":"die Freizeiten","freq":64,"ex":"In meiner Freizeit lese ich.","exTr":"Boş zamanımda kitap okurum.","unit":"freizeit"}
+{"id":"freizeit02","de":"spielen","tr":"oynamak","pos":"verb","freq":29,"ex":"Ich spiele gern Fußball.","exTr":"Futbol oynamayı severim.","unit":"freizeit"}
+{"id":"freizeit03","de":"schwimmen","tr":"yüzmek","pos":"verb","freq":105,"ex":"Wir schwimmen im Sommer.","exTr":"Yazın yüzeriz.","unit":"freizeit"}
+{"id":"freizeit04","de":"lesen","tr":"okumak","pos":"verb","freq":57,"ex":"Meine Schwester liest ein Buch.","exTr":"Kız kardeşim kitap okuyor.","unit":"freizeit"}
+{"id":"freizeit05","de":"Musik hören","tr":"müzik dinlemek","pos":"phrase","freq":112,"ex":"Ich höre gern Musik.","exTr":"Müzik dinlemeyi severim.","unit":"freizeit"}
+{"id":"freizeit06","de":"tanzen","tr":"dans etmek","pos":"verb","freq":210,"ex":"Sie tanzt sehr gut.","exTr":"O çok iyi dans eder.","unit":"freizeit"}
+{"id":"freizeit07","de":"singen","tr":"şarkı söylemek","pos":"verb","freq":190,"ex":"Wir singen im Musikunterricht.","exTr":"Müzik dersinde şarkı söylüyoruz.","unit":"freizeit"}
+{"id":"freizeit08","de":"fernsehen","tr":"televizyon izlemek","pos":"verb","freq":160,"ex":"Am Abend sehe ich fern.","exTr":"Akşamları televizyon izlerim.","unit":"freizeit"}
+{"id":"freizeit09","de":"malen","tr":"resim yapmak","pos":"verb","freq":245,"ex":"Meine Freundin malt gern.","exTr":"Arkadaşım resim yapmayı sever.","unit":"freizeit"}
+{"id":"freizeit10","de":"der Fußball","tr":"futbol","pos":"noun","article":"der","plural":"die Fußbälle","freq":100,"ex":"Fußball ist mein Hobby.","exTr":"Futbol benim hobim.","unit":"freizeit"}
+{"id":"freizeit11","de":"das Kino","tr":"sinema","pos":"noun","article":"das","plural":"die Kinos","freq":175,"ex":"Gehen wir ins Kino?","exTr":"Sinemaya gidelim mi?","unit":"freizeit"}
+{"id":"freizeit12","de":"das Fahrrad","tr":"bisiklet","pos":"noun","article":"das","plural":"die Fahrräder","freq":175,"ex":"Ich fahre mit dem Fahrrad zur Schule.","exTr":"Okula bisikletle gidiyorum.","unit":"freizeit"}
+{"id":"freizeit13","de":"das Hobby","tr":"hobi","pos":"noun","article":"das","plural":"die Hobbys","freq":230,"ex":"Was ist dein Hobby?","exTr":"Hobin ne?","unit":"freizeit"}
+{"id":"freizeit14","de":"laufen","tr":"koşmak, yürümek","pos":"verb","freq":80,"ex":"Ich laufe jeden Morgen.","exTr":"Her sabah koşarım.","unit":"freizeit"}

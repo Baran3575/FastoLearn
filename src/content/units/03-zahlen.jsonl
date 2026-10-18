@@ -1,0 +1,16 @@
+{"id":"zahlen01","de":"eins","tr":"bir","pos":"num","freq":6,"ex":"Ich habe nur eins.","exTr":"Bende sadece bir tane var.","unit":"zahlen"}
+{"id":"zahlen02","de":"zwei","tr":"iki","pos":"num","freq":7,"ex":"Wir sind zwei Personen.","exTr":"Biz iki kişiyiz.","unit":"zahlen"}
+{"id":"zahlen03","de":"drei","tr":"üç","pos":"num","freq":8,"ex":"Ich lerne drei Sprachen.","exTr":"Üç dil öğreniyorum.","unit":"zahlen"}
+{"id":"zahlen04","de":"vier","tr":"dört","pos":"num","freq":9,"ex":"Das Buch kostet vier Euro.","exTr":"Kitap dört euro.","unit":"zahlen"}
+{"id":"zahlen05","de":"fünf","tr":"beş","pos":"num","freq":10,"ex":"Ich stehe um fünf Uhr auf.","exTr":"Saat beşte kalkıyorum.","unit":"zahlen"}
+{"id":"zahlen06","de":"sechs","tr":"altı","pos":"num","freq":11,"ex":"Die Klasse hat sechs Fenster.","exTr":"Sınıfın altı penceresi var.","unit":"zahlen"}
+{"id":"zahlen07","de":"sieben","tr":"yedi","pos":"num","freq":13,"ex":"Eine Woche hat sieben Tage.","exTr":"Bir haftada yedi gün var.","unit":"zahlen"}
+{"id":"zahlen08","de":"acht","tr":"sekiz","pos":"num","freq":14,"ex":"Ich schlafe acht Stunden.","exTr":"Sekiz saat uyuyorum.","unit":"zahlen"}
+{"id":"zahlen09","de":"neun","tr":"dokuz","pos":"num","freq":15,"ex":"Mein Bruder ist neun Jahre alt.","exTr":"Kardeşim dokuz yaşında.","unit":"zahlen"}
+{"id":"zahlen10","de":"zehn","tr":"on","pos":"num","freq":16,"ex":"Ich habe zehn Finger.","exTr":"On parmağım var.","unit":"zahlen"}
+{"id":"zahlen11","de":"elf","tr":"on bir","pos":"num","freq":60,"ex":"Der Bus kommt um elf Uhr.","exTr":"Otobüs saat on birde geliyor.","unit":"zahlen"}
+{"id":"zahlen12","de":"zwölf","tr":"on iki","pos":"num","freq":62,"ex":"Ein Jahr hat zwölf Monate.","exTr":"Bir yılda on iki ay var.","unit":"zahlen"}
+{"id":"zahlen13","de":"zwanzig","tr":"yirmi","pos":"num","freq":65,"ex":"Die Schule hat zwanzig Klassen.","exTr":"Okulun yirmi sınıfı var.","unit":"zahlen"}
+{"id":"zahlen14","de":"dreißig","tr":"otuz","pos":"num","freq":66,"ex":"Meine Mutter ist dreißig Jahre alt.","exTr":"Annem otuz yaşında.","unit":"zahlen"}
+{"id":"zahlen15","de":"hundert","tr":"yüz","pos":"num","freq":68,"ex":"Das kostet hundert Euro.","exTr":"Bu yüz euro.","unit":"zahlen"}
+{"id":"zahlen16","de":"tausend","tr":"bin","pos":"num","freq":69,"ex":"Die Stadt hat tausend Einwohner.","exTr":"Şehrin bin sakini var.","unit":"zahlen"}

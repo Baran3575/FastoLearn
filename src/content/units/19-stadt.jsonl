@@ -1,0 +1,31 @@
+{"id":"stadt01","de":"das Museum","tr":"müze","pos":"noun","article":"das","plural":"die Museen","freq":195,"ex":"Das Museum ist heute geschlossen.","exTr":"Müze bugün kapalı.","unit":"stadt"}
+{"id":"stadt02","de":"das Dorf","tr":"köy","pos":"noun","article":"das","plural":"die Dörfer","freq":190,"ex":"Meine Großeltern wohnen im Dorf.","exTr":"Büyükannemler köyde oturuyor.","unit":"stadt"}
+{"id":"stadt03","de":"die Straße","tr":"cadde, sokak","pos":"noun","article":"die","plural":"die Straßen","freq":56,"ex":"Ich wohne in der Atatürk-Straße.","exTr":"Atatürk Caddesi’nde oturuyorum.","unit":"stadt"}
+{"id":"stadt04","de":"der Bahnhof","tr":"tren garı","pos":"noun","article":"der","plural":"die Bahnhöfe","freq":180,"ex":"Wo ist der Bahnhof?","exTr":"Tren garı nerede?","unit":"stadt"}
+{"id":"stadt05","de":"der Flughafen","tr":"havalimanı","pos":"noun","article":"der","plural":"die Flughäfen","freq":200,"ex":"Wir fahren zum Flughafen.","exTr":"Havalimanına gidiyoruz.","unit":"stadt"}
+{"id":"stadt06","de":"die Haltestelle","tr":"durak","pos":"noun","article":"die","plural":"die Haltestellen","freq":270,"ex":"Die Haltestelle ist vorne rechts.","exTr":"Durak ileride sağda.","unit":"stadt"}
+{"id":"stadt07","de":"der Markt","tr":"pazar, market","pos":"noun","article":"der","plural":"die Märkte","freq":155,"ex":"Am Dienstag ist Markt.","exTr":"Salı günü pazar kuruluyor.","unit":"stadt"}
+{"id":"stadt08","de":"der Supermarkt","tr":"süpermarket","pos":"noun","article":"der","plural":"die Supermärkte","freq":220,"ex":"Ich gehe in den Supermarkt.","exTr":"Süpermarkete gidiyorum.","unit":"stadt"}
+{"id":"stadt09","de":"die Apotheke","tr":"eczane","pos":"noun","article":"die","plural":"die Apotheken","freq":265,"ex":"Die Apotheke ist neben der Post.","exTr":"Eczane postanenin yanında.","unit":"stadt"}
+{"id":"stadt10","de":"die Post","tr":"postane","pos":"noun","article":"die","plural":"die Posten","freq":205,"ex":"Die Post öffnet um neun.","exTr":"Postane dokuzda açılıyor.","unit":"stadt"}
+{"id":"stadt11","de":"die Bank","tr":"banka","pos":"noun","article":"die","plural":"die Banken","freq":165,"ex":"Die Bank ist in der Stadtmitte.","exTr":"Banka şehir merkezinde.","unit":"stadt"}
+{"id":"stadt12","de":"die Ecke","tr":"köşe","pos":"noun","article":"die","plural":"die Ecken","freq":275,"ex":"Gehen Sie an der Ecke links!","exTr":"Köşeden sola dönün!","unit":"stadt"}
+{"id":"stadt13","de":"links","tr":"sol","pos":"adv","freq":100,"ex":"Die Schule ist links.","exTr":"Okul solda.","unit":"stadt"}
+{"id":"stadt14","de":"rechts","tr":"sağ","pos":"adv","freq":101,"ex":"Das Kino ist rechts.","exTr":"Sinema sağda.","unit":"stadt"}
+{"id":"stadt15","de":"geradeaus","tr":"dümdüz","pos":"adv","freq":300,"ex":"Gehen Sie geradeaus!","exTr":"Dümdüz gidin!","unit":"stadt"}
+{"id":"stadt16","de":"in","tr":"içinde, -de (içinde)","pos":"prep","freq":6,"ex":"Ich wohne in Berlin.","exTr":"Berlin’de oturuyorum.","unit":"stadt"}
+{"id":"stadt17","de":"an","tr":"yanında, -de (üzerinde/dayalı)","pos":"prep","freq":15,"ex":"Das Bild hängt an der Wand.","exTr":"Tablo duvarda asılı.","unit":"stadt"}
+{"id":"stadt18","de":"auf","tr":"üstünde","pos":"prep","freq":17,"ex":"Das Buch liegt auf dem Tisch.","exTr":"Kitap masanın üstünde.","unit":"stadt"}
+{"id":"stadt19","de":"unter","tr":"altında","pos":"prep","freq":58,"ex":"Die Katze ist unter dem Bett.","exTr":"Kedi yatağın altında.","unit":"stadt"}
+{"id":"stadt20","de":"über","tr":"üstünde (üzerinden), hakkında","pos":"prep","freq":30,"ex":"Die Lampe hängt über dem Tisch.","exTr":"Lamba masanın üstünde asılı.","unit":"stadt"}
+{"id":"stadt21","de":"vor","tr":"önünde","pos":"prep","freq":38,"ex":"Das Auto steht vor dem Haus.","exTr":"Araba evin önünde.","unit":"stadt"}
+{"id":"stadt22","de":"hinter","tr":"arkasında","pos":"prep","freq":90,"ex":"Der Garten ist hinter dem Haus.","exTr":"Bahçe evin arkasında.","unit":"stadt"}
+{"id":"stadt23","de":"neben","tr":"yanında","pos":"prep","freq":78,"ex":"Die Apotheke ist neben der Post.","exTr":"Eczane postanenin yanında.","unit":"stadt"}
+{"id":"stadt24","de":"zwischen","tr":"arasında","pos":"prep","freq":82,"ex":"Die Bank ist zwischen dem Kino und der Post.","exTr":"Banka sinema ile postane arasında.","unit":"stadt"}
+{"id":"stadt25","de":"mit","tr":"ile","pos":"prep","freq":7,"ex":"Ich fahre mit dem Bus.","exTr":"Otobüsle gidiyorum.","unit":"stadt"}
+{"id":"stadt26","de":"bei","tr":"yanında, -de (birinin yanında)","pos":"prep","freq":36,"ex":"Ich wohne bei meinen Eltern.","exTr":"Ailemin yanında oturuyorum.","unit":"stadt"}
+{"id":"stadt27","de":"zu","tr":"-e, -a (yönelme)","pos":"prep","freq":21,"ex":"Ich gehe zu meiner Oma.","exTr":"Büyükanneme gidiyorum.","unit":"stadt"}
+{"id":"stadt28","de":"aus","tr":"-den (içinden), -dan","pos":"prep","freq":27,"ex":"Sie kommt aus Österreich.","exTr":"O Avusturya’dan geliyor.","unit":"stadt"}
+{"id":"stadt29","de":"nach","tr":"-e, -a (şehir/ülke), sonra","pos":"prep","freq":19,"ex":"Wir fahren nach Deutschland.","exTr":"Almanya’ya gidiyoruz.","unit":"stadt"}
+{"id":"stadt30","de":"von","tr":"-den, -dan (birinden)","pos":"prep","freq":23,"ex":"Das ist ein Foto von meiner Familie.","exTr":"Bu ailemin bir fotoğrafı.","unit":"stadt"}
+{"id":"stadt31","de":"für","tr":"için","pos":"prep","freq":25,"ex":"Das Geschenk ist für dich.","exTr":"Hediye senin için.","unit":"stadt"}

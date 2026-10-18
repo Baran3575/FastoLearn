@@ -1,0 +1,14 @@
+{"id":"bekanntschaft01","de":"der Name","tr":"ad, isim","pos":"noun","article":"der","plural":"die Namen","freq":12,"ex":"Mein Name ist Elif.","exTr":"Benim adım Elif.","unit":"bekanntschaft"}
+{"id":"bekanntschaft02","de":"der Vorname","tr":"ad (isim)","pos":"noun","article":"der","plural":"die Vornamen","freq":70,"ex":"Wie ist dein Vorname?","exTr":"Adın ne?","unit":"bekanntschaft"}
+{"id":"bekanntschaft03","de":"der Familienname","tr":"soyadı","pos":"noun","article":"der","plural":"die Familiennamen","freq":95,"ex":"Mein Familienname ist Demir.","exTr":"Soyadım Demir.","unit":"bekanntschaft"}
+{"id":"bekanntschaft04","de":"das Alter","tr":"yaş","pos":"noun","article":"das","plural":"die Alter","freq":85,"ex":"Wie ist dein Alter?","exTr":"Yaşın kaç?","note":"Günlük dilde daha çok 'wie alt bist du?' denir.","unit":"bekanntschaft"}
+{"id":"bekanntschaft05","de":"wie alt bist du?","tr":"kaç yaşındasın?","pos":"phrase","freq":110,"ex":"Wie alt bist du, Lena?","exTr":"Kaç yaşındasın, Lena?","unit":"bekanntschaft"}
+{"id":"bekanntschaft06","de":"das Jahr","tr":"yıl","pos":"noun","article":"das","plural":"die Jahre","freq":28,"ex":"Ich bin fünfzehn Jahre alt.","exTr":"On beş yaşındayım.","unit":"bekanntschaft"}
+{"id":"bekanntschaft07","de":"Ich bin … Jahre alt","tr":"… yaşındayım","pos":"phrase","freq":100,"ex":"Ich bin vierzehn Jahre alt.","exTr":"On dört yaşındayım.","unit":"bekanntschaft"}
+{"id":"bekanntschaft08","de":"wohnen","tr":"oturmak, yaşamak","pos":"verb","freq":35,"ex":"Ich wohne in Izmir.","exTr":"İzmir’de oturuyorum.","unit":"bekanntschaft"}
+{"id":"bekanntschaft09","de":"kommen aus","tr":"…’dan gelmek","pos":"verb","freq":33,"ex":"Wir kommen aus der Türkei.","exTr":"Biz Türkiye’den geliyoruz.","unit":"bekanntschaft"}
+{"id":"bekanntschaft10","de":"die Stadt","tr":"şehir","pos":"noun","article":"die","plural":"die Städte","freq":42,"ex":"Meine Stadt ist klein und schön.","exTr":"Şehrim küçük ve güzel.","unit":"bekanntschaft"}
+{"id":"bekanntschaft11","de":"die Adresse","tr":"adres","pos":"noun","article":"die","plural":"die Adressen","freq":120,"ex":"Wie ist deine Adresse?","exTr":"Adresin ne?","unit":"bekanntschaft"}
+{"id":"bekanntschaft12","de":"die Telefonnummer","tr":"telefon numarası","pos":"noun","article":"die","plural":"die Telefonnummern","freq":130,"ex":"Meine Telefonnummer ist 0555 123 45 67.","exTr":"Telefon numaram 0555 123 45 67.","unit":"bekanntschaft"}
+{"id":"bekanntschaft13","de":"die E-Mail-Adresse","tr":"e-posta adresi","pos":"noun","article":"die","plural":"die E-Mail-Adressen","freq":140,"ex":"Wie ist deine E-Mail-Adresse?","exTr":"E-posta adresin ne?","unit":"bekanntschaft"}
+{"id":"bekanntschaft14","de":"der Freund","tr":"arkadaş (erkek)","pos":"noun","article":"der","plural":"die Freunde","freq":38,"ex":"Das ist mein Freund Kerem.","exTr":"Bu benim arkadaşım Kerem.","unit":"bekanntschaft"}

@@ -1,0 +1,17 @@
+{"id":"verben01","de":"sein","tr":"olmak","pos":"verb","freq":1,"ex":"Ich bin Schüler.","exTr":"Ben öğrenciyim.","note":"Düzensiz: ich bin, du bist, er ist, wir sind, ihr seid, sie sind.","unit":"verben"}
+{"id":"verben02","de":"haben","tr":"sahip olmak","pos":"verb","freq":2,"ex":"Ich habe einen Bruder.","exTr":"Bir erkek kardeşim var.","note":"ich habe, du hast, er hat, wir haben.","unit":"verben"}
+{"id":"verben03","de":"werden","tr":"olmak (gelecek)","pos":"verb","freq":26,"ex":"Ich werde Arzt.","exTr":"Doktor olacağım.","unit":"verben"}
+{"id":"verben04","de":"machen","tr":"yapmak","pos":"verb","freq":11,"ex":"Was machst du jetzt?","exTr":"Şimdi ne yapıyorsun?","unit":"verben"}
+{"id":"verben05","de":"gehen","tr":"gitmek (yürüyerek)","pos":"verb","freq":12,"ex":"Ich gehe zur Schule.","exTr":"Okula gidiyorum.","unit":"verben"}
+{"id":"verben06","de":"kommen","tr":"gelmek","pos":"verb","freq":13,"ex":"Woher kommst du?","exTr":"Nereden geliyorsun?","unit":"verben"}
+{"id":"verben07","de":"sehen","tr":"görmek","pos":"verb","freq":16,"ex":"Ich sehe einen Hund.","exTr":"Bir köpek görüyorum.","note":"du siehst, er sieht.","unit":"verben"}
+{"id":"verben08","de":"sprechen","tr":"konuşmak","pos":"verb","freq":23,"ex":"Sprichst du Deutsch?","exTr":"Almanca konuşuyor musun?","unit":"verben"}
+{"id":"verben09","de":"kaufen","tr":"satın almak","pos":"verb","freq":54,"ex":"Ich kaufe ein Buch.","exTr":"Bir kitap alıyorum.","unit":"verben"}
+{"id":"verben10","de":"trinken","tr":"içmek","pos":"verb","freq":48,"ex":"Ich trinke Wasser.","exTr":"Su içiyorum.","unit":"verben"}
+{"id":"verben11","de":"heißen","tr":"adı olmak","pos":"verb","freq":53,"ex":"Wie heißt du?","exTr":"Adın ne?","unit":"verben"}
+{"id":"verben12","de":"brauchen","tr":"ihtiyacı olmak","pos":"verb","freq":74,"ex":"Ich brauche Hilfe.","exTr":"Yardıma ihtiyacım var.","unit":"verben"}
+{"id":"verben13","de":"verstehen","tr":"anlamak","pos":"verb","freq":63,"ex":"Ich verstehe die Frage nicht.","exTr":"Soruyu anlamıyorum.","unit":"verben"}
+{"id":"verben14","de":"können","tr":"-ebilmek","pos":"verb","freq":15,"ex":"Ich kann gut schwimmen.","exTr":"İyi yüzebilirim.","note":"Modal fiil: ich kann, du kannst, er kann.","unit":"verben"}
+{"id":"verben15","de":"müssen","tr":"-meli, zorunda olmak","pos":"verb","freq":17,"ex":"Ich muss lernen.","exTr":"Ders çalışmalıyım.","unit":"verben"}
+{"id":"verben16","de":"wollen","tr":"istemek","pos":"verb","freq":22,"ex":"Wir wollen ins Kino gehen.","exTr":"Sinemaya gitmek istiyoruz.","unit":"verben"}
+{"id":"verben17","de":"möchten","tr":"istemek (kibar)","pos":"verb","freq":42,"ex":"Ich möchte einen Tee.","exTr":"Bir çay istiyorum.","unit":"verben"}

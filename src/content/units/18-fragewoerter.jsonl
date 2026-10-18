@@ -1,0 +1,27 @@
+{"id":"fragewoerter01","de":"wer","tr":"kim","pos":"pron","freq":28,"ex":"Wer ist das?","exTr":"Bu kim?","unit":"fragewoerter"}
+{"id":"fragewoerter02","de":"was","tr":"ne","pos":"pron","freq":9,"ex":"Was ist das?","exTr":"Bu ne?","unit":"fragewoerter"}
+{"id":"fragewoerter03","de":"wo","tr":"nerede","pos":"adv","freq":18,"ex":"Wo wohnst du?","exTr":"Nerede oturuyorsun?","unit":"fragewoerter"}
+{"id":"fragewoerter04","de":"woher","tr":"nereden","pos":"adv","freq":65,"ex":"Woher kommst du?","exTr":"Nereden geliyorsun?","unit":"fragewoerter"}
+{"id":"fragewoerter05","de":"wohin","tr":"nereye","pos":"adv","freq":85,"ex":"Wohin gehst du?","exTr":"Nereye gidiyorsun?","unit":"fragewoerter"}
+{"id":"fragewoerter06","de":"wann","tr":"ne zaman","pos":"adv","freq":48,"ex":"Wann beginnt der Unterricht?","exTr":"Ders ne zaman başlıyor?","unit":"fragewoerter"}
+{"id":"fragewoerter07","de":"wie","tr":"nasıl","pos":"adv","freq":10,"ex":"Wie geht es dir?","exTr":"Nasılsın?","unit":"fragewoerter"}
+{"id":"fragewoerter08","de":"warum","tr":"neden","pos":"adv","freq":44,"ex":"Warum lernst du Deutsch?","exTr":"Neden Almanca öğreniyorsun?","unit":"fragewoerter"}
+{"id":"fragewoerter09","de":"wie viel","tr":"ne kadar (miktar)","pos":"phrase","freq":100,"ex":"Wie viel kostet das?","exTr":"Bu ne kadar?","unit":"fragewoerter"}
+{"id":"fragewoerter10","de":"wie viele","tr":"kaç tane","pos":"phrase","freq":105,"ex":"Wie viele Geschwister hast du?","exTr":"Kaç kardeşin var?","unit":"fragewoerter"}
+{"id":"fragewoerter11","de":"welcher","tr":"hangi","pos":"pron","freq":150,"ex":"Welcher Bus fährt zum Bahnhof?","exTr":"Hangi otobüs istasyona gidiyor?","unit":"fragewoerter"}
+{"id":"fragewoerter12","de":"wie alt","tr":"kaç yaşında","pos":"phrase","freq":115,"ex":"Wie alt ist deine Schwester?","exTr":"Kız kardeşin kaç yaşında?","unit":"fragewoerter"}
+{"id":"fragewoerter13","de":"wie lange","tr":"ne kadar süre","pos":"phrase","freq":180,"ex":"Wie lange lernst du schon Deutsch?","exTr":"Ne kadar süredir Almanca öğreniyorsun?","unit":"fragewoerter"}
+{"id":"fragewoerter14","de":"ich","tr":"ben","pos":"pron","freq":2,"ex":"Ich bin fünfzehn.","exTr":"Ben on beşim.","unit":"fragewoerter"}
+{"id":"fragewoerter15","de":"du","tr":"sen","pos":"pron","freq":3,"ex":"Du bist mein Freund.","exTr":"Sen benim arkadaşımsın.","unit":"fragewoerter"}
+{"id":"fragewoerter16","de":"er","tr":"o (erkek)","pos":"pron","freq":4,"ex":"Er ist mein Bruder.","exTr":"O benim erkek kardeşim.","unit":"fragewoerter"}
+{"id":"fragewoerter17","de":"sie","tr":"o (kadın) / onlar","pos":"pron","freq":5,"ex":"Sie ist meine Schwester.","exTr":"O benim kız kardeşim.","unit":"fragewoerter"}
+{"id":"fragewoerter18","de":"es","tr":"o (nötr)","pos":"pron","freq":7,"ex":"Es ist kalt heute.","exTr":"Bugün hava soğuk.","unit":"fragewoerter"}
+{"id":"fragewoerter19","de":"wir","tr":"biz","pos":"pron","freq":12,"ex":"Wir lernen zusammen.","exTr":"Birlikte öğreniyoruz.","unit":"fragewoerter"}
+{"id":"fragewoerter20","de":"ihr","tr":"siz","pos":"pron","freq":20,"ex":"Wo wohnt ihr?","exTr":"Siz nerede oturuyorsunuz?","unit":"fragewoerter"}
+{"id":"fragewoerter21","de":"sie (Plural)","tr":"onlar","pos":"pron","freq":16,"ex":"Sie spielen Fußball.","exTr":"Onlar futbol oynuyor.","unit":"fragewoerter"}
+{"id":"fragewoerter22","de":"Sie (höflich)","tr":"siz (kibar)","pos":"pron","freq":26,"ex":"Wie heißen Sie?","exTr":"Adınız nedir?","unit":"fragewoerter"}
+{"id":"fragewoerter23","de":"mein","tr":"benim","pos":"pron","freq":14,"ex":"Mein Vater ist Lehrer.","exTr":"Benim babam öğretmen.","unit":"fragewoerter"}
+{"id":"fragewoerter24","de":"dein","tr":"senin","pos":"pron","freq":22,"ex":"Ist das dein Buch?","exTr":"Bu senin kitabın mı?","unit":"fragewoerter"}
+{"id":"fragewoerter25","de":"unser","tr":"bizim","pos":"pron","freq":35,"ex":"Unsere Schule ist neu.","exTr":"Bizim okulumuz yeni.","unit":"fragewoerter"}
+{"id":"fragewoerter26","de":"etwas","tr":"bir şey","pos":"pron","freq":60,"ex":"Möchtest du etwas trinken?","exTr":"Bir şey içmek ister misin?","unit":"fragewoerter"}
+{"id":"fragewoerter27","de":"nichts","tr":"hiçbir şey","pos":"pron","freq":62,"ex":"Ich habe nichts gesagt.","exTr":"Hiçbir şey söylemedim.","unit":"fragewoerter"}

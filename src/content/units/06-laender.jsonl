@@ -1,0 +1,14 @@
+{"id":"laender01","de":"Deutschland","tr":"Almanya","pos":"noun","freq":22,"proper":true,"ex":"Deutschland liegt in Europa.","exTr":"Almanya Avrupa’da.","unit":"laender"}
+{"id":"laender02","de":"die Türkei","tr":"Türkiye","pos":"noun","article":"die","freq":23,"proper":true,"ex":"Ich komme aus der Türkei.","exTr":"Türkiye’den geliyorum.","unit":"laender"}
+{"id":"laender03","de":"Österreich","tr":"Avusturya","pos":"noun","freq":98,"proper":true,"ex":"Wien liegt in Österreich.","exTr":"Viyana Avusturya’da.","unit":"laender"}
+{"id":"laender04","de":"die Schweiz","tr":"İsviçre","pos":"noun","article":"die","freq":99,"proper":true,"ex":"Die Schweiz hat vier Sprachen.","exTr":"İsviçre’nin dört dili var.","unit":"laender"}
+{"id":"laender05","de":"Frankreich","tr":"Fransa","pos":"noun","freq":101,"proper":true,"ex":"Paris ist in Frankreich.","exTr":"Paris Fransa’da.","unit":"laender"}
+{"id":"laender06","de":"England","tr":"İngiltere","pos":"noun","freq":102,"proper":true,"ex":"London liegt in England.","exTr":"Londra İngiltere’de.","unit":"laender"}
+{"id":"laender07","de":"Spanien","tr":"İspanya","pos":"noun","freq":150,"proper":true,"ex":"Wir fliegen nach Spanien.","exTr":"İspanya’ya uçuyoruz.","unit":"laender"}
+{"id":"laender08","de":"Italien","tr":"İtalya","pos":"noun","freq":151,"proper":true,"ex":"Pizza kommt aus Italien.","exTr":"Pizza İtalya’dan gelir.","unit":"laender"}
+{"id":"laender09","de":"die Sprache","tr":"dil","pos":"noun","article":"die","plural":"die Sprachen","freq":52,"ex":"Deutsch ist eine schwere Sprache.","exTr":"Almanca zor bir dil.","unit":"laender"}
+{"id":"laender10","de":"Deutsch","tr":"Almanca","pos":"noun","freq":50,"proper":true,"ex":"Ich lerne Deutsch in der Schule.","exTr":"Okulda Almanca öğreniyorum.","unit":"laender"}
+{"id":"laender11","de":"Türkisch","tr":"Türkçe","pos":"noun","freq":51,"proper":true,"ex":"Türkisch ist meine Muttersprache.","exTr":"Türkçe benim ana dilim.","unit":"laender"}
+{"id":"laender12","de":"Englisch","tr":"İngilizce","pos":"noun","freq":53,"proper":true,"ex":"Englisch ist nicht so schwer.","exTr":"İngilizce o kadar zor değil.","unit":"laender"}
+{"id":"laender13","de":"die Muttersprache","tr":"ana dil","pos":"noun","article":"die","plural":"die Muttersprachen","freq":190,"ex":"Was ist deine Muttersprache?","exTr":"Ana dilin ne?","unit":"laender"}
+{"id":"laender14","de":"die Nationalität","tr":"milliyet","pos":"noun","article":"die","plural":"die Nationalitäten","freq":210,"ex":"Welche Nationalität hast du?","exTr":"Milliyetin ne?","unit":"laender"}

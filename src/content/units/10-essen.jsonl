@@ -1,0 +1,31 @@
+{"id":"essen01","de":"das Brot","tr":"ekmek","pos":"noun","article":"das","plural":"die Brote","freq":77,"ex":"Ich esse Brot mit Käse.","exTr":"Peynirli ekmek yiyorum.","unit":"essen"}
+{"id":"essen02","de":"der Käse","tr":"peynir","pos":"noun","article":"der","plural":"die Käse","freq":140,"ex":"Der Käse kommt aus der Türkei.","exTr":"Peynir Türkiye’den geliyor.","unit":"essen"}
+{"id":"essen03","de":"der Apfel","tr":"elma","pos":"noun","article":"der","plural":"die Äpfel","freq":130,"ex":"Ein Apfel am Tag ist gesund.","exTr":"Günde bir elma sağlıklıdır.","unit":"essen"}
+{"id":"essen04","de":"die Banane","tr":"muz","pos":"noun","article":"die","plural":"die Bananen","freq":200,"ex":"Die Banane ist gelb.","exTr":"Muz sarı.","unit":"essen"}
+{"id":"essen05","de":"das Ei","tr":"yumurta","pos":"noun","article":"das","plural":"die Eier","freq":180,"ex":"Ich esse zwei Eier zum Frühstück.","exTr":"Kahvaltıda iki yumurta yiyorum.","unit":"essen"}
+{"id":"essen06","de":"die Milch","tr":"süt","pos":"noun","article":"die","plural":"die Milch","freq":120,"ex":"Ich trinke Milch zum Frühstück.","exTr":"Kahvaltıda süt içerim.","unit":"essen"}
+{"id":"essen07","de":"das Wasser","tr":"su","pos":"noun","article":"das","plural":"die Wasser","freq":43,"ex":"Ein Glas Wasser, bitte.","exTr":"Bir bardak su, lütfen.","unit":"essen"}
+{"id":"essen08","de":"der Tee","tr":"çay","pos":"noun","article":"der","plural":"die Tees","freq":115,"ex":"Trinkst du Tee mit Zucker?","exTr":"Çayı şekerli mi içersin?","unit":"essen"}
+{"id":"essen09","de":"der Kaffee","tr":"kahve","pos":"noun","article":"der","plural":"die Kaffees","freq":118,"ex":"Mein Vater trinkt Kaffee.","exTr":"Babam kahve içiyor.","unit":"essen"}
+{"id":"essen10","de":"der Saft","tr":"meyve suyu","pos":"noun","article":"der","plural":"die Säfte","freq":170,"ex":"Ich möchte einen Saft.","exTr":"Bir meyve suyu istiyorum.","unit":"essen"}
+{"id":"essen11","de":"das Fleisch","tr":"et","pos":"noun","article":"das","plural":"die Fleisch","freq":125,"ex":"Ich esse kein Fleisch.","exTr":"Et yemem.","unit":"essen"}
+{"id":"essen12","de":"der Fisch","tr":"balık","pos":"noun","article":"der","plural":"die Fische","freq":145,"ex":"Freitags essen wir Fisch.","exTr":"Cuma günleri balık yeriz.","unit":"essen"}
+{"id":"essen13","de":"der Reis","tr":"pirinç, pilav","pos":"noun","article":"der","plural":"die Reissorten","freq":165,"ex":"Ich esse Reis mit Gemüse.","exTr":"Sebzeli pilav yiyorum.","unit":"essen"}
+{"id":"essen14","de":"das Gemüse","tr":"sebze","pos":"noun","article":"das","plural":"die Gemüse","freq":155,"ex":"Gemüse ist sehr gesund.","exTr":"Sebze çok sağlıklı.","unit":"essen"}
+{"id":"essen15","de":"das Obst","tr":"meyve","pos":"noun","article":"das","plural":"die Obstsorten","freq":150,"ex":"Ich kaufe Obst auf dem Markt.","exTr":"Marketten meyve alıyorum.","unit":"essen"}
+{"id":"essen16","de":"der Zucker","tr":"şeker","pos":"noun","article":"der","plural":"die Zucker","freq":190,"ex":"Ohne Zucker, bitte.","exTr":"Şekersiz, lütfen.","unit":"essen"}
+{"id":"essen17","de":"das Frühstück","tr":"kahvaltı","pos":"noun","article":"das","plural":"die Frühstücke","freq":110,"ex":"Das Frühstück ist um sieben Uhr.","exTr":"Kahvaltı saat yedide.","unit":"essen"}
+{"id":"essen18","de":"das Mittagessen","tr":"öğle yemeği","pos":"noun","article":"das","plural":"die Mittagessen","freq":135,"ex":"Zum Mittagessen esse ich Suppe.","exTr":"Öğle yemeğinde çorba içiyorum.","unit":"essen"}
+{"id":"essen19","de":"das Abendessen","tr":"akşam yemeği","pos":"noun","article":"das","plural":"die Abendessen","freq":136,"ex":"Wir essen um acht zu Abend.","exTr":"Akşam sekizde akşam yemeği yiyoruz.","unit":"essen"}
+{"id":"essen20","de":"die Suppe","tr":"çorba","pos":"noun","article":"die","plural":"die Suppen","freq":175,"ex":"Die Suppe ist warm.","exTr":"Çorba sıcak.","unit":"essen"}
+{"id":"essen21","de":"der Hunger","tr":"açlık","pos":"noun","article":"der","plural":"die Hunger","freq":185,"ex":"Ich habe Hunger.","exTr":"Açım.","unit":"essen"}
+{"id":"essen22","de":"der Durst","tr":"susuzluk","pos":"noun","article":"der","plural":"die Durste","freq":195,"ex":"Hast du Durst?","exTr":"Susadın mı?","unit":"essen"}
+{"id":"essen23","de":"das Restaurant","tr":"restoran","pos":"noun","article":"das","plural":"die Restaurants","freq":105,"ex":"Wir essen im Restaurant.","exTr":"Restoranda yemek yiyoruz.","unit":"essen"}
+{"id":"essen24","de":"die Speisekarte","tr":"menü","pos":"noun","article":"die","plural":"die Speisekarten","freq":240,"ex":"Die Speisekarte, bitte!","exTr":"Menü, lütfen!","unit":"essen"}
+{"id":"essen25","de":"der Kellner","tr":"garson","pos":"noun","article":"der","plural":"die Kellner","freq":200,"ex":"Der Kellner bringt das Wasser.","exTr":"Garson suyu getiriyor.","unit":"essen"}
+{"id":"essen26","de":"die Rechnung","tr":"hesap","pos":"noun","article":"die","plural":"die Rechnungen","freq":230,"ex":"Die Rechnung, bitte!","exTr":"Hesap, lütfen!","unit":"essen"}
+{"id":"essen27","de":"bestellen","tr":"sipariş vermek","pos":"verb","freq":220,"ex":"Ich möchte eine Suppe bestellen.","exTr":"Bir çorba sipariş etmek istiyorum.","unit":"essen"}
+{"id":"essen28","de":"bezahlen","tr":"ödemek","pos":"verb","freq":205,"ex":"Wir möchten bezahlen.","exTr":"Ödemek istiyoruz.","unit":"essen"}
+{"id":"essen29","de":"das Glas","tr":"bardak","pos":"noun","article":"das","plural":"die Gläser","freq":195,"ex":"Ein Glas Tee, bitte.","exTr":"Bir bardak çay, lütfen.","unit":"essen"}
+{"id":"essen30","de":"die Tasse","tr":"fincan","pos":"noun","article":"die","plural":"die Tassen","freq":250,"ex":"Eine Tasse Kaffee, bitte.","exTr":"Bir fincan kahve, lütfen.","unit":"essen"}
+{"id":"essen31","de":"Guten Appetit!","tr":"Afiyet olsun!","pos":"phrase","freq":280,"ex":"Guten Appetit, zusammen!","exTr":"Hepinize afiyet olsun!","unit":"essen"}

@@ -1,0 +1,14 @@
+{"id":"familie01","de":"die Familie","tr":"aile","pos":"noun","article":"die","plural":"die Familien","freq":24,"ex":"Meine Familie ist groß.","exTr":"Ailem kalabalık.","unit":"familie"}
+{"id":"familie02","de":"der Vater","tr":"baba","pos":"noun","article":"der","plural":"die Väter","freq":18,"ex":"Mein Vater arbeitet in einer Fabrik.","exTr":"Babam bir fabrikada çalışıyor.","unit":"familie"}
+{"id":"familie03","de":"die Mutter","tr":"anne","pos":"noun","article":"die","plural":"die Mütter","freq":17,"ex":"Meine Mutter kocht sehr gut.","exTr":"Annem çok güzel yemek yapar.","unit":"familie"}
+{"id":"familie04","de":"der Bruder","tr":"erkek kardeş","pos":"noun","article":"der","plural":"die Brüder","freq":46,"ex":"Mein Bruder ist zehn Jahre alt.","exTr":"Erkek kardeşim on yaşında.","unit":"familie"}
+{"id":"familie05","de":"die Schwester","tr":"kız kardeş","pos":"noun","article":"die","plural":"die Schwestern","freq":47,"ex":"Meine Schwester geht in die Schule.","exTr":"Kız kardeşim okula gidiyor.","unit":"familie"}
+{"id":"familie06","de":"die Eltern","tr":"anne baba","pos":"noun","article":"die","plural":"die Eltern","pluralOnly":true,"freq":32,"ex":"Meine Eltern sind in Deutschland.","exTr":"Annem babam Almanya’da.","note":"Her zaman çoğul kullanılır.","unit":"familie"}
+{"id":"familie07","de":"das Kind","tr":"çocuk","pos":"noun","article":"das","plural":"die Kinder","freq":21,"ex":"Das Kind spielt im Garten.","exTr":"Çocuk bahçede oynuyor.","unit":"familie"}
+{"id":"familie08","de":"der Sohn","tr":"oğul","pos":"noun","article":"der","plural":"die Söhne","freq":92,"ex":"Ihr Sohn heißt Can.","exTr":"Onun oğlunun adı Can.","unit":"familie"}
+{"id":"familie09","de":"die Tochter","tr":"kız evlat","pos":"noun","article":"die","plural":"die Töchter","freq":93,"ex":"Meine Tochter ist fünf.","exTr":"Kızım beş yaşında.","unit":"familie"}
+{"id":"familie10","de":"die Großmutter","tr":"büyükanne","pos":"noun","article":"die","plural":"die Großmütter","freq":125,"ex":"Meine Großmutter wohnt bei uns.","exTr":"Büyükannem bizimle oturuyor.","note":"Günlük dilde: die Oma.","unit":"familie"}
+{"id":"familie11","de":"der Großvater","tr":"büyükbaba","pos":"noun","article":"der","plural":"die Großväter","freq":127,"ex":"Mein Großvater liest gern.","exTr":"Büyükbabam okumayı sever.","note":"Günlük dilde: der Opa.","unit":"familie"}
+{"id":"familie12","de":"die Tante","tr":"hala / teyze","pos":"noun","article":"die","plural":"die Tanten","freq":145,"ex":"Meine Tante kommt am Sonntag.","exTr":"Halam pazar günü geliyor.","unit":"familie"}
+{"id":"familie13","de":"der Onkel","tr":"amca / dayı","pos":"noun","article":"der","plural":"die Onkel","freq":146,"ex":"Mein Onkel ist Lehrer.","exTr":"Amcam öğretmen.","unit":"familie"}
+{"id":"familie14","de":"die Geschwister","tr":"kardeşler","pos":"noun","article":"die","plural":"die Geschwister","pluralOnly":true,"freq":180,"ex":"Ich habe zwei Geschwister.","exTr":"İki kardeşim var.","unit":"familie"}

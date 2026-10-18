@@ -1,0 +1,27 @@
+{"id":"farben01","de":"rot","tr":"kırmızı","pos":"adj","freq":75,"ex":"Meine Tasche ist rot.","exTr":"Çantam kırmızı.","unit":"farben"}
+{"id":"farben02","de":"blau","tr":"mavi","pos":"adj","freq":76,"ex":"Der Himmel ist blau.","exTr":"Gökyüzü mavi.","unit":"farben"}
+{"id":"farben03","de":"gelb","tr":"sarı","pos":"adj","freq":88,"ex":"Die Banane ist gelb.","exTr":"Muz sarı.","unit":"farben"}
+{"id":"farben04","de":"grün","tr":"yeşil","pos":"adj","freq":82,"ex":"Das Gras ist grün.","exTr":"Çimen yeşil.","unit":"farben"}
+{"id":"farben05","de":"schwarz","tr":"siyah","pos":"adj","freq":78,"ex":"Ich habe eine schwarze Jacke.","exTr":"Siyah bir ceketim var.","unit":"farben"}
+{"id":"farben06","de":"weiß","tr":"beyaz","pos":"adj","freq":79,"ex":"Das Hemd ist weiß.","exTr":"Gömlek beyaz.","unit":"farben"}
+{"id":"farben07","de":"grau","tr":"gri","pos":"adj","freq":105,"ex":"Der Elefant ist grau.","exTr":"Fil gri.","unit":"farben"}
+{"id":"farben08","de":"braun","tr":"kahverengi","pos":"adj","freq":108,"ex":"Meine Augen sind braun.","exTr":"Gözlerim kahverengi.","unit":"farben"}
+{"id":"farben09","de":"orange","tr":"turuncu","pos":"adj","freq":115,"ex":"Die Orange ist orange.","exTr":"Portakal turuncu.","unit":"farben"}
+{"id":"farben10","de":"rosa","tr":"pembe","pos":"adj","freq":160,"ex":"Das Kleid ist rosa.","exTr":"Elbise pembe.","unit":"farben"}
+{"id":"farben11","de":"lila","tr":"mor","pos":"adj","freq":170,"ex":"Ich mag lila Blumen.","exTr":"Mor çiçekleri severim.","unit":"farben"}
+{"id":"farben12","de":"die Farbe","tr":"renk","pos":"noun","article":"die","plural":"die Farben","freq":86,"ex":"Welche Farbe magst du?","exTr":"Hangi rengi seversin?","unit":"farben"}
+{"id":"farben13","de":"Welche Farbe hat …?","tr":"… ne renk?","pos":"phrase","freq":175,"ex":"Welche Farbe hat dein Auto?","exTr":"Araban ne renk?","unit":"farben"}
+{"id":"farben14","de":"die Kleidung","tr":"kıyafet","pos":"noun","article":"die","plural":"die Kleidungen","freq":150,"ex":"Meine Kleidung ist neu.","exTr":"Kıyafetim yeni.","unit":"farben"}
+{"id":"farben15","de":"das Hemd","tr":"gömlek","pos":"noun","article":"das","plural":"die Hemden","freq":205,"ex":"Das Hemd ist weiß.","exTr":"Gömlek beyaz.","unit":"farben"}
+{"id":"farben16","de":"die Hose","tr":"pantolon","pos":"noun","article":"die","plural":"die Hosen","freq":185,"ex":"Die Hose ist zu lang.","exTr":"Pantolon çok uzun.","unit":"farben"}
+{"id":"farben17","de":"der Schuh","tr":"ayakkabı","pos":"noun","article":"der","plural":"die Schuhe","freq":170,"ex":"Meine Schuhe sind schwarz.","exTr":"Ayakkabılarım siyah.","unit":"farben"}
+{"id":"farben18","de":"die Jacke","tr":"ceket, mont","pos":"noun","article":"die","plural":"die Jacken","freq":180,"ex":"Nimm die Jacke mit!","exTr":"Ceketini yanına al!","unit":"farben"}
+{"id":"farben19","de":"das Kleid","tr":"elbise","pos":"noun","article":"das","plural":"die Kleider","freq":190,"ex":"Das Kleid ist sehr schön.","exTr":"Elbise çok güzel.","unit":"farben"}
+{"id":"farben20","de":"der Rock","tr":"etek","pos":"noun","article":"der","plural":"die Röcke","freq":255,"ex":"Sie trägt einen roten Rock.","exTr":"Kırmızı bir etek giyiyor.","unit":"farben"}
+{"id":"farben21","de":"die Mütze","tr":"bere","pos":"noun","article":"die","plural":"die Mützen","freq":280,"ex":"Im Winter trage ich eine Mütze.","exTr":"Kışın bere takarım.","unit":"farben"}
+{"id":"farben22","de":"der Mantel","tr":"palto","pos":"noun","article":"der","plural":"die Mäntel","freq":250,"ex":"Der Mantel ist warm.","exTr":"Palto sıcak.","unit":"farben"}
+{"id":"farben23","de":"die Socke","tr":"çorap","pos":"noun","article":"die","plural":"die Socken","freq":290,"ex":"Wo sind meine Socken?","exTr":"Çoraplarım nerede?","unit":"farben"}
+{"id":"farben24","de":"der Pullover","tr":"kazak","pos":"noun","article":"der","plural":"die Pullover","freq":260,"ex":"Der Pullover ist aus Wolle.","exTr":"Kazak yünden.","unit":"farben"}
+{"id":"farben25","de":"das T-Shirt","tr":"tişört","pos":"noun","article":"das","plural":"die T-Shirts","freq":230,"ex":"Ich mag dieses T-Shirt.","exTr":"Bu tişörtü severim.","unit":"farben"}
+{"id":"farben26","de":"tragen","tr":"giymek, taşımak","pos":"verb","freq":115,"ex":"Heute trage ich eine Jacke.","exTr":"Bugün ceket giyiyorum.","unit":"farben"}
+{"id":"farben27","de":"anziehen","tr":"giyinmek, giymek","pos":"verb","freq":220,"ex":"Ich ziehe mich schnell an.","exTr":"Hızlı giyiniyorum.","unit":"farben"}

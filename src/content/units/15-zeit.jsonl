@@ -1,0 +1,31 @@
+{"id":"zeit01","de":"der Tag","tr":"gün","pos":"noun","article":"der","plural":"die Tage","freq":19,"ex":"Der Tag beginnt um sieben.","exTr":"Gün saat yedide başlıyor.","unit":"zeit"}
+{"id":"zeit02","de":"die Woche","tr":"hafta","pos":"noun","article":"die","plural":"die Wochen","freq":55,"ex":"Eine Woche hat sieben Tage.","exTr":"Bir haftada yedi gün var.","unit":"zeit"}
+{"id":"zeit03","de":"der Monat","tr":"ay (takvim)","pos":"noun","article":"der","plural":"die Monate","freq":60,"ex":"Der Monat Mai ist schön.","exTr":"Mayıs ayı güzeldir.","unit":"zeit"}
+{"id":"zeit04","de":"der Montag","tr":"pazartesi","pos":"noun","article":"der","plural":"die Montage","freq":120,"ex":"Am Montag habe ich Deutsch.","exTr":"Pazartesi Almancam var.","unit":"zeit"}
+{"id":"zeit05","de":"der Freitag","tr":"cuma","pos":"noun","article":"der","plural":"die Freitage","freq":122,"ex":"Am Freitag ist die Schule aus.","exTr":"Cuma günü okul bitiyor.","unit":"zeit"}
+{"id":"zeit06","de":"der Samstag","tr":"cumartesi","pos":"noun","article":"der","plural":"die Samstage","freq":123,"ex":"Am Samstag gehen wir ins Kino.","exTr":"Cumartesi sinemaya gidiyoruz.","unit":"zeit"}
+{"id":"zeit07","de":"der Sonntag","tr":"pazar","pos":"noun","article":"der","plural":"die Sonntage","freq":121,"ex":"Am Sonntag schlafe ich lange.","exTr":"Pazar günü uzun uyurum.","unit":"zeit"}
+{"id":"zeit08","de":"heute","tr":"bugün","pos":"adv","freq":20,"ex":"Heute ist Dienstag.","exTr":"Bugün salı.","unit":"zeit"}
+{"id":"zeit09","de":"morgen","tr":"yarın","pos":"adv","freq":29,"ex":"Morgen habe ich eine Prüfung.","exTr":"Yarın sınavım var.","unit":"zeit"}
+{"id":"zeit10","de":"gestern","tr":"dün","pos":"adv","freq":40,"ex":"Gestern war ich im Park.","exTr":"Dün parktaydım.","unit":"zeit"}
+{"id":"zeit11","de":"jetzt","tr":"şimdi","pos":"adv","freq":32,"ex":"Jetzt machen wir Hausaufgaben.","exTr":"Şimdi ödev yapıyoruz.","unit":"zeit"}
+{"id":"zeit12","de":"die Uhr","tr":"saat","pos":"noun","article":"die","plural":"die Uhren","freq":62,"ex":"Wie viel Uhr ist es?","exTr":"Saat kaç?","unit":"zeit"}
+{"id":"zeit13","de":"die Minute","tr":"dakika","pos":"noun","article":"die","plural":"die Minuten","freq":110,"ex":"Warte eine Minute!","exTr":"Bir dakika bekle!","unit":"zeit"}
+{"id":"zeit14","de":"der Morgen","tr":"sabah","pos":"noun","article":"der","plural":"die Morgen","freq":70,"ex":"Am Morgen trinke ich Tee.","exTr":"Sabahları çay içerim.","unit":"zeit"}
+{"id":"zeit15","de":"der Abend","tr":"akşam","pos":"noun","article":"der","plural":"die Abende","freq":71,"ex":"Am Abend sehe ich fern.","exTr":"Akşamları televizyon izlerim.","unit":"zeit"}
+{"id":"zeit16","de":"spät","tr":"geç","pos":"adj","freq":155,"ex":"Es ist schon spät.","exTr":"Artık geç oldu.","unit":"zeit"}
+{"id":"zeit17","de":"aufstehen","tr":"kalkmak","pos":"verb","freq":145,"ex":"Ich stehe um sechs Uhr auf.","exTr":"Saat altıda kalkıyorum.","note":"Ayrılabilir fiil: auf + stehen.","unit":"zeit"}
+{"id":"zeit18","de":"aufwachen","tr":"uyanmak","pos":"verb","freq":200,"ex":"Ich wache früh auf.","exTr":"Erken uyanıyorum.","unit":"zeit"}
+{"id":"zeit19","de":"duschen","tr":"duş almak","pos":"verb","freq":215,"ex":"Ich dusche jeden Morgen.","exTr":"Her sabah duş alırım.","unit":"zeit"}
+{"id":"zeit20","de":"sich waschen","tr":"yıkanmak","pos":"verb","freq":210,"ex":"Ich wasche mich mit kaltem Wasser.","exTr":"Soğuk suyla yıkanıyorum.","unit":"zeit"}
+{"id":"zeit21","de":"frühstücken","tr":"kahvaltı yapmak","pos":"verb","freq":212,"ex":"Wir frühstücken zusammen.","exTr":"Birlikte kahvaltı yapıyoruz.","unit":"zeit"}
+{"id":"zeit22","de":"losgehen","tr":"yola çıkmak","pos":"verb","freq":300,"ex":"Ich gehe um sieben los.","exTr":"Saat yedide yola çıkıyorum.","unit":"zeit"}
+{"id":"zeit23","de":"fahren","tr":"gitmek (araçla)","pos":"verb","freq":36,"ex":"Ich fahre mit dem Bus.","exTr":"Otobüsle gidiyorum.","note":"du fährst, er fährt.","unit":"zeit"}
+{"id":"zeit24","de":"arbeiten","tr":"çalışmak","pos":"verb","freq":41,"ex":"Mein Vater arbeitet im Büro.","exTr":"Babam ofiste çalışıyor.","unit":"zeit"}
+{"id":"zeit25","de":"lernen","tr":"öğrenmek, ders çalışmak","pos":"verb","freq":31,"ex":"Ich lerne jeden Tag Deutsch.","exTr":"Her gün Almanca çalışıyorum.","unit":"zeit"}
+{"id":"zeit26","de":"essen","tr":"yemek yemek","pos":"verb","freq":45,"ex":"Wir essen um zwölf.","exTr":"Saat on ikide yemek yiyoruz.","note":"du isst, er isst.","unit":"zeit"}
+{"id":"zeit27","de":"schlafen","tr":"uyumak","pos":"verb","freq":59,"ex":"Ich schlafe um zehn Uhr.","exTr":"Saat onda uyuyorum.","note":"du schläfst, er schläft.","unit":"zeit"}
+{"id":"zeit28","de":"einkaufen","tr":"alışveriş yapmak","pos":"verb","freq":230,"ex":"Am Samstag kaufen wir ein.","exTr":"Cumartesi alışveriş yapıyoruz.","unit":"zeit"}
+{"id":"zeit29","de":"kochen","tr":"yemek pişirmek","pos":"verb","freq":185,"ex":"Meine Mutter kocht das Abendessen.","exTr":"Annem akşam yemeğini pişiriyor.","unit":"zeit"}
+{"id":"zeit30","de":"zurückkommen","tr":"geri dönmek","pos":"verb","freq":250,"ex":"Ich komme um fünf zurück.","exTr":"Saat beşte geri dönüyorum.","unit":"zeit"}
+{"id":"zeit31","de":"der Tagesablauf","tr":"günlük rutin","pos":"noun","article":"der","plural":"die Tagesabläufe","freq":320,"ex":"Mein Tagesablauf ist immer gleich.","exTr":"Günlük rutinim hep aynı.","unit":"zeit"}

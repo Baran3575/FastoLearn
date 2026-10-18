@@ -1,0 +1,26 @@
+{"id":"berufe01","de":"der Beruf","tr":"meslek","pos":"noun","article":"der","plural":"die Berufe","freq":85,"ex":"Was sind Sie von Beruf?","exTr":"Mesleğiniz ne?","unit":"berufe"}
+{"id":"berufe02","de":"die Ärztin","tr":"doktor (kadın)","pos":"noun","article":"die","plural":"die Ärztinnen","freq":175,"ex":"Meine Tante ist Ärztin.","exTr":"Halam doktor.","unit":"berufe"}
+{"id":"berufe03","de":"der Ingenieur","tr":"mühendis","pos":"noun","article":"der","plural":"die Ingenieure","freq":230,"ex":"Mein Bruder ist Ingenieur.","exTr":"Kardeşim mühendis.","unit":"berufe"}
+{"id":"berufe04","de":"der Koch","tr":"aşçı","pos":"noun","article":"der","plural":"die Köche","freq":240,"ex":"Der Koch arbeitet im Restaurant.","exTr":"Aşçı restoranda çalışıyor.","unit":"berufe"}
+{"id":"berufe05","de":"der Polizist","tr":"polis","pos":"noun","article":"der","plural":"die Polizisten","freq":235,"ex":"Der Polizist hilft den Kindern.","exTr":"Polis çocuklara yardım ediyor.","unit":"berufe"}
+{"id":"berufe06","de":"der Verkäufer","tr":"satıcı","pos":"noun","article":"der","plural":"die Verkäufer","freq":250,"ex":"Der Verkäufer ist freundlich.","exTr":"Satıcı cana yakın.","unit":"berufe"}
+{"id":"berufe07","de":"der Fahrer","tr":"şoför","pos":"noun","article":"der","plural":"die Fahrer","freq":245,"ex":"Der Fahrer fährt den Bus.","exTr":"Şoför otobüsü sürüyor.","unit":"berufe"}
+{"id":"berufe08","de":"der Bäcker","tr":"fırıncı","pos":"noun","article":"der","plural":"die Bäcker","freq":280,"ex":"Der Bäcker macht das Brot.","exTr":"Fırıncı ekmeği yapar.","unit":"berufe"}
+{"id":"berufe09","de":"der Anwalt","tr":"avukat","pos":"noun","article":"der","plural":"die Anwälte","freq":270,"ex":"Der Anwalt arbeitet in einem Büro.","exTr":"Avukat bir ofiste çalışıyor.","unit":"berufe"}
+{"id":"berufe10","de":"der Student","tr":"üniversite öğrencisi","pos":"noun","article":"der","plural":"die Studenten","freq":130,"ex":"Mein Cousin ist Student.","exTr":"Kuzenim üniversite öğrencisi.","unit":"berufe"}
+{"id":"berufe11","de":"die Krankenschwester","tr":"hemşire","pos":"noun","article":"die","plural":"die Krankenschwestern","freq":290,"ex":"Die Krankenschwester ist sehr nett.","exTr":"Hemşire çok kibar.","unit":"berufe"}
+{"id":"berufe12","de":"Was bist du von Beruf?","tr":"Mesleğin ne?","pos":"phrase","freq":300,"ex":"Was bist du von Beruf, Ahmet?","exTr":"Mesleğin ne, Ahmet?","unit":"berufe"}
+{"id":"berufe13","de":"Es tut mir leid","tr":"özür dilerim, üzgünüm","pos":"phrase","freq":120,"ex":"Es tut mir leid, ich komme zu spät.","exTr":"Özür dilerim, geç kalıyorum.","unit":"berufe"}
+{"id":"berufe14","de":"kein Problem","tr":"sorun değil","pos":"phrase","freq":200,"ex":"Kein Problem, ich helfe dir.","exTr":"Sorun değil, sana yardım ederim.","unit":"berufe"}
+{"id":"berufe15","de":"gern","tr":"memnuniyetle, severek","pos":"adv","freq":150,"ex":"Ich helfe dir gern.","exTr":"Sana memnuniyetle yardım ederim.","unit":"berufe"}
+{"id":"berufe16","de":"vielleicht","tr":"belki","pos":"adv","freq":140,"ex":"Vielleicht komme ich morgen.","exTr":"Belki yarın gelirim.","unit":"berufe"}
+{"id":"berufe17","de":"natürlich","tr":"elbette","pos":"adv","freq":160,"ex":"Natürlich kannst du mitkommen.","exTr":"Elbette gelebilirsin.","unit":"berufe"}
+{"id":"berufe18","de":"toll","tr":"harika","pos":"adj","freq":175,"ex":"Das ist eine tolle Idee!","exTr":"Bu harika bir fikir!","unit":"berufe"}
+{"id":"berufe19","de":"super","tr":"süper","pos":"adj","freq":180,"ex":"Super, danke!","exTr":"Süper, teşekkürler!","unit":"berufe"}
+{"id":"berufe20","de":"schade","tr":"yazık","pos":"adj","freq":220,"ex":"Schade, dass du nicht kommst.","exTr":"Gelmemen yazık.","unit":"berufe"}
+{"id":"berufe21","de":"Viel Glück!","tr":"Bol şans!","pos":"phrase","freq":260,"ex":"Viel Glück bei der Prüfung!","exTr":"Sınavda bol şans!","unit":"berufe"}
+{"id":"berufe22","de":"Herzlichen Glückwunsch!","tr":"Tebrikler!","pos":"phrase","freq":280,"ex":"Herzlichen Glückwunsch zum Geburtstag!","exTr":"Doğum günün kutlu olsun!","unit":"berufe"}
+{"id":"berufe23","de":"Ich liebe dich","tr":"Seni seviyorum","pos":"phrase","freq":300,"ex":"Ich liebe dich, Mama.","exTr":"Seni seviyorum, anne.","unit":"berufe"}
+{"id":"berufe24","de":"Mach's gut!","tr":"Kendine iyi bak!","pos":"phrase","freq":310,"ex":"Mach's gut, bis morgen!","exTr":"Kendine iyi bak, yarın görüşürüz!","unit":"berufe"}
+{"id":"berufe25","de":"wie geht's","tr":"nasıl gidiyor","pos":"phrase","freq":130,"ex":"Hi, wie geht's?","exTr":"Selam, nasıl gidiyor?","unit":"berufe"}
+{"id":"berufe26","de":"Willkommen","tr":"hoş geldiniz","pos":"phrase","freq":240,"ex":"Willkommen in unserer Schule!","exTr":"Okulumuza hoş geldiniz!","unit":"berufe"}

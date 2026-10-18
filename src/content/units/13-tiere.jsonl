@@ -1,0 +1,14 @@
+{"id":"tiere01","de":"das Tier","tr":"hayvan","pos":"noun","article":"das","plural":"die Tiere","freq":98,"ex":"Wir haben ein Tier zu Hause.","exTr":"Evde bir hayvanımız var.","unit":"tiere"}
+{"id":"tiere02","de":"der Hund","tr":"köpek","pos":"noun","article":"der","plural":"die Hunde","freq":105,"ex":"Der Hund spielt im Garten.","exTr":"Köpek bahçede oynuyor.","unit":"tiere"}
+{"id":"tiere03","de":"die Katze","tr":"kedi","pos":"noun","article":"die","plural":"die Katzen","freq":110,"ex":"Die Katze schläft auf dem Sofa.","exTr":"Kedi kanepede uyuyor.","unit":"tiere"}
+{"id":"tiere04","de":"der Vogel","tr":"kuş","pos":"noun","article":"der","plural":"die Vögel","freq":165,"ex":"Der Vogel singt am Morgen.","exTr":"Kuş sabahları ötüyor.","unit":"tiere"}
+{"id":"tiere05","de":"das Pferd","tr":"at","pos":"noun","article":"das","plural":"die Pferde","freq":180,"ex":"Das Pferd läuft schnell.","exTr":"At hızlı koşuyor.","unit":"tiere"}
+{"id":"tiere06","de":"die Kuh","tr":"inek","pos":"noun","article":"die","plural":"die Kühe","freq":200,"ex":"Die Kuh gibt Milch.","exTr":"İnek süt verir.","unit":"tiere"}
+{"id":"tiere07","de":"das Schaf","tr":"koyun","pos":"noun","article":"das","plural":"die Schafe","freq":210,"ex":"Das Schaf ist weiß.","exTr":"Koyun beyaz.","unit":"tiere"}
+{"id":"tiere08","de":"das Huhn","tr":"tavuk","pos":"noun","article":"das","plural":"die Hühner","freq":195,"ex":"Das Huhn legt Eier.","exTr":"Tavuk yumurtlar.","unit":"tiere"}
+{"id":"tiere09","de":"der Affe","tr":"maymun","pos":"noun","article":"der","plural":"die Affen","freq":250,"ex":"Der Affe klettert schnell.","exTr":"Maymun hızlı tırmanıyor.","unit":"tiere"}
+{"id":"tiere10","de":"der Löwe","tr":"aslan","pos":"noun","article":"der","plural":"die Löwen","freq":240,"ex":"Der Löwe ist stark.","exTr":"Aslan güçlü.","unit":"tiere"}
+{"id":"tiere11","de":"der Elefant","tr":"fil","pos":"noun","article":"der","plural":"die Elefanten","freq":245,"ex":"Der Elefant ist sehr groß.","exTr":"Fil çok büyük.","unit":"tiere"}
+{"id":"tiere12","de":"die Maus","tr":"fare","pos":"noun","article":"die","plural":"die Mäuse","freq":230,"ex":"Die Katze fängt die Maus.","exTr":"Kedi fareyi yakalıyor.","unit":"tiere"}
+{"id":"tiere13","de":"die Schlange","tr":"yılan","pos":"noun","article":"die","plural":"die Schlangen","freq":300,"ex":"Die Schlange ist lang.","exTr":"Yılan uzun.","unit":"tiere"}
+{"id":"tiere14","de":"der Hase","tr":"tavşan","pos":"noun","article":"der","plural":"die Hasen","freq":290,"ex":"Der Hase läuft im Feld.","exTr":"Tavşan tarlada koşuyor.","unit":"tiere"}

@@ -1,0 +1,15 @@
+{"id":"wetter01","de":"das Wetter","tr":"hava durumu","pos":"noun","article":"das","plural":"die Wetter","freq":90,"ex":"Wie ist das Wetter heute?","exTr":"Bugün hava nasıl?","unit":"wetter"}
+{"id":"wetter02","de":"die Sonne","tr":"güneş","pos":"noun","article":"die","plural":"die Sonnen","freq":64,"ex":"Die Sonne scheint.","exTr":"Güneş parlıyor.","unit":"wetter"}
+{"id":"wetter03","de":"der Regen","tr":"yağmur","pos":"noun","article":"der","plural":"die Regen","freq":150,"ex":"Bei Regen bleiben wir zu Hause.","exTr":"Yağmurda evde kalırız.","unit":"wetter"}
+{"id":"wetter04","de":"der Schnee","tr":"kar","pos":"noun","article":"der","plural":"die Schnee","freq":160,"ex":"Im Winter gibt es Schnee.","exTr":"Kışın kar yağar.","unit":"wetter"}
+{"id":"wetter05","de":"der Wind","tr":"rüzgâr","pos":"noun","article":"der","plural":"die Winde","freq":175,"ex":"Der Wind ist heute stark.","exTr":"Bugün rüzgâr güçlü.","unit":"wetter"}
+{"id":"wetter06","de":"die Wolke","tr":"bulut","pos":"noun","article":"die","plural":"die Wolken","freq":200,"ex":"Am Himmel sind viele Wolken.","exTr":"Gökyüzünde çok bulut var.","unit":"wetter"}
+{"id":"wetter07","de":"warm","tr":"sıcak, ılık","pos":"adj","freq":67,"ex":"Heute ist es warm.","exTr":"Bugün hava sıcak.","unit":"wetter"}
+{"id":"wetter08","de":"kalt","tr":"soğuk","pos":"adj","freq":66,"ex":"Im Winter ist es kalt.","exTr":"Kışın hava soğuk.","unit":"wetter"}
+{"id":"wetter09","de":"heiß","tr":"çok sıcak","pos":"adj","freq":130,"ex":"Der Tee ist heiß.","exTr":"Çay çok sıcak.","unit":"wetter"}
+{"id":"wetter10","de":"der Frühling","tr":"ilkbahar","pos":"noun","article":"der","plural":"die Frühlinge","freq":190,"ex":"Im Frühling blühen die Blumen.","exTr":"İlkbaharda çiçekler açar.","unit":"wetter"}
+{"id":"wetter11","de":"der Sommer","tr":"yaz","pos":"noun","article":"der","plural":"die Sommer","freq":95,"ex":"Im Sommer schwimmen wir.","exTr":"Yazın yüzeriz.","unit":"wetter"}
+{"id":"wetter12","de":"der Herbst","tr":"sonbahar","pos":"noun","article":"der","plural":"die Herbste","freq":195,"ex":"Im Herbst ist es kühl.","exTr":"Sonbaharda hava serin.","unit":"wetter"}
+{"id":"wetter13","de":"der Winter","tr":"kış","pos":"noun","article":"der","plural":"die Winter","freq":96,"ex":"Im Winter schneit es.","exTr":"Kışın kar yağar.","unit":"wetter"}
+{"id":"wetter14","de":"regnen","tr":"yağmur yağmak","pos":"verb","freq":220,"ex":"Es regnet heute.","exTr":"Bugün yağmur yağıyor.","unit":"wetter"}
+{"id":"wetter15","de":"schneien","tr":"kar yağmak","pos":"verb","freq":260,"ex":"Es schneit draußen.","exTr":"Dışarıda kar yağıyor.","unit":"wetter"}

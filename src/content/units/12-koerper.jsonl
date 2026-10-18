@@ -1,0 +1,15 @@
+{"id":"koerper01","de":"der Körper","tr":"vücut","pos":"noun","article":"der","plural":"die Körper","freq":130,"ex":"Der Körper braucht Wasser.","exTr":"Vücut suya ihtiyaç duyar.","unit":"koerper"}
+{"id":"koerper02","de":"der Kopf","tr":"baş, kafa","pos":"noun","article":"der","plural":"die Köpfe","freq":68,"ex":"Mein Kopf tut weh.","exTr":"Başım ağrıyor.","unit":"koerper"}
+{"id":"koerper03","de":"das Auge","tr":"göz","pos":"noun","article":"das","plural":"die Augen","freq":88,"ex":"Sie hat blaue Augen.","exTr":"Onun mavi gözleri var.","unit":"koerper"}
+{"id":"koerper04","de":"die Nase","tr":"burun","pos":"noun","article":"die","plural":"die Nasen","freq":200,"ex":"Meine Nase ist klein.","exTr":"Burnum küçük.","unit":"koerper"}
+{"id":"koerper05","de":"der Mund","tr":"ağız","pos":"noun","article":"der","plural":"die Münder","freq":195,"ex":"Mach den Mund auf!","exTr":"Ağzını aç!","unit":"koerper"}
+{"id":"koerper06","de":"das Ohr","tr":"kulak","pos":"noun","article":"das","plural":"die Ohren","freq":190,"ex":"Mein Ohr tut weh.","exTr":"Kulağım ağrıyor.","unit":"koerper"}
+{"id":"koerper07","de":"die Hand","tr":"el","pos":"noun","article":"die","plural":"die Hände","freq":50,"ex":"Wasch dir die Hände!","exTr":"Ellerini yıka!","unit":"koerper"}
+{"id":"koerper08","de":"der Arm","tr":"kol","pos":"noun","article":"der","plural":"die Arme","freq":120,"ex":"Mein Arm ist lang.","exTr":"Kolum uzun.","unit":"koerper"}
+{"id":"koerper09","de":"das Bein","tr":"bacak","pos":"noun","article":"das","plural":"die Beine","freq":140,"ex":"Mein Bein tut weh.","exTr":"Bacağım ağrıyor.","unit":"koerper"}
+{"id":"koerper10","de":"der Fuß","tr":"ayak","pos":"noun","article":"der","plural":"die Füße","freq":100,"ex":"Meine Füße sind kalt.","exTr":"Ayaklarım üşüdü.","unit":"koerper"}
+{"id":"koerper11","de":"der Zahn","tr":"diş","pos":"noun","article":"der","plural":"die Zähne","freq":175,"ex":"Ich putze meine Zähne.","exTr":"Dişlerimi fırçalıyorum.","unit":"koerper"}
+{"id":"koerper12","de":"krank","tr":"hasta","pos":"adj","freq":125,"ex":"Ich bin heute krank.","exTr":"Bugün hastayım.","unit":"koerper"}
+{"id":"koerper13","de":"gesund","tr":"sağlıklı","pos":"adj","freq":110,"ex":"Obst ist gesund.","exTr":"Meyve sağlıklıdır.","unit":"koerper"}
+{"id":"koerper14","de":"der Arzt","tr":"doktor (erkek)","pos":"noun","article":"der","plural":"die Ärzte","freq":135,"ex":"Ich gehe zum Arzt.","exTr":"Doktora gidiyorum.","unit":"koerper"}
+{"id":"koerper15","de":"das Krankenhaus","tr":"hastane","pos":"noun","article":"das","plural":"die Krankenhäuser","freq":180,"ex":"Das Krankenhaus ist in der Stadtmitte.","exTr":"Hastane şehir merkezinde.","unit":"koerper"}

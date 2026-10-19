@@ -19,22 +19,24 @@ export function Ring({
   return (
     <div className="ring" style={{ width: size, height: size }}>
       <svg width={size} height={size} aria-hidden>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.09)" strokeWidth={stroke} />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          fill="none"
-          stroke="url(#ringgrad)"
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          strokeDasharray={`${c * clamped} ${c}`}
-          style={{ transition: 'stroke-dasharray 0.6s cubic-bezier(0.22,1,0.36,1)' }}
-        />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e5e5e5" strokeWidth={stroke} />
+        {clamped > 0 ? (
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke="url(#ringgrad)"
+            strokeWidth={stroke}
+            strokeLinecap="round"
+            strokeDasharray={`${c * clamped} ${c}`}
+            style={{ transition: 'stroke-dasharray 0.6s cubic-bezier(0.22,1,0.36,1)' }}
+          />
+        ) : null}
         <defs>
           <linearGradient id="ringgrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#7c9cff" />
-            <stop offset="100%" stopColor="#b58cff" />
+            <stop offset="0%" stopColor="#58cc02" />
+            <stop offset="100%" stopColor="#89e219" />
           </linearGradient>
         </defs>
       </svg>
@@ -90,7 +92,7 @@ export function Field({ label, hint, children }: { label: string; hint?: string;
 export function Sparkline({
   points,
   height = 54,
-  color = '#7c9cff',
+  color = '#58cc02',
   max = 1,
   baseline,
 }: {
@@ -108,7 +110,7 @@ export function Sparkline({
   return (
     <svg className="spark" viewBox={`0 0 ${w} ${height}`} preserveAspectRatio="none" aria-hidden>
       {baseline != null ? (
-        <line x1="0" x2={w} y1={y(baseline)} y2={y(baseline)} stroke="rgba(255,255,255,0.16)" strokeDasharray="3 3" strokeWidth="0.6" />
+        <line x1="0" x2={w} y1={y(baseline)} y2={y(baseline)} stroke="rgba(0,0,0,0.14)" strokeDasharray="3 3" strokeWidth="0.6" />
       ) : null}
       <path d={path} fill="none" stroke={color} strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
     </svg>
@@ -127,12 +129,12 @@ export function CalibrationChart({
   const maxN = Math.max(1, ...bins.map((b) => b.n))
   return (
     <svg width={size} height={size} aria-label="Kalibrasyon grafiği">
-      <rect x={pad} y={pad} width={size - pad * 2} height={size - pad * 2} fill="rgba(255,255,255,0.03)" rx="8" />
-      <line x1={pad} y1={size - pad} x2={size - pad} y2={pad} stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" strokeWidth="0.8" />
-      <text x={size / 2} y={size - 2} fontSize="8" fill="#6f7b9c" textAnchor="middle">
+      <rect x={pad} y={pad} width={size - pad * 2} height={size - pad * 2} fill="#f7f7f7" rx="10" />
+      <line x1={pad} y1={size - pad} x2={size - pad} y2={pad} stroke="rgba(0,0,0,0.16)" strokeDasharray="3 3" strokeWidth="0.8" />
+      <text x={size / 2} y={size - 2} fontSize="8" fill="#afafaf" textAnchor="middle">
         tahmin
       </text>
-      <text x={6} y={size / 2} fontSize="8" fill="#6f7b9c" transform={`rotate(-90 6 ${size / 2})`} textAnchor="middle">
+      <text x={6} y={size / 2} fontSize="8" fill="#afafaf" transform={`rotate(-90 6 ${size / 2})`} textAnchor="middle">
         gerçek
       </text>
       {bins
@@ -143,10 +145,10 @@ export function CalibrationChart({
             cx={scale(b.predicted)}
             cy={size - scale(b.actual)}
             r={2.5 + 5 * (b.n / maxN)}
-            fill="#7c9cff"
-            fillOpacity="0.5"
-            stroke="#a9bcff"
-            strokeWidth="0.8"
+            fill="#1cb0f6"
+            fillOpacity="0.35"
+            stroke="#1899d6"
+            strokeWidth="1"
           />
         ))}
     </svg>

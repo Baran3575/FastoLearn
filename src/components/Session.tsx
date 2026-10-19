@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { cancelSpeech, speak } from '../audio'
 import { RATING_LABELS, humanInterval, type ExerciseView, type SessionSummary, type StudySession, type SubmitResult } from '../session'
 import { EXERCISE_LABELS } from '../engine/types'
+import { sfxCorrect, sfxPop, sfxWrong } from '../sfx'
+import { store } from '../state/store'
 import {
   IconBolt,
   IconBulb,
@@ -51,6 +53,7 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
   const [hintLevel, setHintLevel] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const advanceRef = useRef<() => void>(() => {})
+  const nextCardRef = useRef<() => void>(() => {})
   const inited = useRef(false)
 
   const total = session.total
@@ -97,6 +100,12 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view?.animationKey])
 
+  // Tanıtım kartındaki kelime açılır açılmaz okunur (Duolingo hissi).
+  useEffect(() => {
+    if (speechOk && intro?.item) play(intro.item.de)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [intro?.item.id, speechOk])
+
   useEffect(() => {
     if (view && !feedback && !view.choices.length && !view.tiles.length) inputRef.current?.focus()
   }, [view, feedback])
@@ -117,6 +126,11 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     const given = view.tiles.length ? assembled : view.choices.length ? selected : input
     const result = session.submit(given)
     if (!result) return
+    setFeedback(result)
+    if (store.activeUser().settings.soundEnabled) {
+      if (result.correct) sfxCorrect()
+      else sfxWrong()
+    }
     onGraded()
   }, [view, feedback, assembled, selected, input, session, onGraded])
 
@@ -129,6 +143,13 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (inIntro) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          nextCardRef.current()
+        }
+        return
+      }
       if (e.key === 'Enter') {
         e.preventDefault()
         if (feedback) advanceRef.current()
@@ -146,13 +167,14 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [feedback, canSubmit, submit, view, play])
+  }, [feedback, canSubmit, submit, view, play, inIntro])
 
   /* ---------------------------------------------------------------- */
   /* tanıtım kartları                                                  */
   /* ---------------------------------------------------------------- */
 
   const nextCard = () => {
+    if (store.activeUser().settings.soundEnabled) sfxPop()
     const more = session.nextIntro()
     if (more) setIntro(session.currentIntro)
     else {
@@ -161,12 +183,14 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     }
   }
 
+  nextCardRef.current = nextCard
+
   if (inIntro && intro) {
     const item = intro.item
     const UnitIcon = unitIcon(item.unit)
     const PosIcon = posIcon(item.pos)
     return (
-      <div>
+      <div className="intro-wrap">
         <div className="session-head">
           <button className="icon-btn" aria-label="Çıkış" onClick={() => { cancelSpeech(); onExit() }}>
             <IconClose size={18} />
@@ -183,7 +207,7 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
 
         <div className="wordcard" key={item.id}>
           <div className="wordcard-top">
-            <span className="chip">
+            <span className="chip pos">
               <PosIcon size={14} />
               {POS_LABELS[item.pos] ?? item.pos}
             </span>
@@ -242,6 +266,9 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
             {intro.index + 1 >= intro.total ? 'Alıştırmalara geç' : 'Devam'}
             <IconChevron />
           </button>
+          <div className="kbd-hint">
+            <kbd>Enter</kbd> devam · <kbd>Boşluk</kbd> dinle
+          </div>
         </div>
       </div>
     )
@@ -266,6 +293,7 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     )
   }
 
+  const PosIcon = posIcon(view.item.pos)
   const askedLabel = view.inputField === 'tr' ? 'Türkçe' : view.inputField === 'article' ? 'Artikel' : 'Almanca'
   const segCount = Math.max(1, Math.min(total, 24))
   const segFilled = Math.round((session.answered / Math.max(1, total)) * segCount)
@@ -289,6 +317,10 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
       <div className="exercise" key={view.animationKey}>
         <div className="exercise-top">
           <span className="chip accent">{EXERCISE_LABELS[view.kind]}</span>
+          <span className="chip muted pos">
+            <PosIcon size={13} />
+            {POS_LABELS[view.item.pos] ?? view.item.pos}
+          </span>
           {view.audioText ? (
             <button
               className={`speaker inline${playing ? ' playing' : ''}`}
@@ -418,28 +450,45 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
 
           {!feedback.correct ? (
             <div className="feedback-answer">
-              <span className="de">{feedback.correctAnswer}</span>
-              <span className="small muted">{view.item.tr}</span>
-            </div>
-          ) : null}
-
-          <div className="feedback-example">
-            <div className="row between" style={{ alignItems: 'flex-start' }}>
-              <div>
-                <div className={`de${view.article ? ` art-${view.article}` : ''}`} style={{ fontSize: 16 }}>
-                  {view.item.de}
+              <div className="row between" style={{ alignItems: 'flex-start', gap: 10 }}>
+                <div>
+                  <span className={`de${view.article ? ` art-${view.article}` : ''}`}>{feedback.correctAnswer}</span>
+                  <span className="small muted" style={{ display: 'block', marginTop: 2 }}>
+                    {view.item.tr}
+                  </span>
                 </div>
-                <div className="small muted">{view.item.tr}</div>
-              </div>
-              <div className="row" style={{ gap: 6 }}>
-                {view.item.plural ? <span className="pill">{view.item.plural}</span> : null}
                 {speechOk ? (
-                  <button className="icon-btn sm" aria-label="Kelimeyi dinle" onClick={() => play(view.item.de)}>
+                  <button
+                    className="icon-btn sm"
+                    aria-label="Doğru cevabı dinle"
+                    onClick={() => play(feedback.correctAnswer)}
+                  >
                     <IconVolume size={16} />
                   </button>
                 ) : null}
               </div>
             </div>
+          ) : null}
+
+          <div className="feedback-example">
+            {feedback.correct ? (
+              <div className="row between" style={{ alignItems: 'flex-start' }}>
+                <div>
+                  <div className={`de${view.article ? ` art-${view.article}` : ''}`} style={{ fontSize: 16 }}>
+                    {view.item.de}
+                  </div>
+                  <div className="small muted">{view.item.tr}</div>
+                </div>
+                <div className="row" style={{ gap: 6 }}>
+                  {view.item.plural ? <span className="pill">{view.item.plural}</span> : null}
+                  {speechOk ? (
+                    <button className="icon-btn sm" aria-label="Kelimeyi dinle" onClick={() => play(view.item.de)}>
+                      <IconVolume size={16} />
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
             {view.item.ex ? (
               <div style={{ marginTop: 10 }}>
                 <div className="small de">{view.item.ex}</div>
@@ -490,6 +539,21 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
           <button className="btn primary block lg" disabled={!canSubmit} onClick={submit}>
             {view.tiles.length || view.choices.length ? 'Kontrol et' : `Kontrol et (${askedLabel})`}
           </button>
+        )}
+        {!feedback && view.choices.length ? (
+          <div className="kbd-hint">
+            <kbd>Enter</kbd> kontrol et · <kbd>1</kbd>–<kbd>{Math.min(4, view.choices.length)}</kbd> seç
+          </div>
+        ) : (
+          <div className="kbd-hint">
+            <kbd>Enter</kbd> {feedback ? 'devam' : 'kontrol et'}
+            {view.audioText ? (
+              <>
+                {' · '}
+                <kbd>Boşluk</kbd> dinle
+              </>
+            ) : null}
+          </div>
         )}
       </div>
     </div>

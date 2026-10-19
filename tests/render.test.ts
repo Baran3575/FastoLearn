@@ -22,22 +22,27 @@ describe('ekran duman testi', () => {
     const html = renderToStaticMarkup(
       createElement(HomeScreen, { onStart: () => {}, onOpenUnits: () => {}, onOpenEngine: () => {} }),
     )
-    expect(html).toContain('Öğrenmeye başla')
+    expect(html).toContain('continue-card')
     expect(html).toContain('Sıradaki bölüm')
     expect(html).toContain('Hallo!')
+    expect(html).toContain('günlük hedef')
   })
 
-  it('Müfredat ekranı 2 ünite ve 10+10 bölüm gösterir', () => {
+  it('Müfredat ekranı 2 ünite ve 10+10 bölümü yol olarak gösterir', () => {
     const html = renderToStaticMarkup(createElement(UnitsScreen, { onStart: () => {} }))
     expect(html).toContain('Erste Schritte')
     expect(html).toContain('Mein Alltag')
     expect(html).toContain('10 bölüm')
-    expect(html.match(/unit-card/g)?.length).toBeGreaterThanOrEqual(20)
+    expect(html.match(/path-node/g)?.length).toBeGreaterThanOrEqual(20)
+    // A0 başlangıcı: ilk bölüm açık, sonrakiler kilitli
+    expect(html).toContain('Hallo!')
+    expect(html).toContain('Kilitli')
   })
 
   it('Motor ekranı basit görünümde sade dille anlatır', () => {
     const html = renderToStaticMarkup(createElement(EnginePanel))
-    expect(html).toContain('Sistem seni tanıyor mu?')
+    expect(html).toContain('Seni tanıyor mu?')
+    expect(html).toContain('Tekrar takvimi')
     expect(html).toContain('RWKV-Instant')
   })
 

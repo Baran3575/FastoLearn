@@ -157,6 +157,8 @@ export interface UserState {
     newPerSession: number
     /** Sıfırdan başlayan sıralı müfredat (bölümleri sırayla açar) */
     curriculum: boolean
+    /** Doğru/yanlış geri bildirim sesleri */
+    soundEnabled: boolean
   }
 }
 
@@ -166,6 +168,7 @@ export const DEFAULT_SETTINGS: UserState['settings'] = {
   showPredictions: true,
   newPerSession: 6,
   curriculum: true,
+  soundEnabled: true,
 }
 
 export const emptyCardProgress = (cardId: string, now: number): CardProgress => ({

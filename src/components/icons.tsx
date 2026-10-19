@@ -462,6 +462,29 @@ export const IconChart: IconComponent = (p) => (
   </Glyph>
 )
 
+export const IconLock: IconComponent = (p) => (
+  <Glyph {...p}>
+    <rect x="5" y="10.6" width="14" height="9.4" rx="2.6" />
+    <path d="M8.2 10.6V8a3.8 3.8 0 0 1 7.6 0v2.6" />
+    <circle cx="12" cy="15.3" r="1.1" fill="currentColor" stroke="none" />
+    <path d="M12 16.4v1.6" />
+  </Glyph>
+)
+
+/** Dost canlısı maskot (baykuş) — boş durum ve kutlamalarda kullanılır. */
+export const IconOwl: IconComponent = (p) => (
+  <Glyph {...p} strokeWidth={1.6}>
+    <path d="M5.2 8.2C5.2 5.3 8.2 3 12 3s6.8 2.3 6.8 5.2v6.1c0 3.8-3 6.7-6.8 6.7s-6.8-2.9-6.8-6.7V8.2Z" />
+    <path d="M5.4 5.2 4 3.6M18.6 5.2 20 3.6" />
+    <circle cx="9.1" cy="10.4" r="2.15" />
+    <circle cx="14.9" cy="10.4" r="2.15" />
+    <circle cx="9.1" cy="10.4" r="0.85" fill="currentColor" stroke="none" />
+    <circle cx="14.9" cy="10.4" r="0.85" fill="currentColor" stroke="none" />
+    <path d="m12 12.6-1.4 1.7h2.8L12 12.6Z" fill="currentColor" stroke="none" />
+    <path d="M8.4 17.6c1.1.9 2.3 1.3 3.6 1.3s2.5-.4 3.6-1.3" />
+  </Glyph>
+)
+
 /* --- bölüm → simge eşlemesi (20 bölüm) --------------------------------- */
 
 export const SECTION_ICONS: Record<string, IconComponent> = {

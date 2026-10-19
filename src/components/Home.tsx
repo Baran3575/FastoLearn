@@ -7,12 +7,13 @@ import {
   IconClock,
   IconFlame,
   IconLayers,
+  IconOwl,
   IconPlay,
   IconStar,
   IconTarget,
   unitIcon,
 } from './icons'
-import { Bar, Ring, Sparkline, Stat } from './ui'
+import { Bar, Ring, Sparkline } from './ui'
 
 interface Props {
   onStart: (kind: 'mixed' | 'review' | 'lesson', unitId?: string) => void
@@ -42,146 +43,133 @@ export function HomeScreen({ onStart, onOpenUnits, onOpenEngine }: Props) {
     last14.push(user.daily[dayKey(Date.now() - i * 86_400_000)]?.reviews ?? 0)
   }
   const maxDay = Math.max(1, ...last14)
+  const total14 = last14.reduce((a, b) => a + b, 0)
 
   const nextUp = engine.plan({ limit: 4 })
-  const weakest = report.weakestThemes[0]
-  const weakestUnit = weakest ? SECTION_BY_ID[weakest.unit] : undefined
-  const learnedShare = cards.total ? (cards.young + cards.mature) / cards.total : 0
+  const weak = report.weakestThemes[0]
+  const weakSection = weak ? SECTION_BY_ID[weak.unit] : undefined
+
   const touched = cards.total - cards.fresh
   const goalLeft = Math.max(0, today.goal - today.reviews)
+  const goalDone = today.goal > 0 ? Math.min(1, today.reviews / today.goal) : 0
 
-  // Sıradaki bölüm: hiç görülmemiş kelimesi olan en erken bölüm
+  // Sıradaki bölüm: hiç görülmemiş kelimesi olan en erken bölüm (A0 sırası).
   const nextSection = SECTIONS.find((s) =>
     ITEMS.some((i) => i.unit === s.id && (user.cards[i.id]?.reps ?? 0) === 0),
   )
 
+  const message =
+    touched === 0
+      ? 'Sıfırdan başlıyoruz. İlk ders yalnızca birkaç temel kelime sürüyor — hazır olduğunda başla.'
+      : goalLeft > 0
+        ? `Günlük hedefe ${goalLeft} cevap kaldı. Kaldığın yerden devam edebilirsin.`
+        : 'Bugünkü hedefini tamamladın. İstersen birkaç tekrar daha yapabilirsin.'
+
   return (
     <div className="stack">
-      <section className="hero">
-        <div className="hero-main">
-          <div className="hero-eyebrow">{greeting(Date.now())}</div>
-          <h1>Merhaba {user.name.split(' ')[0]}</h1>
-          <p>
-            {goalLeft > 0
-              ? `Günlük hedefe ${goalLeft} cevap kaldı. ${touched > 0 ? 'Kaldığın yerden devam et.' : 'Hazırsan başlayalım.'}`
-              : 'Bugünkü hedefini tamamladın. İstersen biraz daha tekrar yapabilirsin.'}
-          </p>
-          <div className="hero-chips">
-            <span className="chip">
-              <IconFlame size={14} />
-              {user.streak} gün seri
-            </span>
-            <span className="chip">
-              <IconBolt size={14} />
-              {user.xp} XP
-            </span>
-            <span className="chip">
-              <IconLayers size={14} />
-              {touched}/{ITEMS.length} kelime
-            </span>
-          </div>
+      <section className="home-hero">
+        <div className="home-hero-copy">
+          <span className="eyebrow">{greeting(Date.now())}</span>
+          <h1>
+            {user.name.split(' ')[0]}, hazır mısın?
+          </h1>
+          <p>{message}</p>
         </div>
-        <Ring value={today.goal ? today.reviews / today.goal : 0} size={104}>
-          <b>
-            {today.reviews}
-            <span className="faint" style={{ fontSize: 15 }}>
-              /{today.goal}
-            </span>
-          </b>
-          <small>günlük hedef</small>
-        </Ring>
+        <div className="home-hero-side">
+          <Ring value={goalDone} size={94} stroke={9}>
+            <b>
+              {today.reviews}
+              <span className="faint" style={{ fontSize: 13 }}>
+                /{today.goal}
+              </span>
+            </b>
+            <small>günlük hedef</small>
+          </Ring>
+        </div>
       </section>
 
-      <div className="cta-grid">
-        <button className="cta" onClick={() => onStart('mixed')}>
-          <span className="cta-icon primary">
-            <IconPlay size={22} />
-          </span>
-          <span className="cta-body">
-            <b>Öğrenmeye başla</b>
-            <small>
-              {nextUp.filter((p) => p.isNew).length > 0
-                ? `${nextUp.filter((p) => p.isNew).length} yeni kelime + tekrar`
-                : 'Kişiselleştirilmiş tur'}
-            </small>
-          </span>
-          <IconChevronRight size={18} />
-        </button>
+      <button
+        className="continue-card"
+        onClick={() => (nextSection ? onStart('lesson', nextSection.id) : onStart('mixed'))}
+      >
+        <span className="continue-icon">
+          {nextSection ? <IconPlay size={24} /> : <IconClock size={24} />}
+        </span>
+        <span className="continue-copy">
+          <small>
+            {nextSection ? `Sıradaki bölüm · ${nextSection.order}/${SECTIONS.length}` : 'Günlük tekrar'}
+          </small>
+          <b>{nextSection ? nextSection.title : 'Kişiselleştirilmiş tur'}</b>
+          <span>{nextSection ? nextSection.subtitle : 'Motorun senin için seçtiği kelimeler'}</span>
+        </span>
+        <span className="continue-go">
+          Devam
+          <IconChevronRight size={16} />
+        </span>
+      </button>
 
-        <button className="cta" disabled={cards.dueNow === 0} onClick={() => onStart('review')}>
-          <span className="cta-icon">
-            <IconClock size={20} />
+      <div className="stat-cards">
+        <div className="mini-stat flame">
+          <IconFlame size={17} />
+          <b>{user.streak}</b>
+          <span>gün seri</span>
+        </div>
+        <div className="mini-stat xp">
+          <IconBolt size={17} />
+          <b>{user.xp}</b>
+          <span>toplam XP</span>
+        </div>
+        <div className="mini-stat words">
+          <IconLayers size={17} />
+          <b>
+            {touched}
+            <span style={{ fontSize: 13, color: 'var(--faint)' }}>/{ITEMS.length}</span>
+          </b>
+          <span>kelime</span>
+        </div>
+      </div>
+
+      <div className="action-grid">
+        <button className="action-card blue" disabled={cards.dueNow === 0} onClick={() => onStart('review')}>
+          <span className="action-icon">
+            <IconClock size={19} />
           </span>
-          <span className="cta-body">
+          <span style={{ minWidth: 0 }}>
             <b>Tekrar</b>
             <small>{cards.dueNow > 0 ? `${cards.dueNow} kelimenin vakti geldi` : 'Şu an tekrar yok'}</small>
           </span>
-          <IconChevronRight size={18} />
         </button>
 
-        <button className="cta" onClick={onOpenUnits}>
-          <span className="cta-icon">
-            <IconTarget size={20} />
+        <button className="action-card yellow" onClick={onOpenUnits}>
+          <span className="action-icon">
+            <IconTarget size={19} />
           </span>
-          <span className="cta-body">
+          <span style={{ minWidth: 0 }}>
             <b>Müfredat</b>
             <small>
               {UNITS.length} ünite · {SECTIONS.length} bölüm
             </small>
           </span>
-          <IconChevronRight size={18} />
         </button>
-      </div>
-
-      {nextSection ? (
-        <div className="card next-section" style={{ ['--tint' as string]: SECTION_BY_ID[nextSection.id]?.unitId === 'temel' ? '#7c9cff' : '#b58cff' }}>
-          <div className="row between" style={{ alignItems: 'flex-start' }}>
-            <div className="row" style={{ gap: 12 }}>
-              <div className="next-icon">
-                {(() => {
-                  const Icon = unitIcon(nextSection.id)
-                  return <Icon size={18} />
-                })()}
-              </div>
-              <div>
-                <div className="tiny faint">
-                  Sıradaki bölüm · {nextSection.order}/{SECTIONS.length}
-                </div>
-                <div className="de" style={{ fontSize: 17 }}>
-                  {nextSection.title}
-                </div>
-                <div className="tiny faint">{nextSection.subtitle}</div>
-              </div>
-            </div>
-            <button className="btn primary" onClick={() => onStart('lesson', nextSection.id)}>
-              Başla
-            </button>
-          </div>
-          <div className="tiny faint" style={{ marginTop: 10 }}>
-            {nextSection.description}
-          </div>
-        </div>
-      ) : null}
-
-      <div className="card">
-        <div className="stat-row">
-          <Stat label="Tekrar sırası" value={cards.dueNow} hint="vadesi geldi" />
-          <Stat label="Kalıcı" value={`${Math.round(learnedShare * 100)}%`} hint={`${cards.mature} kelime`} />
-          <Stat label="Doğruluk" value={`${Math.round(overall.accuracy * 100)}%`} hint={`${overall.reviews} cevap`} />
-        </div>
       </div>
 
       <div className="card">
         <div className="row between">
           <h3 className="card-title" style={{ margin: 0 }}>
-            Son 14 gün
+            <IconTarget size={13} /> Bugünün planı
           </h3>
           <span className="tiny faint">
-            {last14.reduce((a, b) => a + b, 0)} cevap · en iyi gün {maxDay}
+            %{Math.round(goalDone * 100)}
           </span>
         </div>
-        <div style={{ marginTop: 12 }}>
-          <Sparkline points={last14} max={maxDay} height={64} />
+        <Bar value={goalDone} good={goalDone >= 1} />
+        <div className="row between" style={{ marginTop: 10 }}>
+          <span className="tiny faint">
+            {today.reviews}/{today.goal} cevap
+          </span>
+          <span className="tiny faint">
+            {cards.dueNow} tekrar · {Math.min(cards.fresh, 6)} yeni kelime
+          </span>
         </div>
       </div>
 
@@ -194,7 +182,7 @@ export function HomeScreen({ onStart, onOpenUnits, onOpenEngine }: Props) {
             motoru gör
           </button>
         </div>
-        <div className="stack" style={{ marginTop: 12, gap: 8 }}>
+        <div className="word-list" style={{ marginTop: 10 }}>
           {nextUp.map((p) => {
             const Icon = unitIcon(p.item.unit)
             return (
@@ -219,38 +207,67 @@ export function HomeScreen({ onStart, onOpenUnits, onOpenEngine }: Props) {
           })}
           {!nextUp.length ? <div className="tiny faint">Şu an için plan boş.</div> : null}
         </div>
-        <div className="tiny faint" style={{ marginTop: 12 }}>
+        <div className="tiny faint" style={{ marginTop: 10, lineHeight: 1.5 }}>
           Yüzdeler, cevabı doğru verme olasılığına dair motorun o anki tahminidir (RWKV-Instant + FSRS-7).
         </div>
       </div>
 
-      {weakestUnit ? (
+      <div className="card">
+        <div className="row between">
+          <h3 className="card-title" style={{ margin: 0 }}>
+            Son 14 gün
+          </h3>
+          <span className="tiny faint">
+            {total14} cevap · en iyi gün {maxDay}
+          </span>
+        </div>
+        <div style={{ marginTop: 12 }}>
+          <Sparkline points={last14} max={maxDay} height={64} />
+        </div>
+      </div>
+
+      {weakSection ? (
         <div className="card">
-          <h3 className="card-title">Zayıf halka</h3>
+          <h3 className="card-title">Biraz tekrar isteyen</h3>
           <div className="row between">
             <div className="row" style={{ gap: 12 }}>
-              <div className="next-icon">{(() => {
-                const Icon = unitIcon(weakestUnit.id)
-                return <Icon size={17} />
-              })()}</div>
+              <div className="next-icon">
+                {(() => {
+                  const Icon = unitIcon(weakSection.id)
+                  return <Icon size={17} />
+                })()}
+              </div>
               <div>
                 <div className="de" style={{ fontSize: 16 }}>
-                  {weakestUnit.title}
+                  {weakSection.title}
                 </div>
                 <div className="tiny faint">
-                  {weakestUnit.subtitle} · {weakest!.n} cevapta %{Math.round(weakest!.accuracy * 100)} doğru
+                  {weakSection.subtitle} · {weak!.n} cevapta %{Math.round(weak!.accuracy * 100)} doğru
                 </div>
               </div>
             </div>
-            <button className="btn" onClick={() => onStart('lesson', weakestUnit.id)}>
+            <button className="btn" onClick={() => onStart('lesson', weakSection.id)}>
               Çalış
             </button>
           </div>
           <div style={{ marginTop: 12 }}>
-            <Bar value={weakest!.accuracy} thin />
+            <Bar value={weak!.accuracy} thin />
           </div>
         </div>
       ) : null}
+
+      <div className="card tight mascot-card">
+        <div className="mascot">
+          <IconOwl size={34} />
+        </div>
+        <div>
+          <b style={{ fontSize: 14 }}>Küçük adımlar, büyük fark.</b>
+          <div className="tiny faint" style={{ marginTop: 2, lineHeight: 1.5 }}>
+            Günde 10 cevap bile bir ayda {Math.max(1, overall.reviews > 0 ? 300 : 300)} kelimeye yakın tekrar
+            demek. Seriyi kırmamaya çalış — motor gerisini halleder.
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,7 @@
+import { useEffect } from 'react'
 import { useStore } from '../state/store'
 import type { SessionSummary } from '../session'
+import { sfxComplete } from '../sfx'
 import { IconBolt, IconCheck, IconClock, IconFlame, IconHome, IconLayers, IconRepeat, IconSparkles, IconTarget } from './icons'
 import { Confetti, Ring, Stat, formatDuration } from './ui'
 
@@ -16,6 +18,10 @@ export function SummaryScreen({ summary, onHome, onAgain }: Props) {
   const secPerItem = summary.reviews ? summary.avgMs / 1000 : 0
   const headline =
     summary.accuracy >= 0.9 ? 'Harika iş!' : summary.accuracy >= 0.7 ? 'İyi gidiyorsun' : 'Devam et'
+
+  useEffect(() => {
+    if (celebrate && store.activeUser().settings.soundEnabled) sfxComplete()
+  }, [celebrate, store])
 
   return (
     <div className="stack">

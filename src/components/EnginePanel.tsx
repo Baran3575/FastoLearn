@@ -1,7 +1,16 @@
 import { useState } from 'react'
-import { ITEM_BY_ID, SECTION_BY_ID } from '../content'
+import { ITEM_BY_ID, ITEMS, SECTIONS, SECTION_BY_ID } from '../content'
 import type { AccuracyModelReport, CardStats, PersonalizationReport } from '../engine/engine'
 import { DEFAULT_PARAMETERS } from '../engine/fsrs7'
+import {
+  dueForecast,
+  recallCurve,
+  rollingSeries,
+  sectionMastery,
+  type ForecastBucket,
+  type MasteryRow,
+  type RollingSeries,
+} from '../engine/insights'
 import { calibrationCurve, type PredictionPair } from '../engine/metrics'
 import { HORIZON_LABELS } from '../engine/rwkv'
 import type { ReviewEvent } from '../engine/types'
@@ -10,17 +19,16 @@ import {
   IconBolt,
   IconBrain,
   IconBulb,
+  IconCalendar,
   IconChart,
-  IconCheck,
   IconClock,
   IconEye,
   IconInfo,
   IconLayers,
   IconSparkles,
-  IconStar,
   IconTarget,
 } from './icons'
-import { Bar, CalibrationChart, MiniBar, Stat, formatRelative } from './ui'
+import { Bar, CalibrationChart, MiniBar, Ring, Sparkline, Stat, formatRelative } from './ui'
 
 type Mode = 'basit' | 'gelismis'
 
@@ -42,6 +50,18 @@ export function EnginePanel() {
   const report = engine.accuracyModelReport()
   const personal = engine.personalizationReport()
   const cards = engine.cardStats()
+  const now = Date.now()
+  const cardMap = user.cards
+  const forecast = dueForecast(Object.values(cardMap), now)
+  const mastery = sectionMastery({
+    sections: SECTIONS,
+    items: ITEMS,
+    cards: cardMap,
+    themeStats: user.themeStats,
+    now,
+  })
+  const curve = recallCurve(Object.values(cardMap), engine.scheduler, now)
+  const trend = rollingSeries(user.events, 20)
 
   return (
     <div className="stack">
@@ -82,6 +102,10 @@ export function EnginePanel() {
           dailyGoal={user.dailyGoal}
           dueNow={cards.dueNow}
           newLeft={cards.fresh}
+          forecast={forecast}
+          mastery={mastery}
+          curve={curve}
+          trend={trend}
         />
       ) : (
         <AdvancedView
@@ -90,6 +114,7 @@ export function EnginePanel() {
           parameters={user.fsrsParameters}
           events={user.events}
           cards={cards}
+          trend={trend}
         />
       )}
     </div>
@@ -108,6 +133,10 @@ function NormalView({
   dailyGoal,
   dueNow,
   newLeft,
+  forecast,
+  mastery,
+  curve,
+  trend,
 }: {
   reviews: number
   events: ReviewEvent[]
@@ -116,6 +145,10 @@ function NormalView({
   dailyGoal: number
   dueNow: number
   newLeft: number
+  forecast: ForecastBucket[]
+  mastery: MasteryRow[]
+  curve: number[]
+  trend: RollingSeries
 }) {
   const progress = Math.min(1, reviews / MIN_TUNE_REVIEWS)
   const blend = report.recent.blend
@@ -142,35 +175,170 @@ function NormalView({
 
   const better = rwkv.brier <= fsrs.brier ? 'RWKV-Instant' : 'FSRS-7'
   const calibration = blend.n >= 30 ? blend.ece : null
+  const maxForecast = Math.max(1, ...forecast.map((b) => b.count))
+  const activeSections = mastery.filter((m) => m.seen > 0).slice(0, 6)
+  const nextSection = mastery.find((m) => m.seen === 0)
+  const trendAcc = trend.accuracy
 
   return (
     <div className="stack">
-      <div className="card">
-        <h3 className="card-title">
-          <IconBrain size={13} /> Sistem seni tanıyor mu?
-        </h3>
-        <div className="row between tiny faint" style={{ marginBottom: 8 }}>
-          <span>{reviews} cevap toplandı</span>
-          <span>{MIN_TUNE_REVIEWS} cevapta tam kişiselleştirme</span>
+      <div className="card engine-hero">
+        <div className="engine-hero-copy">
+          <span className="eyebrow">
+            <IconBrain size={11} /> kişisel motor
+          </span>
+          <h3>Seni tanıyor mu?</h3>
+          <p className="small muted">
+            {reviews === 0
+              ? 'Henüz veri yok. İlk alıştırmalarda RWKV-Instant seni tanımaya başlar; hiçbir ayar gerekmez.'
+              : personal.fsrsTunedAt
+                ? `Tekrar aralıkların sana göre ayarlandı (${formatRelative(personal.fsrsTunedAt)}). Zamanla daha isabetli olacak.`
+                : `${Math.max(0, MIN_TUNE_REVIEWS - reviews)} cevap sonra tekrar aralıkları senin hızına göre yeniden ayarlanacak.`}
+          </p>
+          <div className="hero-chips">
+            <span className="chip accent">
+              <IconTarget size={12} /> {blend.n >= 10 ? `%${Math.round(blend.accuracy * 100)} isabet` : 'ölçülüyor'}
+            </span>
+            <span className="chip">
+              <IconBolt size={12} /> {reviews} cevap
+            </span>
+            <span className="chip">
+              <IconEye size={12} /> hedef %{Math.round(avgTarget * 100)}
+            </span>
+          </div>
         </div>
-        <Bar value={progress} good={progress >= 1} />
-        <p className="small muted" style={{ marginTop: 12, lineHeight: 1.6 }}>
-          {reviews === 0
-            ? 'Henüz veri yok. İlk alıştırmaları yaptığında RWKV-Instant seni tanımaya hemen başlar.'
-            : personal.fsrsTunedAt
-              ? `Tekrar aralıkların sana göre ayarlandı (${formatRelative(personal.fsrsTunedAt)}). Zamanla daha da isabetli olacak.`
-              : `${Math.max(0, MIN_TUNE_REVIEWS - reviews)} cevap sonra tekrar aralıkları senin hızına göre yeniden ayarlanacak — şu an öğreniyor.`}
-        </p>
+        <Ring value={progress} size={112} stroke={10}>
+          <b>%{Math.round(progress * 100)}</b>
+          <small>kişiselleştirme</small>
+        </Ring>
+      </div>
+
+      <div className="card">
+        <div className="row between">
+          <h3 className="card-title" style={{ margin: 0 }}>
+            <IconCalendar size={13} /> Tekrar takvimi
+          </h3>
+          <span className="tiny faint">önümüzdeki 7 gün</span>
+        </div>
+        <div className="forecast">
+          {forecast.map((b) => (
+            <div key={b.key} className={`forecast-col${b.key === 'overdue' ? ' is-overdue' : ''}`}>
+              <span className="forecast-count">{b.count || ''}</span>
+              <div className="forecast-track">
+                <i style={{ height: `${(b.count / maxForecast) * 100}%` }} />
+              </div>
+              <span className="forecast-label">{b.label}</span>
+            </div>
+          ))}
+        </div>
+        <div className="tiny faint" style={{ marginTop: 10 }}>
+          Şu an <b>{dueNow}</b> kelimenin vakti geldi; <b>{newLeft}</b> kelime hiç görülmedi.
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="row between">
+          <h3 className="card-title" style={{ margin: 0 }}>
+            <IconLayers size={13} /> Bölüm ustalığı
+          </h3>
+          <span className="tiny faint">stabiliteye göre</span>
+        </div>
+        <div className="mastery-list">
+          {activeSections.map((m) => (
+            <div key={m.id} className="mastery-row">
+              <div className="row between">
+                <span className="mastery-name">{m.title}</span>
+                <span className="tiny mono faint">%{Math.round(m.mastery * 100)}</span>
+              </div>
+              <Bar value={m.mastery} thin good={m.mastery >= 0.7} />
+              <div className="tiny faint">
+                {m.seen}/{m.total} kelime
+                {m.due > 0 ? ` · ${m.due} tekrar` : ''}
+                {m.accuracy != null ? ` · %${Math.round(m.accuracy * 100)} doğru` : ''}
+              </div>
+            </div>
+          ))}
+          {!activeSections.length && nextSection ? (
+            <div className="tiny muted">
+              Henüz öğrenilmiş kelime yok. <b>{nextSection.title}</b> ile başlayınca burada ustalık çubukları
+              görünecek.
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="row between">
+          <h3 className="card-title" style={{ margin: 0 }}>
+            <IconChart size={13} /> Unutma eğrisi
+          </h3>
+          <span className="tiny faint">tekrar etmezsen</span>
+        </div>
+        {curve.length ? (
+          <>
+            <Sparkline points={curve} max={1} height={84} />
+            <div className="row between tiny faint" style={{ marginTop: 4 }}>
+              <span>bugün %{Math.round(curve[0] * 100)}</span>
+              <span>7 gün %{Math.round(curve[7] * 100)}</span>
+              <span>30 gün %{Math.round(curve[30] * 100)}</span>
+            </div>
+          </>
+        ) : (
+          <p className="small muted" style={{ marginTop: 0 }}>
+            İlk kelimeleri öğrendiğinde FSRS-7 unutma eğrin burada görünecek.
+          </p>
+        )}
         <div className="plain-list">
           <span>
-            <IconCheck size={13} /> Her cevapta RWKV-Instant bir adım öğrenir (cihazında, anında).
-          </span>
-          <span>
-            <IconClock size={13} /> FSRS-7 unutma eğrine göre “bu kelimeyi ne zaman tekrar sorayım?” sorusunu
-            hesaplar.
+            <IconInfo size={13} /> Eğri, öğrendiğin kelimelerin ortalama hatırlanma olasılığıdır; motor tekrar
+            tarihini buna göre seçer.
           </span>
         </div>
       </div>
+
+      {hardest.length || easiest.length || weak ? (
+        <div className="card">
+          <h3 className="card-title">
+            <IconSparkles size={13} /> Sana özel ipuçları
+          </h3>
+          {hardest.length ? (
+            <div style={{ marginBottom: 12 }}>
+              <div className="tiny faint" style={{ marginBottom: 6 }}>
+                Daha sık sorulacaklar
+              </div>
+              <div className="word-chips">
+                {hardest.map((b) => (
+                  <span key={b.item} className="word-chip hard">
+                    <b className="de">{b.item}</b>
+                    <span>{b.tr}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {easiest.length ? (
+            <div style={{ marginBottom: weak ? 12 : 0 }}>
+              <div className="tiny faint" style={{ marginBottom: 6 }}>
+                Daha seyrek sorulacaklar
+              </div>
+              <div className="word-chips">
+                {easiest.map((b) => (
+                  <span key={b.item} className="word-chip easy">
+                    <b className="de">{b.item}</b>
+                    <span>{b.tr}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {weak ? (
+            <div className="tiny muted">
+              En zayıf bölümün <b>{SECTION_BY_ID[weak.unit]?.title ?? weak.unit}</b> (%
+              {Math.round(weak.accuracy * 100)}). Öğren ekranındaki öneriden tekrar edebilirsin.
+            </div>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="card">
         <h3 className="card-title">
@@ -184,7 +352,7 @@ function NormalView({
           <>
             <p className="small muted" style={{ marginTop: 0, lineHeight: 1.6 }}>
               Son {blend.n} cevapta birleşik model, doğru cevap vereceğini{' '}
-              <b>%{Math.round(blend.accuracy * 100)}</b> isabetle tahmin etti. Şu an daha isabetli olan taraf:{' '}
+              <b>%{Math.round(blend.accuracy * 100)}</b> isabetle tahmin etti. Daha isabetli olan taraf:{' '}
               <b>{better}</b>.
             </p>
             <div className="stack" style={{ gap: 10, marginTop: 12 }}>
@@ -192,6 +360,15 @@ function NormalView({
               <MiniBar label="RWKV" value={rwkv.accuracy} max={1} suffix={`%${Math.round(rwkv.accuracy * 100)}`} />
               <MiniBar label="FSRS" value={fsrs.accuracy} max={1} suffix={`%${Math.round(fsrs.accuracy * 100)}`} />
             </div>
+            {trendAcc.length >= 2 ? (
+              <div style={{ marginTop: 14 }}>
+                <div className="row between tiny faint">
+                  <span>Kayan doğruluk (20 cevap)</span>
+                  <span className="mono">son %{Math.round(trendAcc[trendAcc.length - 1] * 100)}</span>
+                </div>
+                <Sparkline points={trendAcc} max={1} height={56} baseline={accuracy} color="#1cb0f6" />
+              </div>
+            ) : null}
             <div className="plain-list" style={{ marginTop: 12 }}>
               <span>
                 <IconEye size={13} /> Gerçek doğruluğun: %{Math.round(accuracy * 100)}
@@ -200,7 +377,7 @@ function NormalView({
                   : ''}
               </span>
               <span>
-                <IconTarget size={13} /> Plan her kelimeyi ortalama %{Math.round(avgTarget * 100)} olasılıkla
+                <IconTarget size={13} /> Plan, her kelimeyi ortalama %{Math.round(avgTarget * 100)} olasılıkla
                 hatırlayacağın şekilde ayarlıyor.
               </span>
             </div>
@@ -210,75 +387,10 @@ function NormalView({
 
       <div className="card">
         <h3 className="card-title">
-          <IconBolt size={13} /> Şu an senin için ne yapıyor?
-        </h3>
-        <div className="plain-list">
-          <span>
-            <IconClock size={13} /> Şu an <b>{dueNow}</b> kelimenin tekrar vakti geldi, <b>{newLeft}</b> kelime hiç
-            görülmedi.
-          </span>
-          <span>
-            <IconStar size={13} /> Zorlandığın kelimeleri daha sık, kolay bulduklarını daha seyrek soruyor.
-          </span>
-        </div>
-
-        {hardest.length ? (
-          <div style={{ marginTop: 14 }}>
-            <div className="tiny faint" style={{ marginBottom: 6 }}>
-              Sana en zor gelenler
-            </div>
-            <div className="stack" style={{ gap: 6 }}>
-              {hardest.map((b) => (
-                <div key={b.item} className="row between">
-                  <span className="de" style={{ fontSize: 14.5 }}>
-                    {b.item}
-                  </span>
-                  <span className="tiny faint">{b.tr}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        {easiest.length ? (
-          <div style={{ marginTop: 12 }}>
-            <div className="tiny faint" style={{ marginBottom: 6 }}>
-              Kolay buldukların
-            </div>
-            <div className="stack" style={{ gap: 6 }}>
-              {easiest.map((b) => (
-                <div key={b.item} className="row between">
-                  <span className="de" style={{ fontSize: 14.5 }}>
-                    {b.item}
-                  </span>
-                  <span className="tiny faint">{b.tr}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null}
-
-        {weak ? (
-          <div className="plain-list" style={{ marginTop: 14 }}>
-            <span>
-              <IconInfo size={13} /> En zayıf bölümün{' '}
-              <b>{SECTION_BY_ID[weak.unit]?.title ?? weak.unit}</b> (%{Math.round(weak.accuracy * 100)}). Öğren
-              ekranındaki öneriye dokunup tekrar edebilirsin.
-            </span>
-          </div>
-        ) : null}
-
-        <div className="tiny faint" style={{ marginTop: 12 }}>
-          Günlük hedefin: {dailyGoal} cevap
-        </div>
-      </div>
-
-      <div className="card">
-        <h3 className="card-title">
-          <IconLayers size={13} /> Unutma eğrisini öğreniyor
+          <IconClock size={13} /> Tekrar ufukları
         </h3>
         <p className="small muted" style={{ marginTop: 0 }}>
-          Model, senin unutma hızını üç ayrı ölçekte öğrenir. Çubuk büyüdükçe o ölçek daha etkin kullanılıyor.
+          RWKV-Instant üç ayrı ölçekte unutma hızını öğrenir. Çubuk büyüdükçe o ufuk daha etkin kullanılıyor.
         </p>
         <div className="stack" style={{ gap: 8, marginTop: 12 }}>
           {groups.map((g) => (
@@ -287,7 +399,7 @@ function NormalView({
         </div>
         <div className="tiny faint" style={{ marginTop: 12 }}>
           {personal.modelSteps} cevap işlendi · gizli durum boyutu {personal.stateSize} · {personal.paramCount}{' '}
-          öğrenilebilir ağırlık (hepsi cihazında).
+          öğrenilebilir ağırlık (hepsi cihazında) · günlük hedef {dailyGoal} cevap.
         </div>
       </div>
 
@@ -311,12 +423,14 @@ function AdvancedView({
   parameters,
   events,
   cards,
+  trend,
 }: {
   report: AccuracyModelReport
   personal: PersonalizationReport
   parameters: number[] | null
   events: ReviewEvent[]
   cards: CardStats
+  trend: RollingSeries
 }) {
   const models = ['fsrs', 'rwkv', 'blend'] as const
   const names: Record<(typeof models)[number], string> = {
@@ -329,7 +443,7 @@ function AdvancedView({
     { label: 'Brier ↓', pick: (m: typeof report.recent.blend) => m.brier, better: 'low' as const, fmt: (v: number) => v.toFixed(3) },
     { label: 'Log-loss ↓', pick: (m: typeof report.recent.blend) => m.logLoss, better: 'low' as const, fmt: (v: number) => v.toFixed(3) },
     { label: 'Kalibrasyon hatası ↓', pick: (m: typeof report.recent.blend) => m.ece, better: 'low' as const, fmt: (v: number) => v.toFixed(3) },
-    { label: 'AUC ↑', pick: (m: typeof report.recent.blend) => m.auc, better: 'high' as const, fmt: (v: number) => v.toFixed(3) },
+    { label: 'AUC ↑', pick: (m: typeof report.recent.blend) => m.auc, better: 'high' as const, fmt: (v: number) => (Number.isFinite(v) ? v.toFixed(3) : '—') },
     { label: 'Doğruluk', pick: (m: typeof report.recent.blend) => m.accuracy, better: 'high' as const, fmt: (v: number) => `${Math.round(v * 100)}%` },
   ]
 
@@ -385,6 +499,29 @@ function AdvancedView({
             <span className="mono">{personal.fsrsTuningNll != null ? personal.fsrsTuningNll.toFixed(4) : '—'}</span>
           </div>
         </div>
+      </div>
+
+      <div className="card">
+        <div className="row between">
+          <h3 className="card-title" style={{ margin: 0 }}>
+            Model trendi (kayan 20 cevap)
+          </h3>
+          <span className="tiny faint mono">{events.length} olay</span>
+        </div>
+        {trend.accuracy.length >= 2 ? (
+          <div className="grid-2" style={{ marginTop: 12 }}>
+            <div>
+              <div className="tiny faint">Doğruluk (yüksek iyi)</div>
+              <Sparkline points={trend.accuracy} max={1} height={58} />
+            </div>
+            <div>
+              <div className="tiny faint">Brier (düşük iyi)</div>
+              <Sparkline points={trend.brier} max={0.5} height={58} color="#ce82ff" />
+            </div>
+          </div>
+        ) : (
+          <div className="tiny faint">Trend için en az 20 cevap gerekiyor.</div>
+        )}
       </div>
 
       <div className="card">

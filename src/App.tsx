@@ -14,7 +14,7 @@ type Tab = 'home' | 'units' | 'engine' | 'profile'
 
 const TABS: { id: Tab; Icon: IconComponent; label: string }[] = [
   { id: 'home', Icon: IconHome, label: 'Öğren' },
-  { id: 'units', Icon: IconTarget, label: 'Üniteler' },
+  { id: 'units', Icon: IconTarget, label: 'Müfredat' },
   { id: 'engine', Icon: IconBrain, label: 'Motor' },
   { id: 'profile', Icon: IconUser, label: 'Profil' },
 ]
@@ -34,6 +34,10 @@ export function App() {
   useEffect(() => {
     if (session) window.scrollTo({ top: 0 })
   }, [session])
+
+  useEffect(() => {
+    if (summary) window.scrollTo({ top: 0 })
+  }, [summary])
 
   const start = useCallback(
     (kind: 'mixed' | 'review' | 'lesson', unitId?: string) => {
@@ -81,90 +85,134 @@ export function App() {
     store.afterReview()
   }, [store])
 
-  const inSession = session != null
+  /* Ders ve özet, gezinme olmadan tam ekran odak modunda gösterilir. */
+  if (session || summary) {
+    return (
+      <div className="focus">
+        <main className="focus-shell">
+          {session ? (
+            <SessionScreen
+              session={session}
+              speechOk={speechOk}
+              showPredictions={user.settings.showPredictions}
+              onFinished={finish}
+              onExit={exitSession}
+              onGraded={graded}
+            />
+          ) : summary ? (
+            <SummaryScreen
+              summary={summary}
+              onHome={() => setSummary(null)}
+              onAgain={() => {
+                setSummary(null)
+                start('mixed')
+              }}
+            />
+          ) : null}
+        </main>
+      </div>
+    )
+  }
+
+  const initial = user.name.slice(0, 1).toLocaleUpperCase('tr-TR')
 
   return (
     <div className="app">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <div className="brand">
-            <span className="brand-mark">
-              <IconBrain size={17} />
-            </span>
-            <span className="brand-text">
-              FastoLearn
-              <small>Türkçe → Almanca A1</small>
-            </span>
-          </div>
+      <aside className="sidebar">
+        <div className="brand">
+          <span className="brand-mark">
+            <IconBrain size={19} />
+          </span>
+          <span className="brand-text">
+            FastoLearn
+            <small>Türkçe → Almanca A1</small>
+          </span>
+        </div>
 
-          <div className="topbar-spacer" />
+        <nav className="side-nav" aria-label="Ana menü">
+          {TABS.map(({ id, Icon, label }) => (
+            <button
+              key={id}
+              className={`side-link${tab === id ? ' is-active' : ''}`}
+              onClick={() => setTab(id)}
+            >
+              <Icon size={21} />
+              <span>{label}</span>
+            </button>
+          ))}
+        </nav>
 
-          <div className="hud">
+        <div className="side-foot">
+          <div className="side-hud">
             <span className="hud-chip flame" title="Gün serisi">
-              <IconFlame size={15} />
+              <IconFlame size={14} />
               {user.streak}
             </span>
             <span className="hud-chip xp" title="Toplam XP">
-              <IconBolt size={15} />
+              <IconBolt size={14} />
               {user.xp}
             </span>
           </div>
-
-          {!inSession && !summary ? (
-            <nav className="topnav">
-              {TABS.map(({ id, Icon, label }) => (
-                <button key={id} className={`nav-btn${tab === id ? ' is-active' : ''}`} onClick={() => setTab(id)}>
-                  <Icon size={17} />
-                  <span>{label}</span>
-                </button>
-              ))}
-            </nav>
-          ) : null}
+          <button className="side-user" onClick={() => setTab('profile')}>
+            <span className="avatar">{initial}</span>
+            <span style={{ minWidth: 0 }}>
+              <b>{user.name}</b>
+              <small>A0 · Yeni başlayan</small>
+            </span>
+          </button>
         </div>
-      </header>
+      </aside>
 
-      <main className="shell">
-        {inSession && session ? (
-          <SessionScreen
-            session={session}
-            speechOk={speechOk}
-            showPredictions={user.settings.showPredictions}
-            onFinished={finish}
-            onExit={exitSession}
-            onGraded={graded}
-          />
-        ) : summary ? (
-          <SummaryScreen
-            summary={summary}
-            onHome={() => setSummary(null)}
-            onAgain={() => {
-              setSummary(null)
-              start('mixed')
-            }}
-          />
-        ) : tab === 'home' ? (
-          <HomeScreen onStart={start} onOpenUnits={() => setTab('units')} onOpenEngine={() => setTab('engine')} />
-        ) : tab === 'units' ? (
-          <UnitsScreen onStart={(kind, unitId) => start(kind, unitId)} />
-        ) : tab === 'engine' ? (
-          <EnginePanel />
-        ) : (
-          <ProfileScreen />
-        )}
-      </main>
+      <div className="app-main">
+        <header className="topbar">
+          <div className="topbar-inner">
+            <div className="brand">
+              <span className="brand-mark">
+                <IconBrain size={17} />
+              </span>
+              <span className="brand-text">FastoLearn</span>
+            </div>
+            <div className="topbar-spacer" />
+            <div className="hud">
+              <span className="hud-chip flame" title="Gün serisi">
+                <IconFlame size={14} />
+                {user.streak}
+              </span>
+              <span className="hud-chip xp" title="Toplam XP">
+                <IconBolt size={14} />
+                {user.xp}
+              </span>
+            </div>
+          </div>
+        </header>
 
-      {!inSession && !summary ? (
-        <nav className="nav">
+        <main className="shell">
+          {tab === 'home' ? (
+            <HomeScreen onStart={start} onOpenUnits={() => setTab('units')} onOpenEngine={() => setTab('engine')} />
+          ) : tab === 'units' ? (
+            <UnitsScreen onStart={(kind, unitId) => start(kind, unitId)} />
+          ) : tab === 'engine' ? (
+            <EnginePanel />
+          ) : (
+            <ProfileScreen />
+          )}
+        </main>
+
+        <nav className="nav" aria-label="Alt menü">
           <div className="nav-inner">
             {TABS.map(({ id, Icon, label }) => (
-              <button key={id} className={`nav-btn${tab === id ? ' is-active' : ''}`} onClick={() => setTab(id)}>
+              <button
+                key={id}
+                className={`nav-btn${tab === id ? ' is-active' : ''}`}
+                onClick={() => setTab(id)}
+              >
                 <Icon size={21} />
                 <span>{label}</span>
               </button>
             ))}
           </div>
         </nav>
-      ) : null}
+      </div>
     </div>
   )
 }

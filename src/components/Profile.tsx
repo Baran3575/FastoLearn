@@ -187,7 +187,7 @@ export function ProfileScreen() {
           step={5}
           value={user.dailyGoal}
           onChange={(e) => store.setDailyGoal(Number(e.target.value))}
-          style={{ width: '100%', marginTop: 10, accentColor: '#7c9cff' }}
+          style={{ width: '100%', marginTop: 10, accentColor: '#58cc02' }}
         />
       </div>
 
@@ -224,6 +224,13 @@ export function ProfileScreen() {
             on={user.settings.curriculum}
             onChange={(v) => store.updateSettings({ curriculum: v })}
             label="Sıralı müfredat"
+          />
+        </Field>
+        <Field label="Sesli geri bildirim" hint="Doğru/yanlış cevaplarda kısa bir ses çalsın">
+          <Switch
+            on={user.settings.soundEnabled}
+            onChange={(v) => store.updateSettings({ soundEnabled: v })}
+            label="Sesli geri bildirim"
           />
         </Field>
         <Field label="Oturum başına yeni kelime" hint={`Şu an: ${user.settings.newPerSession}`}>

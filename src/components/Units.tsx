@@ -1,161 +1,201 @@
-import { useState } from 'react'
 import {
   CONTENT_STATS,
-  ITEMS_BY_SECTION,
-  SECTIONS_WITH_ITEMS,
   SECTION_COUNTS,
-  SECTION_ORDER,
+  SECTIONS_WITH_ITEMS,
   UNITS,
+  ITEMS_BY_SECTION,
+  type Section,
 } from '../content'
 import { useStore } from '../state/store'
-import { IconChevronRight, IconCheck, IconLayers, IconStar, unitIcon } from './icons'
+import {
+  IconCheck,
+  IconLayers,
+  IconLock,
+  IconOwl,
+  IconSparkles,
+  IconStar,
+  unitIcon,
+} from './icons'
 import { Bar } from './ui'
 
 interface Props {
   onStart: (kind: 'lesson', unitId: string) => void
 }
 
+/** Yol (path) düzeni: düğümler hafifçe sağa/sola kayarak iner. */
+const PATH_OFFSETS = [0, 58, 92, 58, 0, -58, -92, -58]
+
+interface SectionState {
+  section: Section
+  seen: number
+  due: number
+  done: boolean
+  progress: number
+  accuracy: number | null
+  unlocked: boolean
+}
+
 export function UnitsScreen({ onStart }: Props) {
   const store = useStore()
   const user = store.activeUser()
-  const [query, setQuery] = useState('')
   const now = Date.now()
 
-  const q = query.trim().toLowerCase()
-  const matches = (id: string) => {
-    const s = SECTIONS_WITH_ITEMS.find((x) => x.id === id)
-    if (!s) return false
-    return (
-      !q ||
-      s.title.toLowerCase().includes(q) ||
-      s.subtitle.toLowerCase().includes(q) ||
-      s.description.toLowerCase().includes(q)
-    )
-  }
-
-  // Sıradaki bölüm: görülmemiş ilk bölüm
-  let nextSectionId: string | null = null
-  for (const s of SECTIONS_WITH_ITEMS) {
-    const items = ITEMS_BY_SECTION.get(s.id) ?? []
-    const touched = items.some((i) => (user.cards[i.id]?.reps ?? 0) > 0)
-    if (!touched) {
-      nextSectionId = s.id
-      break
+  const states: SectionState[] = SECTIONS_WITH_ITEMS.map((section) => {
+    const items = ITEMS_BY_SECTION.get(section.id) ?? []
+    let seen = 0
+    let due = 0
+    for (const item of items) {
+      const card = user.cards[item.id]
+      if (!card || card.reps === 0) continue
+      seen += 1
+      if (card.due <= now) due += 1
     }
+    const stat = user.themeStats[section.id]
+    return {
+      section,
+      seen,
+      due,
+      done: items.length > 0 && seen === items.length,
+      progress: items.length ? seen / items.length : 0,
+      accuracy: stat && stat.n > 0 ? stat.correct / stat.n : null,
+      unlocked: false,
+    }
+  })
+
+  // Sıralı açılım: tamamlanan bölümlerin bir sonrakini açar. Daha önce elle
+  // çalışılmış bölümler de açık kalır (geriye dönük uyumluluk).
+  let maxUnlocked = 1
+  for (const st of states) {
+    if (st.done) maxUnlocked = Math.min(SECTIONS_WITH_ITEMS.length, st.section.order + 1)
+    else break
   }
+  for (const st of states) {
+    if (st.seen > 0) maxUnlocked = Math.max(maxUnlocked, st.section.order)
+  }
+  for (const st of states) st.unlocked = st.section.order <= maxUnlocked
+
+  const active = states.find((st) => st.unlocked && !st.done && st.section.order === maxUnlocked) ?? null
+  const doneSections = states.filter((st) => st.done).length
 
   return (
     <div className="stack">
-      <div>
-        <h2>Müfredat</h2>
-        <p className="muted small" style={{ marginTop: 4 }}>
-          {UNITS.length} ünite · {SECTIONS_WITH_ITEMS.length} bölüm · {CONTENT_STATS.items} kelime. Sıfırdan
-          başlıyorsun: 1. ünitede selamlaşma, sayılar ve renkler var.
-        </p>
+      <div className="path-head">
+        <div>
+          <h2>Müfredat</h2>
+          <p className="muted small" style={{ marginTop: 4 }}>
+            A0'dan başla: {UNITS.length} ünite · {SECTIONS_WITH_ITEMS.length} bölüm · {CONTENT_STATS.items}{' '}
+            kelime. Her bölümde önce kelimeler tanıtılır, sonra sorular gelir.
+          </p>
+        </div>
+        <div className="path-head-progress">
+          <div className="tiny faint">Bölüm</div>
+          <div className="path-head-count">
+            <b>{doneSections}</b>
+            <span>/{SECTIONS_WITH_ITEMS.length}</span>
+          </div>
+        </div>
       </div>
 
-      <input
-        className="text-input"
-        placeholder="Bölüm ara (ör. renkler, aile, Zahlen)…"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        style={{ width: '100%' }}
-      />
-
       {UNITS.map((unit) => {
-        const sections = SECTIONS_WITH_ITEMS.filter((s) => s.unitId === unit.id && matches(s.id))
-        if (!sections.length) return null
+        const sections = states.filter((st) => st.section.unitId === unit.id)
+        const unitDone = sections.filter((st) => st.done).length
+        const unitItems = sections.reduce(
+          (n, st) => n + (ITEMS_BY_SECTION.get(st.section.id)?.length ?? 0),
+          0,
+        )
         return (
-          <section key={unit.id} className="unit-block" style={{ ['--tint' as string]: unit.tint }}>
-            <header className="unit-block-head">
-              <div>
-                <div className="unit-block-title">
-                  <span className="unit-index">{unit.order}</span>
-                  <span className="de">{unit.title}</span>
-                  <span className="muted small">{unit.subtitle}</span>
-                </div>
-                <div className="tiny faint" style={{ marginTop: 4 }}>
-                  {unit.description}
-                </div>
+          <section key={unit.id} className="path-unit" style={{ ['--tint' as string]: unit.tint }}>
+            <header className="path-unit-head">
+              <div className="path-unit-eyebrow">
+                <IconSparkles size={11} /> Ünite {unit.order}
               </div>
-              <span className="chip tiny-chip">{SECTIONS_WITH_ITEMS.filter((s) => s.unitId === unit.id).length} bölüm</span>
+              <div className="path-unit-title">
+                <span className="de">{unit.title}</span>
+                <span className="path-unit-sub">{unit.subtitle}</span>
+              </div>
+              <div className="path-unit-desc tiny faint">{unit.description}</div>
+              <div className="path-unit-progress">
+                <Bar value={sections.length ? unitDone / sections.length : 0} thin good={unitDone === sections.length} />
+                <span>
+                  {unitDone}/{sections.length} bölüm
+                </span>
+              </div>
             </header>
 
-            <div className="stack" style={{ gap: 10 }}>
-              {sections.map((section) => {
-                const Icon = unitIcon(section.id)
-                const items = ITEMS_BY_SECTION.get(section.id) ?? []
-                const stat = user.themeStats[section.id]
-                const accuracy = stat && stat.n > 0 ? stat.correct / stat.n : null
-                let seen = 0
-                let stable = 0
-                let due = 0
-                for (const item of items) {
-                  const card = user.cards[item.id]
-                  if (!card || card.reps === 0) continue
-                  seen += 1
-                  if ((card.stability ?? 0) >= 21) stable += 1
-                  if (card.due <= now) due += 1
-                }
-                const progress = items.length ? seen / items.length : 0
-                const done = items.length > 0 && seen === items.length
-                const isNext = section.id === nextSectionId
-
+            <div className="path">
+              {sections.map((st, i) => {
+                const Icon = unitIcon(st.section.id)
+                const isActive = active?.section.id === st.section.id
+                const offset = PATH_OFFSETS[i % PATH_OFFSETS.length]
+                const label = st.done ? 'tekrar et' : isActive ? 'başla' : st.unlocked ? 'çalış' : 'kilitli'
                 return (
-                  <button
-                    key={section.id}
-                    className={`unit-card${isNext && !q ? ' is-next' : ''}`}
-                    onClick={() => onStart('lesson', section.id)}
+                  <div
+                    key={st.section.id}
+                    className={`path-row${isActive ? ' is-active' : ''}${st.done ? ' is-done' : ''}`}
+                    style={{ ['--x' as string]: `${offset}px`, animationDelay: `${i * 35}ms` }}
                   >
-                    <div className="unit-emoji">
-                      {done ? <IconCheck size={19} /> : <Icon size={20} />}
+                    <button
+                      className={`path-node ${st.done ? 'done' : isActive ? 'active' : st.unlocked ? 'open' : 'locked'}`}
+                      style={{ ['--p' as string]: `${Math.round(st.progress * 100)}%` }}
+                      disabled={!st.unlocked}
+                      onClick={() => onStart('lesson', st.section.id)}
+                      aria-label={`${st.section.title} — ${label}`}
+                    >
+                      <span className="path-node-ring" aria-hidden />
+                      <span className="path-node-core">
+                        {st.done ? <IconCheck size={27} /> : st.unlocked ? <Icon size={26} /> : <IconLock size={22} />}
+                      </span>
+                      {st.due > 0 && st.unlocked ? <span className="path-badge">{st.due}</span> : null}
+                    </button>
+
+                    <div className="path-label">
+                      <div className="path-label-title de">{st.section.title}</div>
+                      <div className="path-label-sub">{st.section.subtitle}</div>
+                      {isActive ? (
+                        <span className="chip accent path-chip">
+                          <IconStar size={10} /> Sırada
+                        </span>
+                      ) : st.done ? (
+                        <span className="path-chip tiny faint">
+                          <IconLayers size={10} /> %{Math.round(st.progress * 100)} tamam
+                        </span>
+                      ) : !st.unlocked ? (
+                        <span className="path-chip tiny faint">
+                          <IconLock size={10} /> Kilitli
+                        </span>
+                      ) : null}
+                      {st.accuracy != null && st.unlocked ? (
+                        <span className="path-chip tiny faint">%{Math.round(st.accuracy * 100)} doğru</span>
+                      ) : null}
                     </div>
-                    <div className="unit-body">
-                      <div className="unit-head">
-                        <span className="tiny faint mono">{String(section.order).padStart(2, '0')}</span>
-                        <span className="de-title de">{section.title}</span>
-                        {isNext && !q ? (
-                          <span className="chip tiny-chip accent">
-                            <IconStar size={10} /> sırada
-                          </span>
-                        ) : null}
-                        {due > 0 ? (
-                          <span className="chip tiny-chip bad">
-                            <IconLayers size={10} />
-                            {due} tekrar
-                          </span>
-                        ) : null}
-                      </div>
-                      <div className="tiny faint">
-                        {section.subtitle} · {SECTION_COUNTS[section.id] ?? items.length} kelime
-                      </div>
-                      <div style={{ marginTop: 7 }}>
-                        <Bar value={progress} thin good={done} />
-                      </div>
-                      <div className="unit-foot">
-                        <span>{seen} görüldü</span>
-                        <span>{stable} kalıcı</span>
-                        {accuracy != null ? <span>%{Math.round(accuracy * 100)} doğru</span> : null}
-                      </div>
-                    </div>
-                    <IconChevronRight size={17} />
-                  </button>
+                  </div>
                 )
               })}
+            </div>
+
+            <div className="path-unit-foot">
+              <span className="tiny faint">
+                {unitItems} kelime · bölüm {sections[0]?.section.order ?? '—'}–
+                {sections[sections.length - 1]?.section.order ?? '—'}
+              </span>
+              <span className="tiny faint">
+                {unitDone === sections.length ? 'ünite tamamlandı' : `${sections.length - unitDone} bölüm kaldı`}
+              </span>
             </div>
           </section>
         )
       })}
 
-      {!UNITS.some((u) => SECTIONS_WITH_ITEMS.some((s) => s.unitId === u.id && matches(s.id))) ? (
-        <div className="empty">Aramana uyan bölüm yok.</div>
-      ) : null}
-
-      <div className="card tight">
-        <div className="tiny faint">
-          Sıra numaraları müfredat sırasıdır ({SECTION_ORDER[SECTIONS_WITH_ITEMS[0]?.id ?? ''] ?? 1}–{SECTIONS_WITH_ITEMS.length}).
-          Bir bölüme dokununca önce yeni kelimeler tanıtılır, sonra alıştırmalar gelir. Tekrar sıklığını her zaman
-          motor belirler.
+      <div className="card tight mascot-card">
+        <div className="mascot">
+          <IconOwl size={38} />
+        </div>
+        <div>
+          <b>Sıfırdan başlıyorsun, endişelenme.</b>
+          <div className="tiny faint" style={{ marginTop: 3, lineHeight: 1.5 }}>
+            İlk bölüm yalnızca {SECTION_COUNTS['begruessung'] ?? 20} temel kelimeyle başlar: merhaba, teşekkür,
+            evet/hayır. Yeni bölümler, öncekini tamamlayınca açılır.
+          </div>
         </div>
       </div>
     </div>

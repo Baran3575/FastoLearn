@@ -21,7 +21,7 @@ npm run dev -- --port 3000     # http://localhost:3000
 | --- | --- |
 | `npm run dev` | Geliştirme sunucusu (Vite) |
 | `npm run build` | Tip kontrolü (`tsc -b`) + üretim derlemesi → `dist/` |
-| `npm test` | Vitest birim testleri (73 test) |
+| `npm test` | Vitest birim testleri (78 test) |
 | `npm run deck:check` | İçerik doğrulama (JSONL, kimlik tekilliği, artikel/çoğul) |
 | `npm run preview` | `dist/` önizlemesi |
 
@@ -145,22 +145,42 @@ Arayüzde **emoji yok**; tüm simgeler `src/components/icons.tsx` içindeki
 stroke-SVG kitaplığından gelir. İsimler artikel rengiyle gösterilir
 (der/die/das).
 
+Doğru/yanlış sesli geri bildirim Web Audio ile üretilir (`src/sfx.ts`,
+Profil'den kapatılabilir). Klavye kısayolları: `Enter` kontrol et/devam,
+`1`–`4` şık seç, `Boşluk` dinle.
+
+### Arayüz (Duolingo dili)
+
+Açık tema, Nunito yazı tipi, 3B düğmeler (alt kenarlığı kalın, basılınca
+aşağı iner), yumuşak kartlar ve ölçülü animasyonlar (`pop`, `shake`, `rise`,
+`path-in`, `node-bob`). Yerleşim:
+
+- **Masaüstü**: solda sabit kenar çubuğu (marka, sekmeler, HUD çipleri,
+  kullanıcı kartı).
+- **Mobil** (≤999 px): üst çubuk + altta sabit gezinme.
+- **Odak modu**: ders ve özet ekranları gezinmeyi gizler, yalnızca akış kalır.
+
 ### Ekranlar
 
-- **Öğren** (Home): günlük hedef, seri/XP, sıradaki bölüm önerisi, sıradaki
-  kelimeler ve motora giriş.
-- **Müfredat**: 2 ünite altında 10'ar bölüm; bölüm başına ilerleme, vadesi
-  gelen tekrar sayısı ve doğruluk.
+- **Öğren** (Home): günlük hedef halkası, sıradaki bölüm için büyük yeşil
+  devam kartı, seri/XP/kelime kartları, "Bugünün planı", sıradaki kelimeler
+  (motordan gelen anlık tahmin yüzdeleriyle), 14 günlük grafik ve zayıf
+  bölüm önerisi.
+- **Müfredat**: 2 ünite altında 10'ar bölüm, dikey **yol** görünümünde
+  (düğümler zikzak iner, aktif düğüm nabız atar, tamamlananlar tik ve yüzde
+  gösterir); kilitli bölümler sırayla açılır.
 - **Motor**: iki katmanlı.
-  - *Basit* (normal kullanıcı): "sistem seni tanıyor mu?", tahminler ne kadar
-    tutuyor, en zor/kolay kelimeler, zayıf bölüm, unutma ölçekleri — sade
-    dille.
-  - *Gelişmiş*: Brier / log-loss / kalibrasyon hatası / AUC karşılaştırması,
-    son kararlar, birleşim ağırlıkları, unutma ufukları, kalibrasyon grafiği,
-    öğe yanlılıkları, 21 FSRS-7 parametresi, kart dağılımı, tema performansı.
+  - *Basit* (normal kullanıcı): "seni tanıyor mu?" halkası, **tekrar
+    takvimi** (önümüzdeki 7 günün yükü), **bölüm ustalığı** çubukları,
+    **unutma eğrisi**, sana özel ipuçları (daha sık/seyrek sorulacaklar,
+    zayıf bölüm) ve tahminlerin tutup tutmadığı — sade dille.
+  - *Gelişmiş*: kayan pencere doğruluk/Brier trendi, Brier / log-loss /
+    kalibrasyon hatası / AUC karşılaştırması, son kararlar, birleşim
+    ağırlıkları, unutma ufukları, kalibrasyon grafiği, öğe yanlılıkları,
+    21 FSRS-7 parametresi, kart dağılımı, bölüm performansı.
 - **Profil**: kullanıcılar, günlük hedef, tercihler (dinleme, otomatik
-  derece, tahmin gösterimi, sıralı müfredat, oturum başına yeni kelime),
-  JSON yedekleme/geri yükleme.
+  derece, tahmin gösterimi, sesli geri bildirim, sıralı müfredat, oturum
+  başına yeni kelime), JSON yedekleme/geri yükleme.
 
 ---
 
@@ -169,26 +189,32 @@ stroke-SVG kitaplığından gelir. İsimler artikel rengiyle gösterilir
 ```
 src/
   engine/        RWKV-Instant, FSRS-7, özellik kodlayıcı, birleşim, metrikler
+                 insights.ts: tekrar takvimi, bölüm ustalığı, unutma eğrisi
   content/       units.ts (2 ünite / 20 bölüm) + units/*.jsonl (386 öğe)
   state/         user.ts (şema), store.ts (localStorage, oturum kaydı)
   components/    Home, Units, Session, Summary, EnginePanel, Profile, ui, icons
   session.ts     StudySession: tanıtım + alıştırma + özet akışı
-  styles.css     tasarım sistemi
+  sfx.ts         Web Audio geri bildirim sesleri
+  styles.css     tasarım sistemi (açık tema)
 scripts/         validate-deck.mjs
-tests/           engine, session, content, fsrs7, rwkv, metrics
+tests/           engine, session, content, fsrs7, rwkv, metrics, insights, ders akışı
 ```
 
 ## Testler ve doğrulama
 
 ```bash
-npm test          # 73 test: plan/grade/birleşim, sıralı müfredat (ilk ders sırası),
+npm test          # 78 test: plan/grade/birleşim, sıralı müfredat (ilk ders sırası),
                   # oturum akışı, blok yerleştirme, içerik bütünlüğü, FSRS-7,
-                  # RWKV durumu, ekran duman testi (SSR)
+                  # RWKV durumu, motor içgörüleri, ekran duman testi (SSR)
 npm run deck:check
 ```
 
 `tests/render.test.ts` ekranları DOM'suz (sunucu tarafı) çizerek çalışma
 zamanı hatalarını yakalar.
+
+`tests/lesson.test.ts` gerçek tarayıcı ortamında (jsdom) bir dersi baştan
+sona oynar: tanıtım kartları → alıştırma → **geri bildirim** → özet. Ders
+döngüsünün kilitlenmediğini garanti eder.
 
 `tests/engine.test.ts` içinde bir değişmez vardır: özellik vektörü boyutu
 (`FEATURE_DIM`) RWKV gizli boyutuna (`nEmbd = 64`) eşit olmalıdır; yeni bir

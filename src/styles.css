@@ -2990,3 +2990,41 @@ input[type='range'] {
   justify-content: center;
   min-height: calc(100vh - 210px);
 }
+
+/* Motor ekranı: yeni kullanıcı için "neler göreceksin" listesi. */
+.plan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.plan-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.plan-item b {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.plan-item .tiny {
+  display: block;
+  margin-top: 1px;
+  line-height: 1.45;
+}
+
+.plan-icon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+}

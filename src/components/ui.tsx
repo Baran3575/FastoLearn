@@ -108,7 +108,13 @@ export function Sparkline({
   const y = (v: number) => height - (Math.max(0, Math.min(max, v)) / max) * (height - 6) - 3
   const path = points.map((v, i) => `${i === 0 ? 'M' : 'L'}${(i * step).toFixed(2)},${y(v).toFixed(2)}`).join(' ')
   return (
-    <svg className="spark" viewBox={`0 0 ${w} ${height}`} preserveAspectRatio="none" aria-hidden>
+    <svg
+      className="spark"
+      viewBox={`0 0 ${w} ${height}`}
+      preserveAspectRatio="none"
+      style={{ height }}
+      aria-hidden
+    >
       {baseline != null ? (
         <line x1="0" x2={w} y1={y(baseline)} y2={y(baseline)} stroke="rgba(0,0,0,0.14)" strokeDasharray="3 3" strokeWidth="0.6" />
       ) : null}

@@ -179,6 +179,7 @@ function NormalView({
   const activeSections = mastery.filter((m) => m.seen > 0).slice(0, 6)
   const nextSection = mastery.find((m) => m.seen === 0)
   const trendAcc = trend.accuracy
+  const fresh = reviews === 0
 
   return (
     <div className="stack">
@@ -220,22 +221,71 @@ function NormalView({
           </h3>
           <span className="tiny faint">önümüzdeki 7 gün</span>
         </div>
-        <div className="forecast">
-          {forecast.map((b) => (
-            <div key={b.key} className={`forecast-col${b.key === 'overdue' ? ' is-overdue' : ''}`}>
-              <span className="forecast-count">{b.count || ''}</span>
-              <div className="forecast-track">
-                <i style={{ height: `${(b.count / maxForecast) * 100}%` }} />
+        {fresh ? (
+          <p className="small muted" style={{ marginTop: 10, marginBottom: 0 }}>
+            İlk dersini tamamladığında burada önümüzdeki 7 günün tekrar yükü görünecek.
+          </p>
+        ) : (
+          <div className="forecast">
+            {forecast.map((b) => (
+              <div key={b.key} className={`forecast-col${b.key === 'overdue' ? ' is-overdue' : ''}`}>
+                <span className="forecast-count">{b.count || ''}</span>
+                <div className="forecast-track">
+                  <i style={{ height: `${(b.count / maxForecast) * 100}%` }} />
+                </div>
+                <span className="forecast-label">{b.label}</span>
               </div>
-              <span className="forecast-label">{b.label}</span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         <div className="tiny faint" style={{ marginTop: 10 }}>
           Şu an <b>{dueNow}</b> kelimenin vakti geldi; <b>{newLeft}</b> kelime hiç görülmedi.
         </div>
       </div>
 
+      {fresh ? (
+        <div className="card">
+          <h3 className="card-title">
+            <IconSparkles size={13} /> Bu ekranda zamanla ne göreceksin?
+          </h3>
+          <div className="plan-list">
+            {[
+              {
+                icon: <IconCalendar size={14} />,
+                title: 'Tekrar takvimi',
+                text: 'Önümüzdeki günlerde hangi kelimelerin tekrarı gelecek.',
+              },
+              {
+                icon: <IconLayers size={14} />,
+                title: 'Bölüm ustalığı',
+                text: 'Her bölümün ne kadar oturduğunu gösteren çubuklar.',
+              },
+              {
+                icon: <IconChart size={14} />,
+                title: 'Unutma eğrisi',
+                text: 'FSRS-7\u2019nin senin için çıkardığı ortalama hatırlama eğrisi.',
+              },
+              {
+                icon: <IconTarget size={14} />,
+                title: 'Tahmin isabeti',
+                text: 'RWKV-Instant ve FSRS-7\u2019nin doğru cevabını ne kadar tuttuğu.',
+              },
+            ].map((row) => (
+              <div key={row.title} className="plan-item">
+                <span className="plan-icon">{row.icon}</span>
+                <div>
+                  <b>{row.title}</b>
+                  <span className="tiny faint">{row.text}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="tiny faint" style={{ marginTop: 12 }}>
+            Hiçbir ayar gerekmez: motor her cevapta kendini günceller, veriler yalnızca bu cihazda kalır.
+          </div>
+        </div>
+      ) : (
+        <>
       <div className="card">
         <div className="row between">
           <h3 className="card-title" style={{ margin: 0 }}>
@@ -402,6 +452,8 @@ function NormalView({
           öğrenilebilir ağırlık (hepsi cihazında) · günlük hedef {dailyGoal} cevap.
         </div>
       </div>
+        </>
+      )}
 
       <div className="card tight">
         <div className="tiny faint">

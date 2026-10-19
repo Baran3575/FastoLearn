@@ -7,22 +7,14 @@ import {
   type Section,
 } from '../content'
 import { useStore } from '../state/store'
-import {
-  IconCheck,
-  IconLayers,
-  IconLock,
-  IconOwl,
-  IconSparkles,
-  IconStar,
-  unitIcon,
-} from './icons'
+import { IconCheck, IconLock, IconOwl, unitIcon } from './icons'
 import { Bar } from './ui'
 
 interface Props {
   onStart: (kind: 'lesson', unitId: string) => void
 }
 
-/** Yol (path) düzeni: düğümler hafifçe sağa/sola kayarak iner. */
+/** Yol düzeni: düğümler hafifçe sağa/sola kayarak iner (yuvarlak izlek). */
 const PATH_OFFSETS = [0, 58, 92, 58, 0, -58, -92, -58]
 
 interface SectionState {
@@ -35,6 +27,10 @@ interface SectionState {
   unlocked: boolean
 }
 
+/**
+ * Müfredat, yuvarlak düğümlerden oluşan bir izlek gibi çizilir: her ünite
+ * renkli bir başlıkla başlar, bölümler sırayla açılan düğümlerdir.
+ */
 export function UnitsScreen({ onStart }: Props) {
   const store = useStore()
   const user = store.activeUser()
@@ -79,22 +75,23 @@ export function UnitsScreen({ onStart }: Props) {
 
   return (
     <div className="stack">
-      <div className="path-head">
+      <header className="page-head">
         <div>
-          <h2>Müfredat</h2>
-          <p className="muted small" style={{ marginTop: 4 }}>
-            A0'dan başla: {UNITS.length} ünite · {SECTIONS_WITH_ITEMS.length} bölüm · {CONTENT_STATS.items}{' '}
-            kelime. Her bölümde önce kelimeler tanıtılır, sonra sorular gelir.
+          <h1 className="page-title">Müfredat</h1>
+          <p className="page-note">
+            A0'dan başla: {UNITS.length} ünite, {SECTIONS_WITH_ITEMS.length} bölüm, {CONTENT_STATS.items} kelime.
+            Her bölümde önce kelimeler tanıtılır, sonra sorular gelir.
           </p>
         </div>
-        <div className="path-head-progress">
-          <div className="tiny faint">Bölüm</div>
-          <div className="path-head-count">
-            <b>{doneSections}</b>
+        <div className="page-meta">
+          <label>Tamamlanan bölüm</label>
+          <b className="k">
+            {doneSections}
             <span>/{SECTIONS_WITH_ITEMS.length}</span>
-          </div>
+          </b>
+          <label>{active ? `sırada ${active.section.title}` : 'hepsi tamam'}</label>
         </div>
-      </div>
+      </header>
 
       {UNITS.map((unit) => {
         const sections = states.filter((st) => st.section.unitId === unit.id)
@@ -104,21 +101,24 @@ export function UnitsScreen({ onStart }: Props) {
           0,
         )
         return (
-          <section key={unit.id} className="path-unit" style={{ ['--tint' as string]: unit.tint }}>
-            <header className="path-unit-head">
-              <div className="path-unit-eyebrow">
-                <IconSparkles size={11} /> Ünite {unit.order}
-              </div>
-              <div className="path-unit-title">
-                <span className="de">{unit.title}</span>
-                <span className="path-unit-sub">{unit.subtitle}</span>
-              </div>
-              <div className="path-unit-desc tiny faint">{unit.description}</div>
-              <div className="path-unit-progress">
-                <Bar value={sections.length ? unitDone / sections.length : 0} thin good={unitDone === sections.length} />
-                <span>
-                  {unitDone}/{sections.length} bölüm
-                </span>
+          <section key={unit.id} className="unit" style={{ ['--tint' as string]: unit.tint }}>
+            <header className="unit-banner">
+              <span className="unit-badge">Ünite {unit.order}</span>
+              <div className="unit-banner-copy">
+                <div className="unit-title">
+                  <span className="de">{unit.title}</span>
+                  <span>{unit.subtitle}</span>
+                </div>
+                <p className="unit-desc">{unit.description}</p>
+                <div className="unit-progress">
+                  <Bar
+                    value={sections.length ? unitDone / sections.length : 0}
+                    thin
+                  />
+                  <span>
+                    {unitDone}/{sections.length} bölüm
+                  </span>
+                </div>
               </div>
             </header>
 
@@ -132,53 +132,58 @@ export function UnitsScreen({ onStart }: Props) {
                   <div
                     key={st.section.id}
                     className={`path-row${isActive ? ' is-active' : ''}${st.done ? ' is-done' : ''}`}
-                    style={{ ['--x' as string]: `${offset}px`, animationDelay: `${i * 35}ms` }}
+                    style={{ animationDelay: `${i * 40}ms` }}
                   >
-                    <button
-                      className={`path-node ${st.done ? 'done' : isActive ? 'active' : st.unlocked ? 'open' : 'locked'}`}
-                      style={{ ['--p' as string]: `${Math.round(st.progress * 100)}%` }}
-                      disabled={!st.unlocked}
-                      onClick={() => onStart('lesson', st.section.id)}
-                      aria-label={`${st.section.title} — ${label}`}
-                    >
-                      <span className="path-node-ring" aria-hidden />
-                      <span className="path-node-core">
-                        {st.done ? <IconCheck size={27} /> : st.unlocked ? <Icon size={26} /> : <IconLock size={22} />}
-                      </span>
-                      {st.due > 0 && st.unlocked ? <span className="path-badge">{st.due}</span> : null}
-                    </button>
+                    <div className="path-row-inner" style={{ ['--x' as string]: `${offset}px` }}>
+                      <div className="path-node-wrap">
+                        {isActive ? <span className="path-bubble">Sırada</span> : null}
+                        <button
+                          className={`path-node ${st.done ? 'done' : isActive ? 'active' : st.unlocked ? 'open' : 'locked'}`}
+                          disabled={!st.unlocked}
+                          onClick={() => onStart('lesson', st.section.id)}
+                          aria-label={`${st.section.title} — ${label}`}
+                        >
+                          <span className="path-node-ring" aria-hidden />
+                          <span className="path-node-core">
+                            {st.done ? (
+                              <IconCheck size={30} />
+                            ) : st.unlocked ? (
+                              <Icon size={29} />
+                            ) : (
+                              <IconLock size={23} />
+                            )}
+                          </span>
+                        </button>
+                        {st.due > 0 && st.unlocked ? <span className="path-badge">{st.due}</span> : null}
+                      </div>
 
-                    <div className="path-label">
-                      <div className="path-label-title de">{st.section.title}</div>
-                      <div className="path-label-sub">{st.section.subtitle}</div>
-                      {isActive ? (
-                        <span className="chip accent path-chip">
-                          <IconStar size={10} /> Sırada
+                      <div className="path-caption">
+                        <span className="de">{st.section.title}</span>
+                        <span>{st.section.subtitle}</span>
+                        <span className="path-chip">
+                          {st.done
+                            ? `%${Math.round(st.progress * 100)} tamamlandı`
+                            : isActive
+                              ? 'Devam ediyor'
+                              : st.unlocked
+                                ? st.accuracy != null
+                                  ? `%${Math.round(st.accuracy * 100)} doğru`
+                                  : 'Yeni bölüm'
+                                : 'Kilitli'}
                         </span>
-                      ) : st.done ? (
-                        <span className="path-chip tiny faint">
-                          <IconLayers size={10} /> %{Math.round(st.progress * 100)} tamam
-                        </span>
-                      ) : !st.unlocked ? (
-                        <span className="path-chip tiny faint">
-                          <IconLock size={10} /> Kilitli
-                        </span>
-                      ) : null}
-                      {st.accuracy != null && st.unlocked ? (
-                        <span className="path-chip tiny faint">%{Math.round(st.accuracy * 100)} doğru</span>
-                      ) : null}
+                      </div>
                     </div>
                   </div>
                 )
               })}
             </div>
 
-            <div className="path-unit-foot">
-              <span className="tiny faint">
+            <div className="unit-foot">
+              <span>
                 {unitItems} kelime · bölüm {sections[0]?.section.order ?? '—'}–
                 {sections[sections.length - 1]?.section.order ?? '—'}
               </span>
-              <span className="tiny faint">
+              <span>
                 {unitDone === sections.length ? 'ünite tamamlandı' : `${sections.length - unitDone} bölüm kaldı`}
               </span>
             </div>
@@ -186,16 +191,16 @@ export function UnitsScreen({ onStart }: Props) {
         )
       })}
 
-      <div className="card tight mascot-card">
-        <div className="mascot">
-          <IconOwl size={38} />
-        </div>
+      <div className="tip-block">
+        <span className="tip-mark" aria-hidden>
+          <IconOwl size={30} />
+        </span>
         <div>
           <b>Sıfırdan başlıyorsun, endişelenme.</b>
-          <div className="tiny faint" style={{ marginTop: 3, lineHeight: 1.5 }}>
+          <p>
             İlk bölüm yalnızca {SECTION_COUNTS['begruessung'] ?? 20} temel kelimeyle başlar: merhaba, teşekkür,
             evet/hayır. Yeni bölümler, öncekini tamamlayınca açılır.
-          </div>
+          </p>
         </div>
       </div>
     </div>

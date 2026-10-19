@@ -149,11 +149,17 @@ Doğru/yanlış sesli geri bildirim Web Audio ile üretilir (`src/sfx.ts`,
 Profil'den kapatılabilir). Klavye kısayolları: `Enter` kontrol et/devam,
 `1`–`4` şık seç, `Boşluk` dinle.
 
-### Arayüz (Duolingo dili)
+### Arayüz (yuvarlak, Duolingo dili)
 
-Açık tema, Nunito yazı tipi, 3B düğmeler (alt kenarlığı kalın, basılınca
-aşağı iner), yumuşak kartlar ve ölçülü animasyonlar (`pop`, `shake`, `rise`,
-`path-in`, `node-bob`). Yerleşim:
+Açık tema, **Nunito** yazı tipi, dolgun köşeler ve 3B düğmeler: eylem
+düğmelerinin alt kenarı 4–6 px kalın ve basıldığında aşağı iner; kartlar
+2 px kenar + 4 px alt kenarla yumuşak bir yükseklik kazanır; ilerleme
+çubukları hap biçimindedir. Renk kodu: **der** mavi, **die** kırmızı,
+**das** yeşil; ana eylem yeşil (`#58cc02`). Hareket az ve amaçlı:
+`rise`, `pop`, `shake`, `thump`, `bob` — hepsi `prefers-reduced-motion`
+tercihine saygı duyar. Ayrıntılı ölçek ve gerekçeler: [`DESIGN.md`](./DESIGN.md).
+
+Yerleşim:
 
 - **Masaüstü**: solda sabit kenar çubuğu (marka, sekmeler, HUD çipleri,
   kullanıcı kartı).

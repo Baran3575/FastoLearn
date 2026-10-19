@@ -61,14 +61,21 @@ export function ProfileScreen() {
 
   return (
     <div className="stack">
-      <div>
-        <h2>Profil</h2>
-        <p className="muted small" style={{ marginTop: 4 }}>
-          Her öğrencinin kendi motor durumu, tekrar planı ve istatistikleri ayrı tutulur.
-        </p>
-      </div>
+      <header className="page-head">
+        <div>
+          <h1 className="page-title">Profil</h1>
+          <p className="page-note">
+            Her öğrencinin kendi motor durumu, tekrar planı ve istatistikleri ayrı tutulur.
+          </p>
+        </div>
+        <div className="page-meta">
+          <label>Aktif öğrenci</label>
+          <b>{user.name}</b>
+          <label>{users.length} kayıtlı öğrenci</label>
+        </div>
+      </header>
 
-      <div className="card">
+      <div className="block">
         <div className="stat-row">
           <Stat label="XP" value={user.xp} />
           <Stat label="Seri" value={user.streak} hint={`en iyi ${user.bestStreak}`} />
@@ -85,8 +92,8 @@ export function ProfileScreen() {
         </div>
       </div>
 
-      <div className="card">
-        <h3 className="card-title">Öğrenciler</h3>
+      <div className="block">
+        <h2 className="sheet-title">Öğrenciler</h2>
         <div className="stack" style={{ gap: 9 }}>
           {users.map((u) => {
             const active = u.id === user.id
@@ -111,7 +118,7 @@ export function ProfileScreen() {
                     <>
                       <div className="row" style={{ gap: 6 }}>
                         <span style={{ fontWeight: 620, fontSize: 14 }}>{u.name}</span>
-                        {active ? <span className="chip tiny-chip accent">aktif</span> : null}
+                        {active ? <span className="tag tag-signal">aktif</span> : null}
                       </div>
                       <div className="tiny faint">
                         {u.xp} XP · {u.totals.reviews} cevap · {Object.keys(u.cards).length} kart
@@ -170,10 +177,10 @@ export function ProfileScreen() {
         </div>
       </div>
 
-      <div className="card">
-        <h3 className="card-title">
+      <div className="block">
+        <h2 className="sheet-title">
           <IconTarget size={13} /> Günlük hedef
-        </h3>
+        </h2>
         <div className="row between">
           <div>
             <div style={{ fontWeight: 620 }}>{user.dailyGoal} cevap / gün</div>
@@ -191,10 +198,10 @@ export function ProfileScreen() {
         />
       </div>
 
-      <div className="card">
-        <h3 className="card-title">
+      <div className="block">
+        <h2 className="sheet-title">
           <IconGear size={13} /> Tercihler
-        </h3>
+        </h2>
         <Field label="Dinleme alıştırmaları" hint="Almanca telaffuz (Web Speech) kullanılsın">
           <Switch
             on={user.settings.listenEnabled}
@@ -254,10 +261,10 @@ export function ProfileScreen() {
         </Field>
       </div>
 
-      <div className="card">
-        <h3 className="card-title">
+      <div className="block">
+        <h2 className="sheet-title">
           <IconVolume size={13} /> Almanca ses
-        </h3>
+        </h2>
         <div className="row between">
           <div>
             <div style={{ fontWeight: 620 }}>
@@ -276,10 +283,10 @@ export function ProfileScreen() {
         </div>
       </div>
 
-      <div className="card">
-        <h3 className="card-title">
+      <div className="block">
+        <h2 className="sheet-title">
           <IconLayers size={13} /> Veri
-        </h3>
+        </h2>
         <div className="grid-2">
           <button className="btn" onClick={exportJson}>
             <IconDownload size={16} />
@@ -322,8 +329,8 @@ export function ProfileScreen() {
         ) : null}
       </div>
 
-      <div className="card tight">
-        <div className="card-title">İçerik</div>
+      <div className="block">
+        <div className="sheet-title">İçerik</div>
         <div className="legend">
           <span>
             <IconLayers size={12} /> {CONTENT_STATS.items} kelime
@@ -341,7 +348,7 @@ export function ProfileScreen() {
         </div>
       </div>
 
-      <div className="card tight">
+      <div className="block">
         <div className="legend">
           <span>
             <IconFlame size={12} /> {user.streak} günlük seri

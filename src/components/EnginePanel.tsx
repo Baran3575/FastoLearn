@@ -65,14 +65,16 @@ export function EnginePanel() {
 
   return (
     <div className="stack">
-      <div>
-        <h2>Motor</h2>
-        <p className="muted small" style={{ marginTop: 4 }}>
+      <header className="page-head">
+        <div>
+        <h1 className="page-title">Motor</h1>
+        <p className="page-note">
           Her cevabında iki model birlikte çalışır: <b>RWKV-Instant</b> (taban) cevap geçmişini tek adımda
           işleyip kişisel hatırlama olasılığını üretir, <b>FSRS-7</b> (ikincil) tekrar tarihini hesaplar. Hiçbir
           ayar yapmana gerek yok.
         </p>
-      </div>
+        </div>
+      </header>
 
       <div className="seg-toggle" role="tablist" aria-label="Motor görünümü">
         <button
@@ -183,12 +185,12 @@ function NormalView({
 
   return (
     <div className="stack">
-      <div className="card engine-hero">
-        <div className="engine-hero-copy">
+      <div className="eng-hero">
+        <div className="eng-hero-copy">
           <span className="eyebrow">
-            <IconBrain size={11} /> kişisel motor
+            <IconBrain size={13} /> kişisel motor
           </span>
-          <h3>Seni tanıyor mu?</h3>
+          <h2 className="eng-hero-title">Seni tanıyor mu?</h2>
           <p className="small muted">
             {reviews === 0
               ? 'Henüz veri yok. İlk alıştırmalarda RWKV-Instant seni tanımaya başlar; hiçbir ayar gerekmez.'
@@ -196,29 +198,29 @@ function NormalView({
                 ? `Tekrar aralıkların sana göre ayarlandı (${formatRelative(personal.fsrsTunedAt)}). Zamanla daha isabetli olacak.`
                 : `${Math.max(0, MIN_TUNE_REVIEWS - reviews)} cevap sonra tekrar aralıkları senin hızına göre yeniden ayarlanacak.`}
           </p>
-          <div className="hero-chips">
-            <span className="chip accent">
+          <div className="tag-row">
+            <span className="tag tag-strong">
               <IconTarget size={12} /> {blend.n >= 10 ? `%${Math.round(blend.accuracy * 100)} isabet` : 'ölçülüyor'}
             </span>
-            <span className="chip">
+            <span className="tag">
               <IconBolt size={12} /> {reviews} cevap
             </span>
-            <span className="chip">
+            <span className="tag">
               <IconEye size={12} /> hedef %{Math.round(avgTarget * 100)}
             </span>
           </div>
         </div>
-        <Ring value={progress} size={112} stroke={10}>
-          <b>%{Math.round(progress * 100)}</b>
-          <small>kişiselleştirme</small>
+        <Ring value={progress} size={116} stroke={13} color="#ce82ff">
+          <b className="k">%{Math.round(progress * 100)}</b>
+          <span>kişiselleştirme</span>
         </Ring>
       </div>
 
       <div className="card">
         <div className="row between">
-          <h3 className="card-title" style={{ margin: 0 }}>
+          <h2 className="sheet-title">
             <IconCalendar size={13} /> Tekrar takvimi
-          </h3>
+          </h2>
           <span className="tiny faint">önümüzdeki 7 gün</span>
         </div>
         {fresh ? (
@@ -228,11 +230,12 @@ function NormalView({
         ) : (
           <div className="forecast">
             {forecast.map((b) => (
-              <div key={b.key} className={`forecast-col${b.key === 'overdue' ? ' is-overdue' : ''}`}>
+              <div
+                key={b.key}
+                className={`forecast-col${b.key === 'overdue' ? ' is-overdue' : ''}${b.count === 0 ? ' is-empty' : ''}`}
+              >
                 <span className="forecast-count">{b.count || ''}</span>
-                <div className="forecast-track">
-                  <i style={{ height: `${(b.count / maxForecast) * 100}%` }} />
-                </div>
+                <div className="forecast-bar" style={{ height: `${Math.max(b.count === 0 ? 2 : 6, (b.count / maxForecast) * 100)}%` }} />
                 <span className="forecast-label">{b.label}</span>
               </div>
             ))}
@@ -245,9 +248,9 @@ function NormalView({
 
       {fresh ? (
         <div className="card">
-          <h3 className="card-title">
+          <h2 className="sheet-title">
             <IconSparkles size={13} /> Bu ekranda zamanla ne göreceksin?
-          </h3>
+          </h2>
           <div className="plan-list">
             {[
               {
@@ -288,9 +291,9 @@ function NormalView({
         <>
       <div className="card">
         <div className="row between">
-          <h3 className="card-title" style={{ margin: 0 }}>
+          <h2 className="sheet-title">
             <IconLayers size={13} /> Bölüm ustalığı
-          </h3>
+          </h2>
           <span className="tiny faint">stabiliteye göre</span>
         </div>
         <div className="mastery-list">
@@ -319,9 +322,9 @@ function NormalView({
 
       <div className="card">
         <div className="row between">
-          <h3 className="card-title" style={{ margin: 0 }}>
+          <h2 className="sheet-title">
             <IconChart size={13} /> Unutma eğrisi
-          </h3>
+          </h2>
           <span className="tiny faint">tekrar etmezsen</span>
         </div>
         {curve.length ? (
@@ -348,15 +351,15 @@ function NormalView({
 
       {hardest.length || easiest.length || weak ? (
         <div className="card">
-          <h3 className="card-title">
+          <h2 className="sheet-title">
             <IconSparkles size={13} /> Sana özel ipuçları
-          </h3>
+          </h2>
           {hardest.length ? (
             <div style={{ marginBottom: 12 }}>
               <div className="tiny faint" style={{ marginBottom: 6 }}>
                 Daha sık sorulacaklar
               </div>
-              <div className="word-chips">
+              <div className="tag-row">
                 {hardest.map((b) => (
                   <span key={b.item} className="word-chip hard">
                     <b className="de">{b.item}</b>
@@ -371,7 +374,7 @@ function NormalView({
               <div className="tiny faint" style={{ marginBottom: 6 }}>
                 Daha seyrek sorulacaklar
               </div>
-              <div className="word-chips">
+              <div className="tag-row">
                 {easiest.map((b) => (
                   <span key={b.item} className="word-chip easy">
                     <b className="de">{b.item}</b>
@@ -391,9 +394,9 @@ function NormalView({
       ) : null}
 
       <div className="card">
-        <h3 className="card-title">
+        <h2 className="sheet-title">
           <IconTarget size={13} /> Tahminler ne kadar tutuyor?
-        </h3>
+        </h2>
         {blend.n < 10 ? (
           <p className="small muted">
             En az 10 cevap gerekiyor. Şu an {blend.n} cevap var — birkaç tur daha yap.
@@ -436,9 +439,9 @@ function NormalView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">
+        <h2 className="sheet-title">
           <IconClock size={13} /> Tekrar ufukları
-        </h3>
+        </h2>
         <p className="small muted" style={{ marginTop: 0 }}>
           RWKV-Instant üç ayrı ölçekte unutma hızını öğrenir. Çubuk büyüdükçe o ufuk daha etkin kullanılıyor.
         </p>
@@ -510,7 +513,7 @@ function AdvancedView({
     <div className="stack">
       <div className="grid-2">
         <div className="card tight">
-          <div className="card-title">RWKV-Instant (taban)</div>
+          <div className="sheet-title">RWKV-Instant (taban)</div>
           <div className="tiny muted">
             Cevapları tek adımlı, sabit boyutlu yinelemeli durumda işler (O(1)). Her kafa farklı bir unutma
             ufkunu öğrenir; yalnızca okuma katmanı çevrimiçi eğitilir.
@@ -529,7 +532,7 @@ function AdvancedView({
           </div>
         </div>
         <div className="card tight">
-          <div className="card-title">FSRS-7 (ikincil)</div>
+          <div className="sheet-title">FSRS-7 (ikincil)</div>
           <div className="tiny muted">
             21 parametreli bellek modeli. Arka planda cevap geçmişine göre yeniden uyarlanır ve tekrar aralığını
             belirler.
@@ -555,9 +558,9 @@ function AdvancedView({
 
       <div className="card">
         <div className="row between">
-          <h3 className="card-title" style={{ margin: 0 }}>
+          <h2 className="sheet-title">
             Model trendi (kayan 20 cevap)
-          </h3>
+          </h2>
           <span className="tiny faint mono">{events.length} olay</span>
         </div>
         {trend.accuracy.length >= 2 ? (
@@ -568,7 +571,7 @@ function AdvancedView({
             </div>
             <div>
               <div className="tiny faint">Brier (düşük iyi)</div>
-              <Sparkline points={trend.brier} max={0.5} height={58} color="#ce82ff" />
+              <Sparkline points={trend.brier} max={0.5} height={58} color="#ff4b4b" />
             </div>
           </div>
         ) : (
@@ -577,7 +580,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">Tahmin doğruluğu (son 200 cevap)</h3>
+        <h2 className="sheet-title">Tahmin doğruluğu (son 200 cevap)</h2>
         <table className="metrics">
           <thead>
             <tr>
@@ -617,7 +620,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">Son kararlar</h3>
+        <h2 className="sheet-title">Son kararlar</h2>
         {lastEvents.length ? (
           <table className="metrics">
             <thead>
@@ -654,9 +657,9 @@ function AdvancedView({
 
       <div className="card">
         <div className="row between">
-          <h3 className="card-title" style={{ margin: 0 }}>
+          <h2 className="sheet-title">
             Birleşim ağırlıkları (logit uzayı)
-          </h3>
+          </h2>
           <span className="tiny faint mono">
             α {a.toFixed(3)} · β {b.toFixed(3)} · γ {c.toFixed(3)}
           </span>
@@ -673,7 +676,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">Unutma ufukları (kafa yarılanma süreleri)</h3>
+        <h2 className="sheet-title">Unutma ufukları (kafa yarılanma süreleri)</h2>
         <div className="stack" style={{ gap: 7 }}>
           {personal.horizons.map((h, i) => (
             <MiniBar key={h.label} label={HORIZON_LABELS[i] ?? h.label} value={h.value} max={horizonMax} />
@@ -682,7 +685,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">Kalibrasyon</h3>
+        <h2 className="sheet-title">Kalibrasyon</h2>
         <div className="row" style={{ gap: 18, alignItems: 'center' }}>
           <CalibrationChart bins={bins} />
           <div className="tiny faint" style={{ flex: 1 }}>
@@ -692,7 +695,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">Öğe bazlı yanlılık (itemBias)</h3>
+        <h2 className="sheet-title">Öğe bazlı yanlılık (itemBias)</h2>
         {personal.biases.length ? (
           <div className="stack" style={{ gap: 8 }}>
             {personal.biases.map((b) => (
@@ -703,7 +706,7 @@ function AdvancedView({
                   </div>
                   <div className="tiny faint">{b.tr}</div>
                 </div>
-                <span className={`pill ${b.bias > 0 ? 'bad' : 'good'}`}>
+                <span className={`tag ${b.bias > 0 ? 'tag-bad' : 'tag-good'}`}>
                   {b.bias > 0 ? 'bekleneden zor' : 'beklenenden kolay'} {b.bias > 0 ? '+' : ''}
                   {b.bias.toFixed(2)}
                 </span>
@@ -716,7 +719,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">FSRS-7 parametreleri</h3>
+        <h2 className="sheet-title">FSRS-7 parametreleri</h2>
         <div className="param-grid">
           {params.map((p, i) => (
             <div key={i} className="param">
@@ -733,7 +736,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">Kart dağılımı</h3>
+        <h2 className="sheet-title">Kart dağılımı</h2>
         <div className="stat-row">
           <Stat label="Yeni" value={cards.fresh} />
           <Stat label="Öğreniliyor" value={cards.learning + cards.young} />
@@ -745,7 +748,7 @@ function AdvancedView({
       </div>
 
       <div className="card">
-        <h3 className="card-title">Tema performansı</h3>
+        <h2 className="sheet-title">Tema performansı</h2>
         <div className="grid-2">
           <div>
             <div className="tiny faint" style={{ marginBottom: 6 }}>

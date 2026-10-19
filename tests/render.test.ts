@@ -22,7 +22,7 @@ describe('ekran duman testi', () => {
     const html = renderToStaticMarkup(
       createElement(HomeScreen, { onStart: () => {}, onOpenUnits: () => {}, onOpenEngine: () => {} }),
     )
-    expect(html).toContain('continue-card')
+    expect(html).toContain('continue-plate')
     expect(html).toContain('Sıradaki bölüm')
     expect(html).toContain('Hallo!')
     expect(html).toContain('günlük hedef')
@@ -33,10 +33,10 @@ describe('ekran duman testi', () => {
     expect(html).toContain('Erste Schritte')
     expect(html).toContain('Mein Alltag')
     expect(html).toContain('10 bölüm')
-    expect(html.match(/path-node/g)?.length).toBeGreaterThanOrEqual(20)
+    expect(html.match(/path-node /g)?.length).toBeGreaterThanOrEqual(20)
     // A0 başlangıcı: ilk bölüm açık, sonrakiler kilitli
     expect(html).toContain('Hallo!')
-    expect(html).toContain('Kilitli')
+    expect(html).toContain('kilitli')
   })
 
   it('Motor ekranı basit görünümde sade dille anlatır', () => {

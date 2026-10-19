@@ -68,7 +68,7 @@ describe('ders akışı', () => {
       guard += 1
       click(q('.answer-bar .btn'))
     }
-    expect(q('.exercise')).not.toBeNull()
+    expect(q('.ws')).not.toBeNull()
 
     guard = 0
     while (!summary && guard < 60) {
@@ -80,20 +80,20 @@ describe('ders akışı', () => {
       if (view.choices.length) {
         const correct =
           view.choices.find((c) => engine.evaluate(view.item, view.kind, c).correct) ?? view.choices[0]
-        const buttons = Array.from(container.querySelectorAll('.choice'))
+        const buttons = Array.from(container.querySelectorAll('.ws-choice'))
         click(buttons[view.choices.indexOf(correct)] ?? buttons[0])
       } else if (view.tiles.length) {
         // Cümleyi doğru sırayla kurmayı dene; bulunamayan karo olursa ilk karo yeter.
         const norm = (s: string) => s.toLowerCase().replace(/[.,!?;:„“"']/g, '')
         const words = norm(view.item.ex ?? '').split(/\s+/).filter(Boolean)
         for (const word of words) {
-          const tiles = Array.from(container.querySelectorAll('.tiles-bank .tile'))
+          const tiles = Array.from(container.querySelectorAll('.ws-bank .ws-tile'))
           const tile = tiles.find((t) => norm(t.textContent ?? '') === word)
           if (tile) click(tile)
         }
-        if (!q('.tile.placed')) click(q('.tiles-bank .tile'))
+        if (!q('.ws-tile.placed')) click(q('.ws-bank .ws-tile'))
       } else {
-        const input = q('.answer-input') as HTMLInputElement
+        const input = q('.ws-answer-input') as HTMLInputElement
         const candidates = [view.item.de, view.item.article ?? '', view.item.ex ?? '', view.item.tr]
         const good =
           candidates.find((c) => c && engine.evaluate(view.item, view.kind, c).correct) ?? view.item.de
@@ -103,7 +103,7 @@ describe('ders akışı', () => {
       const check = q('.answer-bar .btn') as HTMLButtonElement
       expect(check.disabled).toBe(false)
       click(check)
-      expect(q('.feedback')).not.toBeNull()
+      expect(q('.correction')).not.toBeNull()
 
       const next = q('.answer-bar .btn') as HTMLButtonElement
       click(next)

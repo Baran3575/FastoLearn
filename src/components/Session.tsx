@@ -12,8 +12,8 @@ import {
   IconInfo,
   IconVolume,
   posIcon,
-  unitIcon,
 } from './icons'
+import { WordDe } from './ui'
 
 interface Props {
   session: StudySession
@@ -41,10 +41,16 @@ const POS_LABELS: Record<string, string> = {
   other: 'kelime',
 }
 
+/**
+ * Ders, bir çalışma kağıdı gibi çizilir: üstte ince bir ilerleme şeridi,
+ * ortada soru yaprağı, altta tek eylem çubuğu. Cevaplar numaralı satırlar
+ * hâlinde listelenir; düzeltme şeridi öğretmen notu gibi eklenir.
+ */
 export function SessionScreen({ session, speechOk, showPredictions, onFinished, onExit, onGraded }: Props) {
   const [view, setView] = useState<ExerciseView | null>(null)
   const [intro, setIntro] = useState(session.currentIntro)
   const [feedback, setFeedback] = useState<SubmitResult | null>(null)
+  const correctionRef = useRef<HTMLDivElement | null>(null)
   const [input, setInput] = useState('')
   const [selected, setSelected] = useState<string | null>(null)
   const [bank, setBank] = useState<Tile[]>([])
@@ -100,7 +106,7 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view?.animationKey])
 
-  // Tanıtım kartındaki kelime açılır açılmaz okunur (Duolingo hissi).
+  // Tanıtım kartındaki kelime açılır açılmaz okunur.
   useEffect(() => {
     if (speechOk && intro?.item) play(intro.item.de)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -183,69 +189,95 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     }
   }
 
+  useEffect(() => {
+    if (!feedback || !correctionRef.current) return
+    const el = correctionRef.current
+    const id = window.setTimeout(() => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+    }, 70)
+    return () => window.clearTimeout(id)
+  }, [feedback])
+
   nextCardRef.current = nextCard
 
   if (inIntro && intro) {
     const item = intro.item
-    const UnitIcon = unitIcon(item.unit)
     const PosIcon = posIcon(item.pos)
     return (
       <div className="intro-wrap">
-        <div className="session-head">
-          <button className="icon-btn" aria-label="Çıkış" onClick={() => { cancelSpeech(); onExit() }}>
+        <div className="ws-head">
+          <button
+            className="icon-btn"
+            aria-label="Çıkış"
+            onClick={() => {
+              cancelSpeech()
+              onExit()
+            }}
+          >
             <IconClose size={18} />
           </button>
-          <div className="dots">
+          <div className="ws-cells">
             {Array.from({ length: intro.total }, (_, i) => (
               <i key={i} className={i <= intro.index ? 'on' : ''} />
             ))}
           </div>
-          <button className="link-btn" onClick={() => { session.skipIntro(); setIntro(null); advance() }}>
+          <button
+            className="link-btn"
+            onClick={() => {
+              session.skipIntro()
+              setIntro(null)
+              advance()
+            }}
+          >
             Atla
           </button>
         </div>
 
         <div className="wordcard" key={item.id}>
           <div className="wordcard-top">
-            <span className="chip pos">
-              <PosIcon size={14} />
+            <span className="tag">
+              <PosIcon size={13} />
               {POS_LABELS[item.pos] ?? item.pos}
             </span>
-            <span className="chip muted">
-              <UnitIcon size={14} />
-              yeni kelime
-            </span>
+            <span className="tag tag-signal">yeni kelime</span>
             <span className="tiny faint" style={{ marginLeft: 'auto' }}>
               {intro.index + 1}/{intro.total}
             </span>
           </div>
 
-          {speechOk ? (
-            <button
-              className={`speaker${playing ? ' playing' : ''}`}
-              onClick={() => play(item.de)}
-              aria-label="Dinle"
-            >
-              <IconVolume size={26} />
-            </button>
-          ) : null}
-
-          <h2 className={`wordcard-de art-${item.article ?? 'none'}`}>{item.de}</h2>
+          <div className="wordcard-word">
+            <WordDe item={item} />
+            {speechOk ? (
+              <button
+                className={`speaker${playing ? ' playing' : ''}`}
+                onClick={() => play(item.de)}
+                aria-label="Dinle"
+              >
+                <IconVolume size={20} />
+              </button>
+            ) : null}
+          </div>
           <p className="wordcard-tr">{item.tr}</p>
 
-          <div className="wordcard-meta">
-            {item.article ? <span className="chip">Artikel: {item.article}</span> : null}
-            {item.plural ? <span className="chip">Çoğul: {item.plural}</span> : null}
-            {item.proper ? <span className="chip muted">özel isim</span> : null}
-          </div>
+          {(item.plural || item.proper) && (
+            <div className="wordcard-meta">
+              {item.plural ? <span className="tag">çoğul: {item.plural}</span> : null}
+              {item.proper ? <span className="tag">özel isim</span> : null}
+            </div>
+          )}
 
           {item.ex ? (
             <div className="wordcard-ex">
               <div className="row between">
-                <span className="de">{item.ex}</span>
+                <span className="de-soft">{item.ex}</span>
                 {speechOk ? (
-                  <button className="icon-btn sm" aria-label="Örneği dinle" onClick={() => play(item.ex ?? '')}>
-                    <IconVolume size={16} />
+                  <button
+                    className="icon-btn sm"
+                    aria-label="Örneği dinle"
+                    onClick={() => play(item.ex ?? '')}
+                  >
+                    <IconVolume size={15} />
                   </button>
                 ) : null}
               </div>
@@ -262,12 +294,13 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
         </div>
 
         <div className="answer-bar">
-          <button className="btn primary block lg" onClick={nextCard}>
-            {intro.index + 1 >= intro.total ? 'Alıştırmalara geç' : 'Devam'}
-            <IconChevron />
-          </button>
-          <div className="kbd-hint">
-            <kbd>Enter</kbd> devam · <kbd>Boşluk</kbd> dinle
+          <div className="answer-inner">
+            <button className="btn btn-signal btn-block btn-lg" onClick={nextCard}>
+              {intro.index + 1 >= intro.total ? 'Alıştırmalara geç' : 'Devam'}
+            </button>
+            <div className="kbd-hint">
+              <kbd>Enter</kbd> devam · <kbd>Boşluk</kbd> dinle
+            </div>
           </div>
         </div>
       </div>
@@ -282,11 +315,13 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
     return (
       <div className="empty">
         <div className="empty-icon">
-          <IconCheck size={30} />
+          <IconCheck size={28} />
         </div>
-        <h2>Şimdilik tekrar edilecek bir şey yok</h2>
+        <h2 className="page-title" style={{ fontSize: 22 }}>
+          Şimdilik tekrar edilecek bir şey yok
+        </h2>
         <p className="muted small">Yeni kelime eklemek için bir ünite seç ya da yarın tekrar gel.</p>
-        <button className="btn primary" onClick={onExit} style={{ marginTop: 14 }}>
+        <button className="btn btn-signal" onClick={onExit} style={{ marginTop: 14 }}>
           Ana sayfaya dön
         </button>
       </div>
@@ -300,34 +335,41 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
 
   return (
     <div>
-      <div className="session-head">
-        <button className="icon-btn" aria-label="Çıkış" onClick={() => { cancelSpeech(); onExit() }}>
+      <div className="ws-head">
+        <button
+          className="icon-btn"
+          aria-label="Çıkış"
+          onClick={() => {
+            cancelSpeech()
+            onExit()
+          }}
+        >
           <IconClose size={18} />
         </button>
-        <div className="segbar">
+        <div className="ws-cells">
           {Array.from({ length: segCount }, (_, i) => (
             <i key={i} className={i < segFilled ? 'on' : i === segFilled ? 'now' : ''} />
           ))}
         </div>
-        <span className="tiny faint mono">
+        <span className="ws-count k">
           {session.answered}/{total}
         </span>
       </div>
 
-      <div className="exercise" key={view.animationKey}>
-        <div className="exercise-top">
-          <span className="chip accent">{EXERCISE_LABELS[view.kind]}</span>
-          <span className="chip muted pos">
+      <div className="ws" key={view.animationKey}>
+        <div className="ws-kind">
+          <span className="tag tag-strong">{EXERCISE_LABELS[view.kind]}</span>
+          <span className="tag">
             <PosIcon size={13} />
             {POS_LABELS[view.item.pos] ?? view.item.pos}
           </span>
           {view.audioText ? (
             <button
-              className={`speaker inline${playing ? ' playing' : ''}`}
+              className={`icon-btn sm${playing ? ' playing' : ''}`}
               onClick={() => view.audioText && play(view.audioText)}
               aria-label="Dinle"
             >
-              <IconVolume size={19} />
+              <IconVolume size={16} />
             </button>
           ) : null}
           <span className="tiny faint" style={{ marginLeft: 'auto', textAlign: 'right' }}>
@@ -335,43 +377,41 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
           </span>
         </div>
 
-        {view.prompt ? (
-          <div className={`exercise-prompt${view.article ? ` art-${view.article}` : ''}`}>{view.prompt}</div>
-        ) : null}
+        {view.prompt ? <div className="ws-prompt">{view.prompt}</div> : null}
 
         {view.choices.length ? (
-          <div className="choices">
+          <div className="ws-choices">
             {view.choices.map((choice, i) => {
               const isSelected = selected === choice
               const state = feedback
                 ? choice === feedback.correctAnswer
-                  ? 'is-correct'
+                  ? ' good'
                   : isSelected
-                    ? 'is-wrong'
-                    : 'dim'
+                    ? ' bad'
+                    : ' dim'
                 : isSelected
-                  ? 'is-selected'
+                  ? ' on'
                   : ''
               return (
                 <button
                   key={choice}
-                  className={`choice ${state}`}
+                  className={`ws-choice${state}`}
                   disabled={!!feedback}
                   onClick={() => setSelected(choice)}
                 >
-                  <span className="key">{i + 1}</span>
+                  <span className="ws-choice-key">{i + 1}</span>
                   <span className={view.inputField === 'tr' ? '' : 'de'}>{choice}</span>
                 </button>
               )
             })}
           </div>
         ) : view.tiles.length ? (
-          <div className="tiles">
-            <div className="tiles-answer" aria-label="Cevap alanı">
+          <div className="ws-tiles">
+            <div className="ws-answer-area" aria-label="Cevap alanı">
               {placed.map((t) => (
                 <button
                   key={`p${t.id}`}
-                  className="tile placed"
+                  className="ws-tile placed"
                   disabled={!!feedback}
                   onClick={() => {
                     setPlaced((p) => p.filter((x) => x.id !== t.id))
@@ -381,14 +421,15 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
                   {t.word}
                 </button>
               ))}
-              {!placed.length ? <span className="tiles-hint">Kelimelere dokunarak cümleyi kur</span> : null}
+              {!placed.length ? (
+                <span className="ws-placeholder">Kelimelere dokunarak cümleyi kur</span>
+              ) : null}
             </div>
-            <div className="tiles-line" />
-            <div className="tiles-bank">
+            <div className="ws-bank">
               {bank.map((t) => (
                 <button
                   key={`b${t.id}`}
-                  className="tile"
+                  className="ws-tile"
                   disabled={!!feedback}
                   onClick={() => {
                     setBank((b) => b.filter((x) => x.id !== t.id))
@@ -399,18 +440,12 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
                 </button>
               ))}
             </div>
-            {feedback ? (
-              <div className="answer-line">
-                <span className="tiny faint">Senin cevabın</span>
-                <div className="de">{assembled || '—'}</div>
-              </div>
-            ) : null}
           </div>
         ) : (
-          <div className="stack" style={{ marginTop: 18, gap: 8 }}>
+          <div>
             <input
               ref={inputRef}
-              className={`answer-input${feedback ? (feedback.correct ? ' is-correct' : ' is-wrong') : ''}`}
+              className={`ws-answer-input${feedback ? (feedback.correct ? ' good' : ' bad') : ''}`}
               value={feedback ? (feedback.given ?? '') : input}
               placeholder={view.placeholder}
               autoComplete="off"
@@ -420,7 +455,7 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
               onChange={(e) => setInput(e.target.value)}
             />
             {view.hint && !feedback ? (
-              <div className="tiny faint row" style={{ gap: 8 }}>
+              <div className="ws-hint">
                 <IconBulb size={14} />
                 <span>{view.hint}</span>
                 {hintLevel === 0 ? (
@@ -428,7 +463,9 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
                     harf göster
                   </button>
                 ) : (
-                  <span className="mono">{revealHint(view.item.de, hintLevel + 1)}</span>
+                  <span className="de-soft" style={{ letterSpacing: '0.08em' }}>
+                    {revealHint(view.item.de, hintLevel + 1)}
+                  </span>
                 )}
               </div>
             ) : null}
@@ -437,25 +474,36 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
       </div>
 
       {feedback ? (
-        <div className={`feedback ${feedback.correct ? 'good' : 'bad'}`}>
-          <div className="feedback-head">
-            <span className={`badge ${feedback.correct ? 'good' : 'bad'}`}>
-              {feedback.correct ? <IconCheck size={15} /> : <IconClose size={15} />}
+        <div className={`correction ${feedback.correct ? 'good' : 'bad'}`} ref={correctionRef}>
+          <div className="correction-head">
+            <span className={`fb-badge${feedback.correct ? '' : ' bad'}`}>
+              {feedback.correct ? <IconCheck size={17} /> : <IconClose size={17} />}
             </span>
-            <span>{feedback.correct ? (feedback.exact ? 'Doğru!' : 'Doğru (küçük yazım farkı)') : 'Doğru cevap:'}</span>
-            <span style={{ flex: 1 }} />
-            <span className="pill">{RATING_LABELS[feedback.rating]}</span>
-            <span className="pill accent">{humanInterval(feedback.intervalMs)}</span>
+            <span>
+              {feedback.correct
+                ? feedback.exact
+                  ? 'Doğru'
+                  : 'Doğru (küçük yazım farkı)'
+                : 'Doğru cevap'}
+            </span>
+            <span className="grow" />
+            <span className="tag">{RATING_LABELS[feedback.rating]}</span>
+            <span className="tag tag-signal">{humanInterval(feedback.intervalMs)}</span>
           </div>
 
           {!feedback.correct ? (
-            <div className="feedback-answer">
+            <div className="correction-answer">
               <div className="row between" style={{ alignItems: 'flex-start', gap: 10 }}>
                 <div>
-                  <span className={`de${view.article ? ` art-${view.article}` : ''}`}>{feedback.correctAnswer}</span>
-                  <span className="small muted" style={{ display: 'block', marginTop: 2 }}>
-                    {view.item.tr}
-                  </span>
+                  <div className="de-lg">
+                    <WordDe
+                      item={{
+                        de: feedback.correctAnswer,
+                        article: view.article && feedback.correctAnswer.startsWith(view.article) ? view.article : null,
+                      }}
+                    />
+                  </div>
+                  <span className="word-tr">{view.item.tr}</span>
                 </div>
                 {speechOk ? (
                   <button
@@ -463,27 +511,25 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
                     aria-label="Doğru cevabı dinle"
                     onClick={() => play(feedback.correctAnswer)}
                   >
-                    <IconVolume size={16} />
+                    <IconVolume size={15} />
                   </button>
                 ) : null}
               </div>
             </div>
           ) : null}
 
-          <div className="feedback-example">
+          <div className="correction-extra">
             {feedback.correct ? (
               <div className="row between" style={{ alignItems: 'flex-start' }}>
                 <div>
-                  <div className={`de${view.article ? ` art-${view.article}` : ''}`} style={{ fontSize: 16 }}>
-                    {view.item.de}
-                  </div>
-                  <div className="small muted">{view.item.tr}</div>
+                  <WordDe item={view.item} />
+                  <span className="word-tr">{view.item.tr}</span>
                 </div>
                 <div className="row" style={{ gap: 6 }}>
-                  {view.item.plural ? <span className="pill">{view.item.plural}</span> : null}
+                  {view.item.plural ? <span className="tag">{view.item.plural}</span> : null}
                   {speechOk ? (
                     <button className="icon-btn sm" aria-label="Kelimeyi dinle" onClick={() => play(view.item.de)}>
-                      <IconVolume size={16} />
+                      <IconVolume size={15} />
                     </button>
                   ) : null}
                 </div>
@@ -491,8 +537,8 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
             ) : null}
             {view.item.ex ? (
               <div style={{ marginTop: 10 }}>
-                <div className="small de">{view.item.ex}</div>
-                <div className="tiny faint">{view.item.exTr}</div>
+                <div className="de-soft">{view.item.ex}</div>
+                <span className="tiny faint">{view.item.exTr}</span>
               </div>
             ) : null}
             {view.item.note ? (
@@ -504,21 +550,23 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
           </div>
 
           {showPredictions ? (
-            <div className="predictions">
-              <span className="tiny faint">
-                RWKV-Instant <b className="mono">{(feedback.pRwkv * 100).toFixed(0)}%</b>
+            <div className="data-line">
+              <span>
+                RWKV-Instant <b className="k">{(feedback.pRwkv * 100).toFixed(0)}%</b>
               </span>
-              <span className="tiny faint">
-                FSRS-7 <b className="mono">{(feedback.pFsrs * 100).toFixed(0)}%</b>
+              <span>
+                FSRS-7 <b className="k">{(feedback.pFsrs * 100).toFixed(0)}%</b>
               </span>
-              <span className="tiny faint">
-                karar <b className="mono">{(feedback.pFinal * 100).toFixed(0)}%</b>
+              <span>
+                karar <b className="k">{(feedback.pFinal * 100).toFixed(0)}%</b>
               </span>
-              <span className="tiny faint">hedef %{Math.round(feedback.targetRetention * 100)}</span>
-              <span className="tiny" style={{ color: 'var(--gold)', display: 'inline-flex', alignItems: 'center', gap: 3 }}>
-                <IconBolt size={12} /> +{feedback.xp}
+              <span>
+                hedef <b className="k">%{Math.round(feedback.targetRetention * 100)}</b>
               </span>
-              {feedback.requeued ? <span className="pill bad">oturum sonunda tekrar</span> : null}
+              <span className="tag tag-signal">
+                <IconBolt size={12} /> +{feedback.xp} XP
+              </span>
+              {feedback.requeued ? <span className="tag tag-bad">oturum sonunda tekrar</span> : null}
             </div>
           ) : null}
         </div>
@@ -530,41 +578,35 @@ export function SessionScreen({ session, speechOk, showPredictions, onFinished, 
         </div>
       ) : null}
 
-      <div className={`answer-bar${feedback ? (feedback.correct ? ' correct' : ' wrong') : ''}`}>
-        {feedback ? (
-          <button className="btn primary block lg" onClick={advance}>
-            {session.total - session.answered > 0 ? 'Devam' : 'Oturumu bitir'}
-          </button>
-        ) : (
-          <button className="btn primary block lg" disabled={!canSubmit} onClick={submit}>
-            {view.tiles.length || view.choices.length ? 'Kontrol et' : `Kontrol et (${askedLabel})`}
-          </button>
-        )}
-        {!feedback && view.choices.length ? (
-          <div className="kbd-hint">
-            <kbd>Enter</kbd> kontrol et · <kbd>1</kbd>–<kbd>{Math.min(4, view.choices.length)}</kbd> seç
-          </div>
-        ) : (
-          <div className="kbd-hint">
-            <kbd>Enter</kbd> {feedback ? 'devam' : 'kontrol et'}
-            {view.audioText ? (
-              <>
-                {' · '}
-                <kbd>Boşluk</kbd> dinle
-              </>
-            ) : null}
-          </div>
-        )}
+      <div className="answer-bar">
+        <div className="answer-inner">
+          {feedback ? (
+            <button className="btn btn-signal btn-block btn-lg" onClick={advance}>
+              {session.total - session.answered > 0 ? 'Devam' : 'Oturumu bitir'}
+            </button>
+          ) : (
+            <button className="btn btn-signal btn-block btn-lg" disabled={!canSubmit} onClick={submit}>
+              {view.tiles.length || view.choices.length ? 'Kontrol et' : `Kontrol et (${askedLabel})`}
+            </button>
+          )}
+          {!feedback && view.choices.length ? (
+            <div className="kbd-hint">
+              <kbd>Enter</kbd> kontrol et · <kbd>1</kbd>–<kbd>{Math.min(4, view.choices.length)}</kbd> seç
+            </div>
+          ) : (
+            <div className="kbd-hint">
+              <kbd>Enter</kbd> {feedback ? 'devam' : 'kontrol et'}
+              {view.audioText ? (
+                <>
+                  {' · '}
+                  <kbd>Boşluk</kbd> dinle
+                </>
+              ) : null}
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  )
-}
-
-function IconChevron() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden>
-      <path d="M9.5 5.5 16 12l-6.5 6.5" />
-    </svg>
   )
 }
 

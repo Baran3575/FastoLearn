@@ -2,21 +2,35 @@ import { useCallback, useEffect, useState } from 'react'
 import { primeVoices } from './audio'
 import { EnginePanel } from './components/EnginePanel'
 import { HomeScreen } from './components/Home'
-import { IconBolt, IconBrain, IconFlame, IconHome, IconTarget, IconUser, type IconComponent } from './components/icons'
+import {
+  IconBolt,
+  IconBrain,
+  IconFlame,
+  IconHome,
+  IconTarget,
+  IconUser,
+  type IconComponent,
+} from './components/icons'
 import { ProfileScreen } from './components/Profile'
 import { SessionScreen } from './components/Session'
 import { SummaryScreen } from './components/Summary'
 import { UnitsScreen } from './components/Units'
+import { Bar, WeekStrip } from './components/ui'
+import { dayKey } from './engine/engine'
 import { StudySession, type SessionSummary } from './session'
 import { useStore } from './state/store'
 
 type Tab = 'home' | 'units' | 'engine' | 'profile'
 
-const TABS: { id: Tab; Icon: IconComponent; label: string }[] = [
-  { id: 'home', Icon: IconHome, label: 'Öğren' },
-  { id: 'units', Icon: IconTarget, label: 'Müfredat' },
-  { id: 'engine', Icon: IconBrain, label: 'Motor' },
-  { id: 'profile', Icon: IconUser, label: 'Profil' },
+/**
+ * Ray, dosya dolabı gibi çalışır: her sekmenin küçük bir harfi vardır ve
+ * açık olan sekme sayfa zeminine “çekilmiş” görünür.
+ */
+const TABS: { id: Tab; Icon: IconComponent; label: string; key: string }[] = [
+  { id: 'home', Icon: IconHome, label: 'Öğren', key: 'A' },
+  { id: 'units', Icon: IconTarget, label: 'Müfredat', key: 'B' },
+  { id: 'engine', Icon: IconBrain, label: 'Motor', key: 'C' },
+  { id: 'profile', Icon: IconUser, label: 'Profil', key: 'D' },
 ]
 
 export function App() {
@@ -115,80 +129,92 @@ export function App() {
   }
 
   const initial = user.name.slice(0, 1).toLocaleUpperCase('tr-TR')
+  const today = store.todayStats()
+  const goalValue = today.goal > 0 ? Math.min(1, today.reviews / today.goal) : 0
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const ts = Date.now() - (6 - i) * 86_400_000
+    const key = dayKey(ts)
+    return { key, on: (user.daily[key]?.reviews ?? 0) > 0, today: i === 6 }
+  })
 
   return (
     <div className="app">
-      <aside className="sidebar">
-        <div className="brand">
-          <span className="brand-mark">
-            <IconBrain size={19} />
+      <aside className="rail">
+        <div className="rail-brand">
+          <span className="rail-mark" aria-hidden>
+            F
           </span>
-          <span className="brand-text">
-            FastoLearn
-            <small>Türkçe → Almanca A1</small>
+          <span className="rail-brand-text">
+            <b>FastoLearn</b>
+            <span>Türkçe → Almanca A1</span>
           </span>
         </div>
 
-        <nav className="side-nav" aria-label="Ana menü">
-          {TABS.map(({ id, Icon, label }) => (
+        <nav className="rail-nav" aria-label="Ana menü">
+          {TABS.map(({ id, Icon, label, key }) => (
             <button
               key={id}
-              className={`side-link${tab === id ? ' is-active' : ''}`}
+              className={`rail-tab${tab === id ? ' on' : ''}`}
+              aria-current={tab === id ? 'page' : undefined}
               onClick={() => setTab(id)}
             >
-              <Icon size={21} />
+              <span className="tab-key" aria-hidden>
+                {key}
+              </span>
+              <Icon size={19} />
               <span>{label}</span>
             </button>
           ))}
         </nav>
 
-        <div className="side-foot">
-          <div className="side-hud">
-            <span className="hud-chip flame" title="Gün serisi">
-              <IconFlame size={14} />
-              {user.streak}
-            </span>
-            <span className="hud-chip xp" title="Toplam XP">
-              <IconBolt size={14} />
-              {user.xp}
+        <div className="rail-foot">
+          <div className="rail-goal">
+            <span>Bugün</span>
+            <span className="k">
+              {today.reviews}/{today.goal}
             </span>
           </div>
-          <button className="side-user" onClick={() => setTab('profile')}>
-            <span className="avatar">{initial}</span>
-            <span style={{ minWidth: 0 }}>
+          <Bar value={goalValue} good={goalValue >= 1} thin />
+          <WeekStrip days={days} />
+          <div className="rail-user">
+            <span className="rail-user-mark">{initial}</span>
+            <span className="rail-user-text">
               <b>{user.name}</b>
-              <small>A0 · Yeni başlayan</small>
+              <span>
+                {user.streak} gün seri · {user.xp} XP
+              </span>
             </span>
-          </button>
+          </div>
         </div>
       </aside>
 
       <div className="app-main">
-        <header className="topbar">
-          <div className="topbar-inner">
-            <div className="brand">
-              <span className="brand-mark">
-                <IconBrain size={17} />
-              </span>
-              <span className="brand-text">FastoLearn</span>
-            </div>
-            <div className="topbar-spacer" />
-            <div className="hud">
-              <span className="hud-chip flame" title="Gün serisi">
-                <IconFlame size={14} />
-                {user.streak}
-              </span>
-              <span className="hud-chip xp" title="Toplam XP">
-                <IconBolt size={14} />
-                {user.xp}
-              </span>
-            </div>
+        <header className="m-top">
+          <span className="rail-mark" aria-hidden>
+            F
+          </span>
+          <span className="rail-brand-text">
+            <b>FastoLearn</b>
+          </span>
+          <div className="m-top-right">
+            <span className="tag" title="Gün serisi">
+              <IconFlame size={13} />
+              {user.streak}
+            </span>
+            <span className="tag" title="Toplam XP">
+              <IconBolt size={13} />
+              {user.xp}
+            </span>
           </div>
         </header>
 
         <main className="shell">
           {tab === 'home' ? (
-            <HomeScreen onStart={start} onOpenUnits={() => setTab('units')} onOpenEngine={() => setTab('engine')} />
+            <HomeScreen
+              onStart={start}
+              onOpenUnits={() => setTab('units')}
+              onOpenEngine={() => setTab('engine')}
+            />
           ) : tab === 'units' ? (
             <UnitsScreen onStart={(kind, unitId) => start(kind, unitId)} />
           ) : tab === 'engine' ? (
@@ -198,19 +224,18 @@ export function App() {
           )}
         </main>
 
-        <nav className="nav" aria-label="Alt menü">
-          <div className="nav-inner">
-            {TABS.map(({ id, Icon, label }) => (
-              <button
-                key={id}
-                className={`nav-btn${tab === id ? ' is-active' : ''}`}
-                onClick={() => setTab(id)}
-              >
-                <Icon size={21} />
-                <span>{label}</span>
-              </button>
-            ))}
-          </div>
+        <nav className="m-nav" aria-label="Alt menü">
+          {TABS.map(({ id, Icon, label }) => (
+            <button
+              key={id}
+              className={`m-tab${tab === id ? ' on' : ''}`}
+              aria-current={tab === id ? 'page' : undefined}
+              onClick={() => setTab(id)}
+            >
+              <Icon size={20} />
+              <span>{label}</span>
+            </button>
+          ))}
         </nav>
       </div>
     </div>

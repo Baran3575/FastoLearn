@@ -1,16 +1,29 @@
-/** Küçük, tekrar kullanılabilir arayüz parçaları. */
+/** Küçük, tekrar kullanılabilir arayüz parçaları.
+ *
+ * Tasarım dili: yuvarlak köşeler, dolgun kenarlar, hap biçimli ölçüler.
+ */
 
 import type { ReactNode } from 'react'
 
+const INK_2 = '#737373'
+const INK_4 = '#a5a5a5'
+const RULE = '#e5e9ef'
+const BLUE = '#1cb0f6'
+
+/** Halka göstergesi: yuvarlak uçlu, dolgun ilerleme. */
 export function Ring({
   value,
-  size = 92,
-  stroke = 8,
+  size = 104,
+  stroke = 12,
+  color = '#58cc02',
+  track = '#e5e9ef',
   children,
 }: {
   value: number
   size?: number
   stroke?: number
+  color?: string
+  track?: string
   children?: ReactNode
 }) {
   const r = (size - stroke) / 2
@@ -19,29 +32,59 @@ export function Ring({
   return (
     <div className="ring" style={{ width: size, height: size }}>
       <svg width={size} height={size} aria-hidden>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e5e5e5" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={track} strokeWidth={stroke} />
         {clamped > 0 ? (
           <circle
             cx={size / 2}
             cy={size / 2}
             r={r}
             fill="none"
-            stroke="url(#ringgrad)"
+            stroke={color}
             strokeWidth={stroke}
             strokeLinecap="round"
             strokeDasharray={`${c * clamped} ${c}`}
+            transform={`rotate(-90 ${size / 2} ${size / 2})`}
             style={{ transition: 'stroke-dasharray 0.6s cubic-bezier(0.22,1,0.36,1)' }}
           />
         ) : null}
-        <defs>
-          <linearGradient id="ringgrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#58cc02" />
-            <stop offset="100%" stopColor="#89e219" />
-          </linearGradient>
-        </defs>
       </svg>
-      {children ? <div className="ring-label">{children}</div> : null}
+      <div className="ring-label">{children}</div>
     </div>
+  )
+}
+
+/** Haftalık şerit: hangi gün çalışıldı. */
+export function WeekStrip({ days }: { days: { key: string; on: boolean; today: boolean }[] }) {
+  return (
+    <div className="week-row" role="img" aria-label="Son yedi gün">
+      {days.map((d) => (
+        <span key={d.key} className={`week-cell${d.on ? ' on' : ''}${d.today ? ' today' : ''}`} />
+      ))}
+    </div>
+  )
+}
+
+/**
+ * Almanca sözcük: artikel, cinsiyet renginde yuvarlak bir plakada.
+ * der/die/das renk kodu A1 derslerinin standardıdır (mavi/kırmızı/yeşil).
+ */
+export function WordDe({
+  item,
+  size,
+}: {
+  item: { de: string; article?: string | null }
+  size?: number
+}) {
+  const art = item.article ?? null
+  const rest =
+    art && item.de.toLowerCase().startsWith(`${art.toLowerCase()} `)
+      ? item.de.slice(art.length + 1)
+      : item.de
+  return (
+    <span className="de" style={size ? { fontSize: size } : undefined}>
+      {art ? <span className={`article art-${art}`}>{art}</span> : null}
+      {rest}
+    </span>
   )
 }
 
@@ -56,9 +99,9 @@ export function Bar({ value, good = false, thin = false }: { value: number; good
 export function Stat({ label, value, hint }: { label: string; value: ReactNode; hint?: string }) {
   return (
     <div className="stat">
-      <b className="num">{value}</b>
-      <small>{label}</small>
-      {hint ? <div className="tiny faint">{hint}</div> : null}
+      <b className="k">{value}</b>
+      <span>{label}</span>
+      {hint ? <span className="faint">{hint}</span> : null}
     </div>
   )
 }
@@ -78,29 +121,31 @@ export function Switch({ on, onChange, label }: { on: boolean; onChange: (v: boo
 
 export function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
   return (
-    <div className="field">
+    <div className="settings-row">
       <div>
-        <div style={{ fontWeight: 600 }}>{label}</div>
-        {hint ? <div className="tiny faint">{hint}</div> : null}
+        <b>{label}</b>
+        {hint ? <small>{hint}</small> : null}
       </div>
       {children}
     </div>
   )
 }
 
-/** Basit çizgi grafiği (kalibrasyon / trend). */
+/** Çizgi grafiği (trend / unutma eğrisi). */
 export function Sparkline({
   points,
   height = 54,
-  color = '#58cc02',
+  color = BLUE,
   max = 1,
   baseline,
+  ticks = false,
 }: {
   points: number[]
   height?: number
   color?: string
   max?: number
   baseline?: number
+  ticks?: boolean
 }) {
   if (points.length < 2) return <div className="tiny faint">Yeterli veri yok</div>
   const w = 100
@@ -115,32 +160,76 @@ export function Sparkline({
       style={{ height }}
       aria-hidden
     >
+      {ticks
+        ? [0.25, 0.5, 0.75].map((t) => (
+            <line
+              key={t}
+              x1="0"
+              x2={w}
+              y1={height * t}
+              y2={height * t}
+              stroke={RULE}
+              strokeWidth="0.6"
+              vectorEffect="non-scaling-stroke"
+            />
+          ))
+        : null}
       {baseline != null ? (
-        <line x1="0" x2={w} y1={y(baseline)} y2={y(baseline)} stroke="rgba(0,0,0,0.14)" strokeDasharray="3 3" strokeWidth="0.6" />
+        <line
+          x1="0"
+          x2={w}
+          y1={y(baseline)}
+          y2={y(baseline)}
+          stroke={INK_2}
+          strokeOpacity="0.45"
+          strokeDasharray="3 3"
+          strokeWidth="0.8"
+          vectorEffect="non-scaling-stroke"
+        />
       ) : null}
-      <path d={path} fill="none" stroke={color} strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+      <path
+        d={path}
+        fill="none"
+        stroke={color}
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
     </svg>
   )
 }
 
 /** Kalibrasyon grafiği: tahmin edilen olasılık ↔ gerçekleşen oran. */
-export function CalibrationChart({
-  bins,
-}: {
-  bins: { predicted: number; actual: number; n: number }[]
-}) {
-  const size = 132
-  const pad = 14
+export function CalibrationChart({ bins }: { bins: { predicted: number; actual: number; n: number }[] }) {
+  const size = 138
+  const pad = 16
   const scale = (v: number) => pad + v * (size - pad * 2)
   const maxN = Math.max(1, ...bins.map((b) => b.n))
   return (
     <svg width={size} height={size} aria-label="Kalibrasyon grafiği">
-      <rect x={pad} y={pad} width={size - pad * 2} height={size - pad * 2} fill="#f7f7f7" rx="10" />
-      <line x1={pad} y1={size - pad} x2={size - pad} y2={pad} stroke="rgba(0,0,0,0.16)" strokeDasharray="3 3" strokeWidth="0.8" />
-      <text x={size / 2} y={size - 2} fontSize="8" fill="#afafaf" textAnchor="middle">
+      <rect x={pad} y={pad} width={size - pad * 2} height={size - pad * 2} fill="none" stroke={RULE} />
+      <line
+        x1={pad}
+        y1={size - pad}
+        x2={size - pad}
+        y2={pad}
+        stroke={INK_2}
+        strokeOpacity="0.5"
+        strokeDasharray="3 3"
+        strokeWidth="0.8"
+      />
+      <text x={size / 2} y={size - 3} fontSize="8.5" fill={INK_4} textAnchor="middle">
         tahmin
       </text>
-      <text x={6} y={size / 2} fontSize="8" fill="#afafaf" transform={`rotate(-90 6 ${size / 2})`} textAnchor="middle">
+      <text
+        x={7}
+        y={size / 2}
+        fontSize="8.5"
+        fill={INK_4}
+        transform={`rotate(-90 7 ${size / 2})`}
+        textAnchor="middle"
+      >
         gerçek
       </text>
       {bins
@@ -150,10 +239,10 @@ export function CalibrationChart({
             key={i}
             cx={scale(b.predicted)}
             cy={size - scale(b.actual)}
-            r={2.5 + 5 * (b.n / maxN)}
-            fill="#1cb0f6"
-            fillOpacity="0.35"
-            stroke="#1899d6"
+            r={2 + 5 * (b.n / maxN)}
+            fill={BLUE}
+            fillOpacity="0.3"
+            stroke={BLUE}
             strokeWidth="1"
           />
         ))}
@@ -161,35 +250,23 @@ export function CalibrationChart({
   )
 }
 
-/** Oturum sonunda küçük bir kutlama. */
-export function Confetti() {
-  const colors = ['#7c9cff', '#b58cff', '#4bd6a0', '#ffcc66', '#ff7189']
-  return (
-    <div className="confetti" aria-hidden>
-      {Array.from({ length: 28 }, (_, i) => (
-        <i
-          key={i}
-          style={{
-            left: `${(i * 37) % 100}%`,
-            background: colors[i % colors.length],
-            animationDelay: `${(i % 9) * 90}ms`,
-            animationDuration: `${1200 + (i % 5) * 220}ms`,
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-export function MiniBar({ label, value, max, suffix }: { label: string; value: number; max: number; suffix?: string }) {
+export function MiniBar({
+  label,
+  value,
+  max,
+  suffix,
+}: {
+  label: string
+  value: number
+  max: number
+  suffix?: string
+}) {
   const pct = max > 0 ? value / max : 0
   return (
     <div className="horizon">
       <span className="faint">{label}</span>
-      <div className="horizon-bar">
-        <i style={{ width: `${Math.max(2, Math.min(1, pct) * 100)}%` }} />
-      </div>
-      <span className="mono faint" style={{ textAlign: 'right' }}>
+      <Bar value={Math.min(1, pct)} thin />
+      <span className="k faint" style={{ textAlign: 'right' }}>
         {suffix ?? value.toFixed(2)}
       </span>
     </div>
@@ -200,11 +277,11 @@ export function formatRelative(ts: number, now = Date.now()): string {
   const diff = now - ts
   if (diff < 60_000) return 'az önce'
   if (diff < 3_600_000) return `${Math.round(diff / 60_000)} dk önce`
-  if (diff < 86_400_000) return `${Math.round(diff / 3_600_000)} sa önce`
+  if (diff < 86_400_000) return `${Math.round(diff / 3_600_000)} saat önce`
   const days = Math.round(diff / 86_400_000)
   if (days === 1) return 'dün'
   if (days < 30) return `${days} gün önce`
-  return new Date(ts).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })
+  return new Date(ts).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' })
 }
 
 export function formatDuration(ms: number): string {

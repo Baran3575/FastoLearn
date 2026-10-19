@@ -43,7 +43,7 @@ export const UNITS: CourseUnit[] = [
     title: 'Erste Schritte',
     subtitle: 'İlk Adımlar',
     description: 'Sıfırdan başlangıç: selamlaşma, tanışma, sayılar, renkler, aile, okul ve yemek.',
-    tint: '#58cc02',
+    tint: '#1cb0f6',
   },
   {
     id: 'alltag',
@@ -51,7 +51,7 @@ export const UNITS: CourseUnit[] = [
     title: 'Mein Alltag',
     subtitle: 'Günlük Hayat',
     description: 'Ev, sağlık, hayvanlar, hava, zaman, fiiller, sıfatlar, şehir ve meslekler.',
-    tint: '#ce82ff',
+    tint: '#ff4b4b',
   },
 ]
 

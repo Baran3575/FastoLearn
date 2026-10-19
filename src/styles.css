@@ -1,31 +1,43 @@
 /* ==========================================================================
-   FastoLearn — tasarım sistemi
-   Koyu, sakin bir zemin; Alman bayrağından ince bir vurgu (siyah–kırmızı–altın).
+   FastoLearn — Duolingo renk paleti (koyu tema)
    ========================================================================== */
 
 :root {
-  --bg-0: #080b16;
-  --bg-1: #0c1226;
-  --bg-2: #111a36;
-  --surface: rgba(255, 255, 255, 0.045);
-  --surface-2: rgba(255, 255, 255, 0.075);
-  --border: rgba(255, 255, 255, 0.09);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --text: #eef1fa;
-  --text-dim: #a7b2d0;
-  --text-faint: #6f7b9c;
-  --accent: #7c9cff;
-  --accent-soft: rgba(124, 156, 255, 0.16);
-  --good: #4bd6a0;
-  --good-soft: rgba(75, 214, 160, 0.15);
-  --warn: #ffb457;
-  --bad: #ff7189;
-  --bad-soft: rgba(255, 113, 137, 0.15);
-  --gold: #ffcc66;
+  --bg-0: #0f1720;
+  --bg-1: #131f24;
+  --bg-2: #1a2a32;
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-2: rgba(255, 255, 255, 0.085);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --text: #f7f7f7;
+  --text-dim: #afafaf;
+  --text-faint: #777777;
+  /* Duolingo paleti */
+  --accent: #58cc02;
+  --accent-dark: #58a700;
+  --accent-darker: #479300;
+  --accent-soft: rgba(88, 204, 2, 0.16);
+  --blue: #1cb0f6;
+  --blue-dark: #1899d6;
+  --blue-soft: rgba(28, 176, 246, 0.16);
+  --yellow: #ffc800;
+  --yellow-dark: #d7a400;
+  --yellow-soft: rgba(255, 200, 0, 0.16);
+  --red: #ff4b4b;
+  --red-dark: #d33131;
+  --red-soft: rgba(255, 75, 75, 0.16);
+  --orange: #ff9600;
+  --good: #58cc02;
+  --good-soft: rgba(88, 204, 2, 0.16);
+  --warn: #ffc800;
+  --bad: #ff4b4b;
+  --bad-soft: rgba(255, 75, 75, 0.16);
+  --gold: #ffc800;
   --radius: 20px;
   --radius-sm: 13px;
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
-  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.35), 0 24px 48px -20px rgba(0, 0, 0, 0.7);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px -12px rgba(0, 0, 0, 0.65);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.4), 0 24px 48px -20px rgba(0, 0, 0, 0.75);
   --font: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
   --mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
 }
@@ -45,9 +57,9 @@ body {
   font-family: var(--font);
   color: var(--text);
   background:
-    radial-gradient(1100px 600px at 12% -8%, rgba(124, 156, 255, 0.16), transparent 60%),
-    radial-gradient(900px 520px at 92% 4%, rgba(255, 113, 137, 0.1), transparent 55%),
-    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 55%, #060813 100%);
+    radial-gradient(1100px 600px at 12% -8%, rgba(88, 204, 2, 0.14), transparent 60%),
+    radial-gradient(900px 520px at 92% 4%, rgba(28, 176, 246, 0.1), transparent 55%),
+    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 55%, #0a1014 100%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -330,21 +342,24 @@ h3 {
   gap: 8px;
   padding: 12px 18px;
   border-radius: 14px;
-  font-weight: 650;
+  font-weight: 700;
   font-size: 15px;
   border: 1px solid var(--border-strong);
+  border-bottom-width: 3px;
   background: var(--surface-2);
   color: var(--text);
-  transition: transform 0.14s ease, background 0.18s, border-color 0.18s, opacity 0.18s;
+  transition: transform 0.12s ease, background 0.18s, border-color 0.18s, opacity 0.18s, box-shadow 0.18s;
 }
 
 .btn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.12);
   transform: translateY(-1px);
+  border-bottom-width: 4px;
 }
 
 .btn:active:not(:disabled) {
-  transform: translateY(0) scale(0.99);
+  transform: translateY(2px);
+  border-bottom-width: 1px;
 }
 
 .btn:disabled {
@@ -353,14 +368,24 @@ h3 {
 }
 
 .btn.primary {
-  background: linear-gradient(140deg, #8aa6ff, #6b8bff 55%, #5a77f0);
-  border-color: rgba(255, 255, 255, 0.24);
-  color: #0a1024;
-  box-shadow: 0 10px 26px -14px rgba(124, 156, 255, 0.9);
+  background: var(--accent);
+  border-color: var(--accent-dark);
+  border-bottom-color: var(--accent-darker);
+  color: #0a1f00;
+  box-shadow: 0 4px 0 0 var(--accent-darker), 0 10px 20px -12px rgba(88, 204, 2, 0.7);
 }
 
 .btn.primary:hover:not(:disabled) {
-  background: linear-gradient(140deg, #97b1ff, #7897ff 55%, #6580f5);
+  background: #61d60a;
+  border-bottom-color: var(--accent-darker);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 0 var(--accent-darker), 0 12px 24px -12px rgba(88, 204, 2, 0.8);
+}
+
+.btn.primary:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 var(--accent-darker);
+  border-bottom-width: 1px;
 }
 
 .btn.ghost {
@@ -465,7 +490,7 @@ h3 {
   display: block;
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #7c9cff, #a98bff);
+  background: linear-gradient(90deg, #58cc02, #9be86a);
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -609,14 +634,27 @@ h3 {
 }
 
 .choice.is-correct {
-  border-color: rgba(75, 214, 160, 0.5);
+  border-color: rgba(88, 204, 2, 0.6);
   background: var(--good-soft);
+  animation: pop 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .choice.is-wrong {
-  border-color: rgba(255, 113, 137, 0.5);
+  border-color: rgba(255, 75, 75, 0.6);
   background: var(--bad-soft);
   animation: shake 0.36s;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.9);
+  }
+  60% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes shake {
@@ -644,16 +682,17 @@ h3 {
 }
 
 .answer-input:focus {
-  border-color: rgba(124, 156, 255, 0.7);
-  box-shadow: 0 0 0 4px rgba(124, 156, 255, 0.14);
+  border-color: rgba(88, 204, 2, 0.7);
+  box-shadow: 0 0 0 4px rgba(88, 204, 2, 0.16);
 }
 
 .answer-input.is-correct {
-  border-color: rgba(75, 214, 160, 0.7);
+  border-color: rgba(88, 204, 2, 0.7);
+  animation: pop 0.4s;
 }
 
 .answer-input.is-wrong {
-  border-color: rgba(255, 113, 137, 0.7);
+  border-color: rgba(255, 75, 75, 0.7);
   animation: shake 0.36s;
 }
 
@@ -995,8 +1034,8 @@ table.metrics tr.best td {
 }
 
 .hud-chip.xp {
-  color: #a9bcff;
-  border-color: rgba(124, 156, 255, 0.3);
+  color: #9be86a;
+  border-color: rgba(88, 204, 2, 0.3);
   background: var(--accent-soft);
 }
 
@@ -1018,13 +1057,13 @@ table.metrics tr.best td {
 
 .chip.accent {
   background: var(--accent-soft);
-  border-color: rgba(124, 156, 255, 0.34);
-  color: #a9bcff;
+  border-color: rgba(88, 204, 2, 0.4);
+  color: #9be86a;
 }
 
 .chip.bad {
   background: var(--bad-soft);
-  border-color: rgba(255, 113, 137, 0.3);
+  border-color: rgba(255, 75, 75, 0.3);
   color: var(--bad);
 }
 
@@ -1235,15 +1274,15 @@ table.metrics tr.best td {
 /* --- cinsiyet renkleri ------------------------------------------------- */
 
 .art-der {
-  color: #7fb0ff;
+  color: #1cb0f6;
 }
 
 .art-die {
-  color: #ff86a6;
+  color: #ff4b4b;
 }
 
 .art-das {
-  color: #5fd8a4;
+  color: #58cc02;
 }
 
 /* --- oturum başlığı / ilerleme ----------------------------------------- */
@@ -1270,7 +1309,7 @@ table.metrics tr.best td {
 }
 
 .segbar i.on {
-  background: linear-gradient(90deg, #7c9cff, #a98bff);
+  background: linear-gradient(90deg, #58cc02, #9be86a);
 }
 
 .segbar i.now {
@@ -1299,7 +1338,7 @@ table.metrics tr.best td {
 }
 
 .dots i.on {
-  background: linear-gradient(90deg, #7c9cff, #a98bff);
+  background: linear-gradient(90deg, #58cc02, #9be86a);
 }
 
 /* --- kelime kartı (tanıtım) -------------------------------------------- */
@@ -1475,7 +1514,8 @@ table.metrics tr.best td {
 
 .tile.placed {
   background: var(--accent-soft);
-  border-color: rgba(124, 156, 255, 0.42);
+  border-color: rgba(88, 204, 2, 0.5);
+  animation: pop 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tile:disabled {

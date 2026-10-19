@@ -86,7 +86,7 @@ describe('sıralı müfredat (0 Almanca başlangıç)', () => {
   it('ilk ders en temel kelimelerle başlar (Hallo, danke, bitte, ja, nein)', () => {
     const { engine } = fullEngine(Date.now())
     const plan = engine.plan({ limit: 6 })
-    expect(plan.map((p) => p.item.de)).toEqual(['Hallo', 'danke', 'bitte', 'ja', 'nein', 'Danke schön'])
+    expect(plan.map((p) => p.item.de)).toEqual(['Hallo', 'danke', 'ich', 'bitte', 'du', 'ja'])
   })
 
   it('elle bölüm seçimi sıra kapısını atlar', () => {

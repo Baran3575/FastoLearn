@@ -16,3 +16,5 @@
 {"id":"begruessung16","de":"Wie geht es dir?","tr":"Nasılsın?","pos":"phrase","freq":45,"ex":"Hallo Anna, wie geht es dir?","exTr":"Merhaba Anna, nasılsın?","unit":"begruessung"}
 {"id":"begruessung17","de":"Mir geht es gut.","tr":"İyiyim.","pos":"phrase","freq":46,"ex":"Danke, mir geht es gut.","exTr":"Teşekkürler, iyiyim.","unit":"begruessung"}
 {"id":"begruessung18","de":"Ich heiße …","tr":"Benim adım …","pos":"phrase","freq":20,"ex":"Ich heiße Ali und ich komme aus Ankara.","exTr":"Benim adım Ali ve Ankara’dan geliyorum.","note":"heißen fiili: ich heiße, du heißt.","unit":"begruessung"}
+{"id": "begruessung19", "de": "ich", "tr": "ben", "pos": "pron", "freq": 2, "ex": "Ich bin fünfzehn.", "exTr": "Ben on beşim.", "unit": "begruessung"}
+{"id": "begruessung20", "de": "du", "tr": "sen", "pos": "pron", "freq": 3, "ex": "Du bist mein Freund.", "exTr": "Sen benim arkadaşımsın.", "unit": "begruessung"}

@@ -11,8 +11,6 @@
 {"id":"fragewoerter11","de":"welcher","tr":"hangi","pos":"pron","freq":150,"ex":"Welcher Bus fährt zum Bahnhof?","exTr":"Hangi otobüs istasyona gidiyor?","unit":"fragewoerter"}
 {"id":"fragewoerter12","de":"wie alt","tr":"kaç yaşında","pos":"phrase","freq":115,"ex":"Wie alt ist deine Schwester?","exTr":"Kız kardeşin kaç yaşında?","unit":"fragewoerter"}
 {"id":"fragewoerter13","de":"wie lange","tr":"ne kadar süre","pos":"phrase","freq":180,"ex":"Wie lange lernst du schon Deutsch?","exTr":"Ne kadar süredir Almanca öğreniyorsun?","unit":"fragewoerter"}
-{"id":"fragewoerter14","de":"ich","tr":"ben","pos":"pron","freq":2,"ex":"Ich bin fünfzehn.","exTr":"Ben on beşim.","unit":"fragewoerter"}
-{"id":"fragewoerter15","de":"du","tr":"sen","pos":"pron","freq":3,"ex":"Du bist mein Freund.","exTr":"Sen benim arkadaşımsın.","unit":"fragewoerter"}
 {"id":"fragewoerter16","de":"er","tr":"o (erkek)","pos":"pron","freq":4,"ex":"Er ist mein Bruder.","exTr":"O benim erkek kardeşim.","unit":"fragewoerter"}
 {"id":"fragewoerter17","de":"sie","tr":"o (kadın) / onlar","pos":"pron","freq":5,"ex":"Sie ist meine Schwester.","exTr":"O benim kız kardeşim.","unit":"fragewoerter"}
 {"id":"fragewoerter18","de":"es","tr":"o (nötr)","pos":"pron","freq":7,"ex":"Es ist kalt heute.","exTr":"Bugün hava soğuk.","unit":"fragewoerter"}

@@ -70,7 +70,7 @@ Her öğe: `id, de, tr, pos` (+ isimlerde `article`/`plural`), `unit`, `freq`
 Varsayılan olarak **sıralı müfredat açıktır**: yeni kelimeler yalnızca
 *görülmemiş en erken bölümden* gelir ve o bölümün içinde **A1 sıklık sırasına**
 göre sunulur. Yani ilk oturumda ekrana gelen yeni kelimeler sırasıyla
-`Hallo`, `danke`, `bitte`, `ja`, `nein`, `Danke schön` olur. Bir bölüm
+`Hallo`, `danke`, `ich`, `bitte`, `du`, `ja` olur. Bir bölüm
 tamamlanınca otomatik olarak sıradaki bölüme geçilir.
 
 - Bir bölümü elle açmak (Müfredat ekranı) sıra kapısını **atlar**.

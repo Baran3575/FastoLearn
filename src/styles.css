@@ -1679,7 +1679,11 @@ table.metrics tr.best td {
   }
 
   .shell {
-    padding-bottom: 120px;
+    padding-bottom: 32px;
+  }
+
+  .cta-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
